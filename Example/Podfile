@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'MSPlayer_Example' do
+  pod 'MSPlayer', :path => '../'
+
+  target 'MSPlayer_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
