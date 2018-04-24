@@ -30,7 +30,7 @@ TODO: Add long description of the pod here.
 
   s.ios.deployment_target = '9.0'
 
-  s.source_files = 'MSPlayer/Classes/**/*'
+  s.source_files = 'MSPlayer/Classes'
   
   s.resource_bundles = {
     'MSPlayer' => ['MSPlayer/Assets/*.png']
