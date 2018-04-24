@@ -1,0 +1,6 @@
+framework module MSPlayer {
+  umbrella header "MSPlayer-umbrella.h"
+
+  export *
+  module * { export * }
+}

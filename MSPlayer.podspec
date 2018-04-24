@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MSPlayer'
-  s.version          = '0.1.0'
-  s.summary          = 'A short description of MSPlayer.'
+  s.version          = '0.2.0'
+  s.summary          = 'A quick use videoPlayer'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -24,19 +24,20 @@ TODO: Add long description of the pod here.
   s.homepage         = 'https://github.com/masonchang1991/MSPlayer'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'masonchang1991' => 'mason.chang@appimc.com' }
+  s.author           = { 'masonchang1991' => 'masonchang1991@gmail.com' }
   s.source           = { :git => 'https://github.com/masonchang1991/MSPlayer.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '9.0'
 
   s.source_files = 'MSPlayer/Classes/**/*'
   
-  # s.resource_bundles = {
-  #   'MSPlayer' => ['MSPlayer/Assets/*.png']
-  # }
+  s.resource_bundles = {
+    'MSPlayer' => ['MSPlayer/Assets/*.png']
+  }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+    s.dependency 'SnapKit', '~> 3.2.0'
+    s.dependency 'NVActivityIndicatorView', '4.0.0'
 end
