@@ -56,14 +56,6 @@
 		8BA6C29A725F933B0252B7529B0D301C /* ConstraintLayoutGuideDSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA84AE28078567D2200220764160F38D /* ConstraintLayoutGuideDSL.swift */; };
 		8BEC739050634E4A1E44DC186D425A87 /* NVActivityIndicatorView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EC2B5F3A05DB5BC75170B91F586B889 /* NVActivityIndicatorView.framework */; };
 		8C4A7C7700AFBDC3E2817A8D20994A2A /* ConstraintConstantTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8312ACA1A53C787397930F6B2C5F3F /* ConstraintConstantTarget.swift */; };
-		93DF4039208F3876002024E0 /* MSPlayerLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF4031208F3876002024E0 /* MSPlayerLayerView.swift */; };
-		93DF403A208F3876002024E0 /* MSPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF4032208F3876002024E0 /* MSPlayer.swift */; };
-		93DF403B208F3876002024E0 /* MSTimeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF4033208F3876002024E0 /* MSTimeSlider.swift */; };
-		93DF403C208F3876002024E0 /* MSPlayerResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF4034208F3876002024E0 /* MSPlayerResource.swift */; };
-		93DF403D208F3876002024E0 /* MSPlayerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF4035208F3876002024E0 /* MSPlayerControlView.swift */; };
-		93DF403E208F3876002024E0 /* MSPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF4036208F3876002024E0 /* MSPM.swift */; };
-		93DF403F208F3876002024E0 /* FormatDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF4037208F3876002024E0 /* FormatDisplay.swift */; };
-		93DF4040208F3876002024E0 /* MSPlayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DF4038208F3876002024E0 /* MSPlayerExtension.swift */; };
 		9456E0DC50FC92482537C7D94942D47E /* NVActivityIndicatorAnimationAudioEqualizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C41E2CF4369DE972DCCE5696912DD15 /* NVActivityIndicatorAnimationAudioEqualizer.swift */; };
 		978EB855F9B387B94A243E91B9107343 /* ConstraintMakerFinalizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C0E29E5DEF037EC86CC370B04BEA2 /* ConstraintMakerFinalizable.swift */; };
 		98581D39FF86FEB6EC1FCF94FEAAEAF6 /* MSPlayer-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3365749D0E1F3AF04D7100FAE8826A34 /* MSPlayer-dummy.m */; };
@@ -221,14 +213,6 @@
 		931592F308DD3D997E0FBC550330AEE9 /* SnapKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SnapKit.modulemap; sourceTree = "<group>"; };
 		9343E455448CC7A0A8D6A0B183BC0B3F /* MSPlayer-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MSPlayer-prefix.pch"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		93DF4031208F3876002024E0 /* MSPlayerLayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPlayerLayerView.swift; sourceTree = "<group>"; };
-		93DF4032208F3876002024E0 /* MSPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPlayer.swift; sourceTree = "<group>"; };
-		93DF4033208F3876002024E0 /* MSTimeSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSTimeSlider.swift; sourceTree = "<group>"; };
-		93DF4034208F3876002024E0 /* MSPlayerResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPlayerResource.swift; sourceTree = "<group>"; };
-		93DF4035208F3876002024E0 /* MSPlayerControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPlayerControlView.swift; sourceTree = "<group>"; };
-		93DF4036208F3876002024E0 /* MSPM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPM.swift; sourceTree = "<group>"; };
-		93DF4037208F3876002024E0 /* FormatDisplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatDisplay.swift; sourceTree = "<group>"; };
-		93DF4038208F3876002024E0 /* MSPlayerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPlayerExtension.swift; sourceTree = "<group>"; };
 		9627BAFAF5CC46894F4598C6E71D98AF /* NVActivityIndicatorAnimationLineScaleParty.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationLineScaleParty.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationLineScaleParty.swift; sourceTree = "<group>"; };
 		9C41E2CF4369DE972DCCE5696912DD15 /* NVActivityIndicatorAnimationAudioEqualizer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationAudioEqualizer.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationAudioEqualizer.swift; sourceTree = "<group>"; };
 		9C96EB958A1FC85FADBDFA5DD69910BB /* Debugging.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Debugging.swift; path = Source/Debugging.swift; sourceTree = "<group>"; };
@@ -392,7 +376,6 @@
 		59EB6A217C9DD19817D39D8C7EF4788A /* MSPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				93DF4030208F385D002024E0 /* Classes */,
 				53CEBA6A7AFE9881858723D911A69EB5 /* Support Files */,
 			);
 			name = MSPlayer;
@@ -486,21 +469,6 @@
 				18E1D24960C422133861AEFD04445992 /* Pods-MSPlayer_Tests */,
 			);
 			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		93DF4030208F385D002024E0 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				93DF4031208F3876002024E0 /* MSPlayerLayerView.swift */,
-				93DF4034208F3876002024E0 /* MSPlayerResource.swift */,
-				93DF4032208F3876002024E0 /* MSPlayer.swift */,
-				93DF4033208F3876002024E0 /* MSTimeSlider.swift */,
-				93DF4035208F3876002024E0 /* MSPlayerControlView.swift */,
-				93DF4037208F3876002024E0 /* FormatDisplay.swift */,
-				93DF4036208F3876002024E0 /* MSPM.swift */,
-				93DF4038208F3876002024E0 /* MSPlayerExtension.swift */,
-			);
-			path = Classes;
 			sourceTree = "<group>";
 		};
 		A5825A8A24687BECE7AB38ED947014EA /* Pods-MSPlayer_Example */ = {
@@ -862,15 +830,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93DF403A208F3876002024E0 /* MSPlayer.swift in Sources */,
-				93DF403E208F3876002024E0 /* MSPM.swift in Sources */,
-				93DF4040208F3876002024E0 /* MSPlayerExtension.swift in Sources */,
 				98581D39FF86FEB6EC1FCF94FEAAEAF6 /* MSPlayer-dummy.m in Sources */,
-				93DF4039208F3876002024E0 /* MSPlayerLayerView.swift in Sources */,
-				93DF403D208F3876002024E0 /* MSPlayerControlView.swift in Sources */,
-				93DF403F208F3876002024E0 /* FormatDisplay.swift in Sources */,
-				93DF403B208F3876002024E0 /* MSTimeSlider.swift in Sources */,
-				93DF403C208F3876002024E0 /* MSPlayerResource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
