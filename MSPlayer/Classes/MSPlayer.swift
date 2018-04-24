@@ -44,7 +44,7 @@ open class MSPlayer: UIView {
     open var panGesture: UIPanGestureRecognizer!
     
     /// AVLayerVideoGravityType
-    open var videoGravity = AVLayerVideoGravity.resizeAspectFill {
+    open var videoGravity = AVLayerVideoGravityResizeAspectFill {
         didSet {
            self.playerLayerView?.videoGravity = videoGravity
         }

@@ -39,7 +39,7 @@ open class MSPlayerLayerView: UIView {
         return nil
     }()
     /// VideoGravity
-    open var videoGravity = AVLayerVideoGravity.resizeAspectFill {
+    open var videoGravity = AVLayerVideoGravityResizeAspectFill {
         didSet {
             self.playerLayer?.videoGravity = videoGravity
             print("")
@@ -253,14 +253,14 @@ open class MSPlayerLayerView: UIView {
         switch self.aspectRatio {
         case .default:
             DispatchQueue.main.async {
-                self.playerLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
+                self.playerLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
                 self.playerLayer?.frame  = self.bounds
             }
         case .sixteen2NINE:
-            self.playerLayer?.videoGravity = AVLayerVideoGravity(rawValue: "AVLayerVideoGravityResize")
+            self.playerLayer?.videoGravity = "AVLayerVideoGravityResize"
             self.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.width/(16/9))
         case .four2THREE:
-            self.playerLayer?.videoGravity = AVLayerVideoGravity(rawValue: "AVLayerVideoGravityResize")
+            self.playerLayer?.videoGravity = "AVLayerVideoGravityResize"
             let width = self.bounds.height * 4 / 3
             self.playerLayer?.frame = CGRect(x: (self.bounds.width - width)/2,
                                              y: 0,
