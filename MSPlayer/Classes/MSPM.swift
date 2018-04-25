@@ -127,7 +127,9 @@ public class MSPM {
     
     fileprivate static func MSImageResourcePath(_ fileName: String) -> UIImage? {
         let bundle = Bundle(for: MSPlayer.self)
-        let image = UIImage(named: fileName, in: bundle, compatibleWith: nil)
+        let bundleURL = bundle.resourceURL?.appendingPathComponent("MSPlayer.bundle")
+        let resourceBundle = Bundle(url: bundleURL!)
+        let image = UIImage(named: fileName, in: resourceBundle, compatibleWith: nil)
         return image
     }
     

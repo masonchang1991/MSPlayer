@@ -614,7 +614,7 @@ open class MSPlayerControlView: UIView {
         
         totalTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         totalTimeLabel.addConstraintWithOther(playButton, anchorTypes: [.centerY2CenterY(0, priority: 1000)])
-        totalTimeLabel.addConstraintWithOther(fullScreenButton, anchorTypes: [.trailing2Trailing(-5, priority: 1000)])
+        totalTimeLabel.addConstraintWithOther(fullScreenButton, anchorTypes: [.trailing2Leading(-5, priority: 1000)])
         
         timeSlider.translatesAutoresizingMaskIntoConstraints = false
         timeSlider.addConstraintWithOther(bottomMaskView, anchorTypes: [.centerY2CenterY(0, priority: 1000),
