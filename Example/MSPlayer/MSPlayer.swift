@@ -96,6 +96,8 @@ open class MSPlayer: UIView {
     fileprivate let playerControlBarAutoFadeOutDuration: Double = MSPlayerConfig.playerControlBarAutoFadeOutDuration
     
     // time status
+    /// 滑動起始時影片時間
+    fileprivate var horizontalBeginTime: TimeInterval = 0
     /// 滑動累積值 (平滑時，總共增加多少時間、總共減少多少時間) (base on current time)
     fileprivate var sumTime: TimeInterval = 0
     fileprivate var totalDuration: TimeInterval = 0
@@ -258,10 +260,11 @@ open class MSPlayer: UIView {
                 self.nowSeekingCount += 1
                 print("began nowSeekingCount:", self.nowSeekingCount)
                 
-                if let player = playerLayerView?.player {
+                if (playerLayerView?.player) != nil {
                     let nowTime = self.totalDuration * Double(self.progressSliderValue)
                     // 分母不用 timeScale是因為timeScale有時候會跳到1000000000有時候又會跳到1
-                    self.sumTime = TimeInterval(nowTime) / TimeInterval(1)
+                    self.horizontalBeginTime = TimeInterval(nowTime) / TimeInterval(1)
+                    self.sumTime = self.horizontalBeginTime
                 }
                 
                 // is pan location.y at bottomMaskView then move slider
@@ -355,6 +358,7 @@ open class MSPlayer: UIView {
                 self.sumTime = self.sumTime + TimeInterval(value) / 100 * panToSeekRate * totalDurationAdjustParameter
             }
             let totalTime = playerItem.duration
+           
             // 防止出現NAN
             if totalTime.timescale == 0 { return }
             
@@ -365,7 +369,7 @@ open class MSPlayer: UIView {
                 self.sumTime = 0
             }
             
-            controlView.showSeekToView(to: sumTime, total: totalDuration, isAdd: value > 0)
+            controlView.showSeekToView(to: sumTime, total: totalDuration, isAdd: self.sumTime > self.horizontalBeginTime)
         }
     }
     

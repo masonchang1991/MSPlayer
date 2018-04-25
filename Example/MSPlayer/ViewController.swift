@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 class ViewController: UIViewController {
 
     let player = MSPlayer()
@@ -25,7 +24,7 @@ class ViewController: UIViewController {
         player.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         player.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         
-        let asset = MSPlayerResource(url: URL(string: "https://bplay01.com/static2/JDXA_56877.m3u8?data=NDI2ZFGhCNqTvfLZFs1UiZ4Uqm9nquCK-0i6_IayWQCZd2rUMTNi&token=zVVEPpvRW9tXx1gC-s_CgQ&expires=1524553640")!)
+        let asset = MSPlayerResource(url: URL(string: "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8")!)
         player.setVideoBy(asset)
     }
 
