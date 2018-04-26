@@ -128,8 +128,24 @@ public class MSPM {
     open var playerControlBarAutoFadeOutDuration = 0.5
     
     // BrightnessView
-    open var brightnessTitle = "Brightness"
+    open var brightnessTitle = MSPM.getBrightnessLocalizeTitle()
     open var brightnessImage: UIImage? = MSPM.MSImageResourcePath("MSPlayer_brightness_image")
+    
+    private static func getBrightnessLocalizeTitle() -> String {
+        let languages = NSLocale.preferredLanguages
+        let currentLanguage = languages[0]
+        var title = "Brightness"
+        if (currentLanguage.range(of: "Hant") != nil) {
+            title = "亮度"
+        } else if (currentLanguage.range(of: "Hans") != nil) {
+            title = "亮度"
+        } else {
+           title = "Brightness"
+        }
+        return title
+    }
+    
+    
     
     /**
      打印log
