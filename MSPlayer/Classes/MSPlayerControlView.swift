@@ -144,7 +144,7 @@ open class MSPlayerControlView: UIView {
         totalTimeLabel.text = FormatDisplay.formatSecondsToString(currentTime) + "/" +
                               FormatDisplay.formatSecondsToString(totalTime)
         timeSlider.value = Float(currentTime) / Float(totalTime)
-        
+        player?.progressSliderValue = timeSlider.value
     }
     
     /**
@@ -249,14 +249,15 @@ open class MSPlayerControlView: UIView {
     open func controlViewAnimation(isShow: Bool) {
         
         if self.playerLastState != .playedToTheEnd {
-            let alpha: CGFloat = isShow ? MSPlayerConfig.mainMaskViewShowAlpha : 0.0
+            let otherAlpha: CGFloat = isShow ? MSPlayerConfig.otherMaskViewShowAlpha : 0.0
+            let mainAlpha: CGFloat = isShow ? MSPlayerConfig.mainMaskViewShowAlpha : 0.0
             self.isMaskShowing = isShow
             
             UIView.animate(withDuration: MSPlayerConfig.controlViewAnimationDuration, animations: {
-                self.topMaskView.alpha = alpha
-                self.bottomMaskView.alpha = alpha
+                self.topMaskView.alpha = otherAlpha
+                self.bottomMaskView.alpha = otherAlpha
                 
-                self.mainMaskView.backgroundColor = UIColor.black.withAlphaComponent(isShow ? alpha: 0.0)
+                self.mainMaskView.backgroundColor = UIColor.black.withAlphaComponent(mainAlpha)
                 if !isShow {
                     self.replayButton.isHidden = true
                 }
@@ -278,6 +279,7 @@ open class MSPlayerControlView: UIView {
     open func updateUI(for fullScreen: Bool) {
         isFullScreen = fullScreen
         fullScreenButton.isSelected = fullScreen
+        self.updateFrame()
         
         if fullScreen {
             // rawValue == 2 mean none so notShowTopMaskView
@@ -292,6 +294,16 @@ open class MSPlayerControlView: UIView {
             } else {
                 topMaskView.isHidden = false
             }
+        }
+    }
+    
+    private func updateFrame() {
+        if isFullScreen && MSPlayerConfig.fullScreenIgnoreConstraint {
+            self.translatesAutoresizingMaskIntoConstraints = true
+            self.frame = UIScreen.main.bounds
+            self.layoutIfNeeded()
+        } else if self.translatesAutoresizingMaskIntoConstraints {
+            self.translatesAutoresizingMaskIntoConstraints = false
         }
     }
     
@@ -441,6 +453,7 @@ open class MSPlayerControlView: UIView {
     
     @objc func progressSliderTouchEnded(_ sender: UISlider) {
         autoFadeOutControlViewWithAnimation()
+        delegate?.controlView(self, slider: sender, onSlider: .touchUpInside)
     }
     
     fileprivate func onReplyButtonPressed() {
@@ -660,6 +673,7 @@ open class MSPlayerControlView: UIView {
     open func customizeUIComponents() {
         
     }
+    
     
     deinit {
         print("MSPlayerControlView dealloc")
