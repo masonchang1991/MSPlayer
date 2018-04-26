@@ -229,6 +229,14 @@ open class MSPlayer: UIView {
     }
     
     /**
+     prepare to dealloc player, call at View or Controllers deinit funciton.
+     */
+    open func prepareToDealloc() {
+        playerLayerView?.prepareToDeinit()
+        controlView.prepareToDealloc()
+    }
+    
+    /**
      If you want to create MSPlayer with custom control in storyBoard.
      create a subclass and override this method
  
