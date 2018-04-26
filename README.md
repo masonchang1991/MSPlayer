@@ -29,7 +29,7 @@ pod 'MSPlayer', '2.x.x'
 Set MSPlayer's constraints and set video url
 
 Example
-```
+```swift
 import MSPlayer
 
 let player = MSPlayer()
@@ -55,7 +55,7 @@ player.backBlock = { [unowned self] (isFullScreen) in
 ```
 
 ## Add HTTP header for request
-```
+```swift
 let header = ["User-Agent":"MSPlayer"]
 let options = ["AVURLAssetHTTPHeaderFieldsKey":header]
 
@@ -68,7 +68,7 @@ let asset = MSPlayerResource(name: "Video Name",
 ```
 ## Listening to player state changes
 ### Delegate
-```
+```swift
     func msPlayer(_ player: MSPlayer, stateDidChange state: MSPM.State)
     func msPlayer(_ player: MSPlayer, loadTimeDidChange loadedDuration: TimeInterval, totalDuration: TimeInterval)
     func msPlayer(_ player: MSPlayer, playTimeDidChange current: TimeInterval, total: TimeInterval)
@@ -78,7 +78,7 @@ let asset = MSPlayerResource(name: "Video Name",
 
 ## Player Config
 change property before player set
-```
+```swift
 // MARK: - These Property in MSPM
 
 /// fullScreen ignore player constraint to fill screen
@@ -103,7 +103,7 @@ MSPlayerConfig.playerControlBarAutoFadeOutDuration = 0.5
 
 ## Custom Asset And View Property
 
-```
+```swift
 /// if url had someting wrong, display text you want
 MSPlayerConfig.urlWrongLabelText = "Video is unavailable"
 /// when controlView show, entire mask view show alpha
@@ -141,7 +141,7 @@ MSPlayerConfig.totalTimeTextColor = UIColor.white
 ```
 
 ## Custom Brightness view
-```
+```swift
 /// change brightness title
 MSPlayerConfig.brightnessTitle = "Brightness"
 /// change brightness Image
