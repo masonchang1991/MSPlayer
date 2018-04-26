@@ -148,8 +148,9 @@ MSPlayerConfig.brightnessTitle = "Brightness"
 MSPlayerConfig.brightnessImage = yourBrightnessImage
 ```
 
-## Demonstation
+## DEMO
 
+![gif](https://github.com/masonchang1991/MSPlayer/blob/master/MSPlayer_Demo.gif)
 
 not yet
 
