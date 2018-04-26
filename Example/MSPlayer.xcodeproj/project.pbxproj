@@ -15,14 +15,15 @@
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		8AAAD640D98C5392ED470FCB /* Pods_MSPlayer_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506180754ED434DB8C94312F /* Pods_MSPlayer_Example.framework */; };
-		93CE625E208724DC00B02CE0 /* MSPlayerLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CE625D208724DC00B02CE0 /* MSPlayerLayerView.swift */; };
-		93CE62602087260300B02CE0 /* MSPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CE625F2087260300B02CE0 /* MSPM.swift */; };
-		93CE62622087491500B02CE0 /* MSTimeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CE62612087491500B02CE0 /* MSTimeSlider.swift */; };
-		93CE626620883AA400B02CE0 /* MSPlayerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CE626520883AA400B02CE0 /* MSPlayerControlView.swift */; };
-		93CE62682088484B00B02CE0 /* FormatDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CE62672088484B00B02CE0 /* FormatDisplay.swift */; };
-		93CE626C20889AB500B02CE0 /* MSPlayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CE626B20889AB500B02CE0 /* MSPlayerExtension.swift */; };
-		93CE626E208D870800B02CE0 /* MSPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CE626D208D870800B02CE0 /* MSPlayer.swift */; };
-		93CE6270208D8F4D00B02CE0 /* MSPlayerResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CE626F208D8F4D00B02CE0 /* MSPlayerResource.swift */; };
+		930C770320917424000FC0BF /* MSPlayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930C76FA20917423000FC0BF /* MSPlayerExtension.swift */; };
+		930C770420917424000FC0BF /* MSBrightnessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930C76FB20917423000FC0BF /* MSBrightnessView.swift */; };
+		930C770520917424000FC0BF /* MSTimeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930C76FC20917423000FC0BF /* MSTimeSlider.swift */; };
+		930C770620917424000FC0BF /* MSPlayerResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930C76FD20917423000FC0BF /* MSPlayerResource.swift */; };
+		930C770720917424000FC0BF /* MSPlayerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930C76FE20917423000FC0BF /* MSPlayerControlView.swift */; };
+		930C770820917424000FC0BF /* MSPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930C76FF20917424000FC0BF /* MSPM.swift */; };
+		930C770920917424000FC0BF /* FormatDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930C770020917424000FC0BF /* FormatDisplay.swift */; };
+		930C770A20917424000FC0BF /* MSPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930C770120917424000FC0BF /* MSPlayer.swift */; };
+		930C770B20917424000FC0BF /* MSPlayerLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930C770220917424000FC0BF /* MSPlayerLayerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,14 +51,15 @@
 		607FACE51AFB9204008FA782 /* MSPlayer_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MSPlayer_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		93CE625D208724DC00B02CE0 /* MSPlayerLayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSPlayerLayerView.swift; sourceTree = "<group>"; };
-		93CE625F2087260300B02CE0 /* MSPM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSPM.swift; sourceTree = "<group>"; };
-		93CE62612087491500B02CE0 /* MSTimeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSTimeSlider.swift; sourceTree = "<group>"; };
-		93CE626520883AA400B02CE0 /* MSPlayerControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSPlayerControlView.swift; sourceTree = "<group>"; };
-		93CE62672088484B00B02CE0 /* FormatDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatDisplay.swift; sourceTree = "<group>"; };
-		93CE626B20889AB500B02CE0 /* MSPlayerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSPlayerExtension.swift; sourceTree = "<group>"; };
-		93CE626D208D870800B02CE0 /* MSPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSPlayer.swift; sourceTree = "<group>"; };
-		93CE626F208D8F4D00B02CE0 /* MSPlayerResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSPlayerResource.swift; sourceTree = "<group>"; };
+		930C76FA20917423000FC0BF /* MSPlayerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPlayerExtension.swift; sourceTree = "<group>"; };
+		930C76FB20917423000FC0BF /* MSBrightnessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSBrightnessView.swift; sourceTree = "<group>"; };
+		930C76FC20917423000FC0BF /* MSTimeSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSTimeSlider.swift; sourceTree = "<group>"; };
+		930C76FD20917423000FC0BF /* MSPlayerResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPlayerResource.swift; sourceTree = "<group>"; };
+		930C76FE20917423000FC0BF /* MSPlayerControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPlayerControlView.swift; sourceTree = "<group>"; };
+		930C76FF20917424000FC0BF /* MSPM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPM.swift; sourceTree = "<group>"; };
+		930C770020917424000FC0BF /* FormatDisplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatDisplay.swift; sourceTree = "<group>"; };
+		930C770120917424000FC0BF /* MSPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPlayer.swift; sourceTree = "<group>"; };
+		930C770220917424000FC0BF /* MSPlayerLayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPlayerLayerView.swift; sourceTree = "<group>"; };
 		A0D9E105B0F4E897C9FF8AF5 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		B7C38833E471AB02AE62F1FB /* MSPlayer.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MSPlayer.podspec; path = ../MSPlayer.podspec; sourceTree = "<group>"; };
 		C8DD47D3CEFA9B242E4AAB0E /* Pods_MSPlayer_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MSPlayer_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -179,14 +181,15 @@
 		93CE625C208724C300B02CE0 /* MSPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				93CE625D208724DC00B02CE0 /* MSPlayerLayerView.swift */,
-				93CE626F208D8F4D00B02CE0 /* MSPlayerResource.swift */,
-				93CE626D208D870800B02CE0 /* MSPlayer.swift */,
-				93CE62612087491500B02CE0 /* MSTimeSlider.swift */,
-				93CE626520883AA400B02CE0 /* MSPlayerControlView.swift */,
-				93CE62672088484B00B02CE0 /* FormatDisplay.swift */,
-				93CE625F2087260300B02CE0 /* MSPM.swift */,
-				93CE626B20889AB500B02CE0 /* MSPlayerExtension.swift */,
+				930C770020917424000FC0BF /* FormatDisplay.swift */,
+				930C76FB20917423000FC0BF /* MSBrightnessView.swift */,
+				930C770120917424000FC0BF /* MSPlayer.swift */,
+				930C76FE20917423000FC0BF /* MSPlayerControlView.swift */,
+				930C76FA20917423000FC0BF /* MSPlayerExtension.swift */,
+				930C770220917424000FC0BF /* MSPlayerLayerView.swift */,
+				930C76FD20917423000FC0BF /* MSPlayerResource.swift */,
+				930C76FF20917424000FC0BF /* MSPM.swift */,
+				930C76FC20917423000FC0BF /* MSTimeSlider.swift */,
 			);
 			name = MSPlayer;
 			sourceTree = "<group>";
@@ -406,16 +409,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93CE62602087260300B02CE0 /* MSPM.swift in Sources */,
-				93CE62682088484B00B02CE0 /* FormatDisplay.swift in Sources */,
-				93CE625E208724DC00B02CE0 /* MSPlayerLayerView.swift in Sources */,
-				93CE626E208D870800B02CE0 /* MSPlayer.swift in Sources */,
-				93CE6270208D8F4D00B02CE0 /* MSPlayerResource.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
-				93CE626C20889AB500B02CE0 /* MSPlayerExtension.swift in Sources */,
-				93CE626620883AA400B02CE0 /* MSPlayerControlView.swift in Sources */,
+				930C770420917424000FC0BF /* MSBrightnessView.swift in Sources */,
+				930C770A20917424000FC0BF /* MSPlayer.swift in Sources */,
+				930C770820917424000FC0BF /* MSPM.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
-				93CE62622087491500B02CE0 /* MSTimeSlider.swift in Sources */,
+				930C770320917424000FC0BF /* MSPlayerExtension.swift in Sources */,
+				930C770620917424000FC0BF /* MSPlayerResource.swift in Sources */,
+				930C770920917424000FC0BF /* FormatDisplay.swift in Sources */,
+				930C770720917424000FC0BF /* MSPlayerControlView.swift in Sources */,
+				930C770B20917424000FC0BF /* MSPlayerLayerView.swift in Sources */,
+				930C770520917424000FC0BF /* MSTimeSlider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

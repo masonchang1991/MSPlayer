@@ -10,7 +10,9 @@ import AVFoundation
 import UIKit
 import NVActivityIndicatorView
 
-public let MSPlayerConfig = MSPM.shared
+public var MSPlayerConfig: MSPM {
+    return MSPM.shared()
+}
 
 public enum MSPlayerTopBarShowCase: Int {
     case always = 0          /// 始終顯示
@@ -20,7 +22,15 @@ public enum MSPlayerTopBarShowCase: Int {
 
 public class MSPM {
     
-    fileprivate static let shared = MSPM()
+    static func shared() -> MSPM {
+        if self.sharedInstance == nil {
+            self.sharedInstance = MSPM()
+            BrightnessView.shared()
+        }
+        return self.sharedInstance!
+    }
+    
+    private static var sharedInstance: MSPM?
     
     internal static func asset(for resource: MSPlayerResourceDefinition) -> AVURLAsset {
         return AVURLAsset(url: resource.url, options: resource.options)
@@ -69,6 +79,8 @@ public class MSPM {
         return (UIScreen.main.bounds.width) / CGFloat(375)
     }
     
+    open var fullScreenIgnoreConstraint = true
+    
     /// tint color
     open var loaderTintColor = UIColor.white
     /// Loader(NVActivityIndicatorType)
@@ -86,10 +98,11 @@ public class MSPM {
     
     // controlViewConfig
     open var controlViewAnimationDuration = 0.3
-    open var mainMaskViewShowAlpha: CGFloat = 1.0
+    open var mainMaskViewShowAlpha: CGFloat = 0.0
+    open var otherMaskViewShowAlpha: CGFloat = 1.0
     open var urlWrongLabelText: String = "Video is unavailable"
     open var playCoverImage: UIImage? = MSPM.MSImageResourcePath("MSPlayer_playCover_image")
-    open var mainMaskBackgroundColor = UIColor.black.withAlphaComponent(0.4)
+    open var mainMaskBackgroundColor = UIColor.black.withAlphaComponent(0.1)
     open var bottomMaskBackgroundColor = UIColor.black.withAlphaComponent(0.6)
     open var backButtonImage: UIImage? = MSPM.MSImageResourcePath("MSPlayer_back_image")
     open var backButtonImageViewTintColor = UIColor.white
@@ -113,6 +126,10 @@ public class MSPM {
     open var playerPanSeekRate: Double = 0.4
     open var playerAnimationDuration: Double = 4.0
     open var playerControlBarAutoFadeOutDuration = 0.5
+    
+    // BrightnessView
+    open var brightnessTitle = "Brightness"
+    open var brightnessImage: UIImage? = MSPM.MSImageResourcePath("MSPlayer_brightness_image")
     
     /**
      打印log

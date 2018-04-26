@@ -125,6 +125,9 @@ open class MSPlayer: UIView {
     // cache is playing result to improve callback performance
     fileprivate var isPlayingCache: Bool? = nil
     
+    // UI
+    var userConstraint = [NSLayoutConstraint]()
+    
     // MARK: - Public functions
     
     /**
@@ -204,6 +207,7 @@ open class MSPlayer: UIView {
     */
     open func updateUI(_ isFullScreen: Bool) {
         controlView.updateUI(for: isFullScreen)
+        self.updateFrame()
     }
     
     /**
@@ -351,7 +355,7 @@ open class MSPlayer: UIView {
             // 每次滑動需要疊加時間，通過一定的比例，使滑動一直處於統一水平
             if isUserMoveSlider {
                 // 如果是移動滑桿，則按照他滑動的距離去決定他滑動的進度條多少
-                self.sumTime = self.sumTime + (TimeInterval(self.totalDuration) / 400) < 0.5 ? 0.5:(TimeInterval(self.totalDuration) / 400)
+              self.sumTime = self.sumTime + TimeInterval(value) / 100.0 * (TimeInterval(self.totalDuration)/400)
             } else {
                 // 如果是滑動螢幕，則進度條慢慢前進，總時間越短，totalDurationAdjustParameter也會越小，避免移動過快
                 let totalDurationAdjustParameter = (TimeInterval(self.totalDuration) / 400) < 0.5 ? 0.5: (TimeInterval(self.totalDuration) / 400)
@@ -386,7 +390,7 @@ open class MSPlayer: UIView {
             UIApplication.shared.setStatusBarHidden(false, with: .fade)
             UIApplication.shared.statusBarOrientation = .portrait
         } else {
-            
+            self.translatesAutoresizingMaskIntoConstraints = false
             //先清除現在orientation的值
             //有可能Device是landscape進來(此時statusbar的orientation是portrait)，所以在按下切換全螢幕時
             //有可能我改的UIDevice的orientation值，改前跟改後都是一樣的 例如我landscapeRight進來
@@ -405,6 +409,16 @@ open class MSPlayer: UIView {
                 UIApplication.shared.setStatusBarHidden(false, with: .fade)
                 UIApplication.shared.statusBarOrientation = .landscapeRight
             }
+        }
+    }
+    
+    private func updateFrame() {
+        if isFullScreen && MSPlayerConfig.fullScreenIgnoreConstraint {
+            self.translatesAutoresizingMaskIntoConstraints = true
+            self.frame = UIScreen.main.bounds
+            self.layoutIfNeeded()
+        } else if self.translatesAutoresizingMaskIntoConstraints {
+            self.translatesAutoresizingMaskIntoConstraints = false
         }
     }
     
@@ -449,6 +463,7 @@ open class MSPlayer: UIView {
         } else {
             controlView = MSPlayerControlView()
         }
+        self.userConstraint = self.constraints
         addSubview(controlView)
         controlView.updateUI(for: isFullScreen)
         controlView.delegate = self
