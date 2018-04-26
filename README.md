@@ -15,8 +15,8 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 MSPlayer is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
-swift 3.0 use version 1.x.x
-swift 4.0 use version 2.x.x(not yet)
+swift 3.0 use version 1.x.x <br/>
+<br> swift 4.0 use version 2.x.x(not yet) <br/>
 ```ruby
 pod 'MSPlayer', '1.0.4'
 ```
