@@ -414,7 +414,11 @@ open class MSPlayerLayerView: UIView {
     }
     
     open func prepareToDeinit() {
+        // reset will remove current player item and call removePlayerObserver
         self.resetPlayer()
     }
     
+    deinit {
+        print("MSPlayerLayerView dealloc")
+    }
 }

@@ -163,7 +163,7 @@ public class MSPM {
         let bundleURL = bundle.resourceURL?.appendingPathComponent("MSPlayer.bundle")
         let resourceBundle = Bundle(url: bundleURL!)
         let image = UIImage(named: fileName, in: resourceBundle, compatibleWith: nil)
-        return image
+        return image?.withRenderingMode(.alwaysOriginal)
     }
     
 }
