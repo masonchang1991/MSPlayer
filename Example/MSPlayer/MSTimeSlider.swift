@@ -25,4 +25,9 @@ public class MSTimeSlider: UISlider {
         let newRect = CGRect(x: newx, y: bounds.height / 4, width: width, height: height)
         return newRect
     }
+    
+    override open func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        return true
+    }
+    
 }

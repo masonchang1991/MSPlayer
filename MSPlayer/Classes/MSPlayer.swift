@@ -347,11 +347,11 @@ open class MSPlayer: UIView {
         if self.isVolume {
             if MSPlayerConfig.enableVolumeGestures {
                 DispatchQueue.main.async {
-                    self.volumeViewSlider.value = AVAudioSession.sharedInstance().outputVolume - Float(value)
+                    self.volumeViewSlider.value = AVAudioSession.sharedInstance().outputVolume - (Float(value) * MSPlayerConfig.playerVolumeChangeRate)
                 }
             }
         } else if MSPlayerConfig.enableBrightnessGestures {
-            UIScreen.main.brightness -= value
+            UIScreen.main.brightness -= (value * MSPlayerConfig.playerBrightnessChangeRate)
         }
     }
     
@@ -367,7 +367,7 @@ open class MSPlayer: UIView {
             } else {
                 // 如果是滑動螢幕，則進度條慢慢前進，總時間越短，totalDurationAdjustParameter也會越小，避免移動過快
                 let totalDurationAdjustParameter = (TimeInterval(self.totalDuration) / 400) < 0.5 ? 0.5: (TimeInterval(self.totalDuration) / 400)
-                self.sumTime = self.sumTime + TimeInterval(value) / 100 * panToSeekRate * totalDurationAdjustParameter
+                self.sumTime = self.sumTime + TimeInterval(value) / 100 * 0.4 * panToSeekRate * totalDurationAdjustParameter
             }
             let totalTime = playerItem.duration
            

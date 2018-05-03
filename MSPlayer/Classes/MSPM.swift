@@ -123,9 +123,11 @@ public class MSPM {
     open var replayButtonImage: UIImage? = MSPM.MSImageResourcePath("MSPlayer_replay_image")
     
     // MSPlayerConfig
-    open var playerPanSeekRate: Double = 0.4
+    open var playerPanSeekRate: Double = 1.0
     open var playerAnimationDuration: Double = 4.0
     open var playerControlBarAutoFadeOutDuration = 0.5
+    open var playerVolumeChangeRate: Float = 1.0
+    open var playerBrightnessChangeRate: CGFloat = 1.0
     
     // BrightnessView
     open var brightnessTitle = MSPM.getBrightnessLocalizeTitle()
