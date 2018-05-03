@@ -1,5 +1,5 @@
 PODS:
-  - MSPlayer (1.0.4):
+  - MSPlayer (1.0.5):
     - NVActivityIndicatorView (= 4.0.0)
   - NVActivityIndicatorView (4.0.0):
     - NVActivityIndicatorView/Presenter (= 4.0.0)
@@ -13,7 +13,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  MSPlayer: 1cdd24ba4706febce94c55bb717ad6b310ccb703
+  MSPlayer: 9ee7de811dd870eaa9332d0657bcbd9fcd5168dc
   NVActivityIndicatorView: 54c9b93b6f25a4f467512680c0c90c09a1095cf2
 
 PODFILE CHECKSUM: ef42053571e3afb3c949a070dddc51b6d3e68ee2

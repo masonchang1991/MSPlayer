@@ -84,7 +84,9 @@ open class MSPlayer: UIView {
     }
     
     /// Adjust the value of pan to seek
-    open var panToSeekRate: Double = MSPlayerConfig.playerPanSeekRate
+    open var panToSeekRate: Double {
+      return MSPlayerConfig.playerPanSeekRate
+    }
     /// 滑動方向
     fileprivate var panDirection: MSPlayer.MSPanDirection = .horizontal
     /// 進度滑桿值 - ControlView變更時一併變更MSPlayer的值

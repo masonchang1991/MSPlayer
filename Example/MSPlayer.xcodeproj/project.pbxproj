@@ -15,15 +15,6 @@
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		8AAAD640D98C5392ED470FCB /* Pods_MSPlayer_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506180754ED434DB8C94312F /* Pods_MSPlayer_Example.framework */; };
-		930C770320917424000FC0BF /* MSPlayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930C76FA20917423000FC0BF /* MSPlayerExtension.swift */; };
-		930C770420917424000FC0BF /* MSBrightnessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930C76FB20917423000FC0BF /* MSBrightnessView.swift */; };
-		930C770520917424000FC0BF /* MSTimeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930C76FC20917423000FC0BF /* MSTimeSlider.swift */; };
-		930C770620917424000FC0BF /* MSPlayerResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930C76FD20917423000FC0BF /* MSPlayerResource.swift */; };
-		930C770720917424000FC0BF /* MSPlayerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930C76FE20917423000FC0BF /* MSPlayerControlView.swift */; };
-		930C770820917424000FC0BF /* MSPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930C76FF20917424000FC0BF /* MSPM.swift */; };
-		930C770920917424000FC0BF /* FormatDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930C770020917424000FC0BF /* FormatDisplay.swift */; };
-		930C770A20917424000FC0BF /* MSPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930C770120917424000FC0BF /* MSPlayer.swift */; };
-		930C770B20917424000FC0BF /* MSPlayerLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930C770220917424000FC0BF /* MSPlayerLayerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,15 +42,6 @@
 		607FACE51AFB9204008FA782 /* MSPlayer_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MSPlayer_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		930C76FA20917423000FC0BF /* MSPlayerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPlayerExtension.swift; sourceTree = "<group>"; };
-		930C76FB20917423000FC0BF /* MSBrightnessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSBrightnessView.swift; sourceTree = "<group>"; };
-		930C76FC20917423000FC0BF /* MSTimeSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSTimeSlider.swift; sourceTree = "<group>"; };
-		930C76FD20917423000FC0BF /* MSPlayerResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPlayerResource.swift; sourceTree = "<group>"; };
-		930C76FE20917423000FC0BF /* MSPlayerControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPlayerControlView.swift; sourceTree = "<group>"; };
-		930C76FF20917424000FC0BF /* MSPM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPM.swift; sourceTree = "<group>"; };
-		930C770020917424000FC0BF /* FormatDisplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatDisplay.swift; sourceTree = "<group>"; };
-		930C770120917424000FC0BF /* MSPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPlayer.swift; sourceTree = "<group>"; };
-		930C770220917424000FC0BF /* MSPlayerLayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPlayerLayerView.swift; sourceTree = "<group>"; };
 		A0D9E105B0F4E897C9FF8AF5 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		B7C38833E471AB02AE62F1FB /* MSPlayer.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MSPlayer.podspec; path = ../MSPlayer.podspec; sourceTree = "<group>"; };
 		C8DD47D3CEFA9B242E4AAB0E /* Pods_MSPlayer_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MSPlayer_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -181,15 +163,6 @@
 		93CE625C208724C300B02CE0 /* MSPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				930C770020917424000FC0BF /* FormatDisplay.swift */,
-				930C76FB20917423000FC0BF /* MSBrightnessView.swift */,
-				930C770120917424000FC0BF /* MSPlayer.swift */,
-				930C76FE20917423000FC0BF /* MSPlayerControlView.swift */,
-				930C76FA20917423000FC0BF /* MSPlayerExtension.swift */,
-				930C770220917424000FC0BF /* MSPlayerLayerView.swift */,
-				930C76FD20917423000FC0BF /* MSPlayerResource.swift */,
-				930C76FF20917424000FC0BF /* MSPM.swift */,
-				930C76FC20917423000FC0BF /* MSTimeSlider.swift */,
 			);
 			name = MSPlayer;
 			sourceTree = "<group>";
@@ -250,10 +223,12 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = NE9Q8DJEZN;
 						LastSwiftMigration = 0900;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = NE9Q8DJEZN;
 						LastSwiftMigration = 0900;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
@@ -408,16 +383,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
-				930C770420917424000FC0BF /* MSBrightnessView.swift in Sources */,
-				930C770A20917424000FC0BF /* MSPlayer.swift in Sources */,
-				930C770820917424000FC0BF /* MSPM.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
-				930C770320917424000FC0BF /* MSPlayerExtension.swift in Sources */,
-				930C770620917424000FC0BF /* MSPlayerResource.swift in Sources */,
-				930C770920917424000FC0BF /* FormatDisplay.swift in Sources */,
-				930C770720917424000FC0BF /* MSPlayerControlView.swift in Sources */,
-				930C770B20917424000FC0BF /* MSPlayerLayerView.swift in Sources */,
-				930C770520917424000FC0BF /* MSTimeSlider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -563,6 +529,7 @@
 			baseConfigurationReference = CCA94E73837B84230C41DB6A /* Pods-MSPlayer_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = NE9Q8DJEZN;
 				INFOPLIST_FILE = MSPlayer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -578,6 +545,7 @@
 			baseConfigurationReference = 1F67DC1156DD640F1A68DDFE /* Pods-MSPlayer_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = NE9Q8DJEZN;
 				INFOPLIST_FILE = MSPlayer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -592,6 +560,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0810897650778906287B2435 /* Pods-MSPlayer_Tests.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = NE9Q8DJEZN;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -613,6 +582,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DDF44AF69CB32F0C20C3A8AE /* Pods-MSPlayer_Tests.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = NE9Q8DJEZN;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

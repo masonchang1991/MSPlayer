@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MSPlayer
 
 class ViewController: UIViewController {
 
@@ -23,7 +24,9 @@ class ViewController: UIViewController {
         player.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         player.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         player.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        
+        MSPlayerConfig.playerPanSeekRate = 0.5
+        MSPlayerConfig.playerBrightnessChangeRate = 2.0
+        MSPlayerConfig.playerVolumeChangeRate = 0.5
         let asset = MSPlayerResource(url: URL(string: "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8")!)
         player.setVideoBy(asset)
     }
