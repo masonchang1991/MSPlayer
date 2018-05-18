@@ -81,6 +81,9 @@ public class MSPM {
     
     open var fullScreenIgnoreConstraint = true
     
+    /// is Using floating
+    var isUsingFloatingControl = false    
+    
     /// tint color
     open var loaderTintColor = UIColor.white
     /// Loader(NVActivityIndicatorType)

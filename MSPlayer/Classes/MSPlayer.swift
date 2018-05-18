@@ -20,6 +20,8 @@ public protocol MSPlayerDelegate: class {
 
 open class MSPlayer: UIView {
     
+    open var backToParent: (() -> ())?
+    
     enum MSPanDirection: Int {
         case horizontal = 0
         case vertical = 1
@@ -41,7 +43,7 @@ open class MSPlayer: UIView {
     }
     
     /// Gesture to change volume / brightness
-    open var panGesture: UIPanGestureRecognizer!
+    open var panGesture: UIPanGestureRecognizer?
     
     /// AVLayerVideoGravityType
     open var videoGravity = AVLayerVideoGravityResizeAspectFill {
@@ -63,6 +65,7 @@ open class MSPlayer: UIView {
     open var playStateDidChange: ((Bool) -> Void)?
     /// fired when tap backButton, fullScrren to unFullScreen, unFullScreen to pop
     open var backBlock: ((Bool) -> Void)?
+    open var showBlock: ((Bool) -> Void)?
     
     // status
     fileprivate var isFullScreen: Bool {
@@ -228,6 +231,17 @@ open class MSPlayer: UIView {
     */
     open func reduceVolume(step: Float = 0.1) {
         self.volumeViewSlider.value -= step
+    }
+    
+    // Close ControlView
+    open func closeControlViewAndRemoveGesture() {
+        self.controlView.isHidden = true
+        self.removeGesture()
+    }
+    
+    open func openControlViewAndSetGesture() {
+        self.controlView.isHidden = false
+        self.setGesture()
     }
     
     /**
@@ -450,7 +464,7 @@ open class MSPlayer: UIView {
         configureVolume()
         preparePlayer()
     }
-    
+
     public convenience init() {
         self.init(customControlView: nil)
     }
@@ -482,8 +496,18 @@ open class MSPlayer: UIView {
         controlView.translatesAutoresizingMaskIntoConstraints = false
         self.translatesAutoresizingMaskIntoConstraints = false
         controlView.addConstraintWithOther(self, anchorTypes: [.edge2Edge])
+        setGesture()
+    }
+    
+    fileprivate func setGesture() {
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.panDirection(_:)))
-        self.addGestureRecognizer(panGesture)
+        self.addGestureRecognizer(panGesture!)
+    }
+    
+    fileprivate func removeGesture() {
+        if panGesture != nil {
+            self.removeGestureRecognizer(panGesture!)
+        }
     }
     
     fileprivate func initUIData() {
@@ -595,10 +619,13 @@ extension MSPlayer: MSPlayerControlViewDelegate {
                 if isFullScreen {
                     // 如果是全螢幕則跳出全螢幕
                     fullScreenButtonPressed()
+                } else if MSPM.shared().isUsingFloatingControl {
+                    MSFloatingController.shared.shrink()
                 } else {
                     // 如果不是全螢幕則popFromNav
                     playerLayerView?.prepareToDeinit()
                 }
+                
             case .play:
                 if button.isSelected {
                     pause()
