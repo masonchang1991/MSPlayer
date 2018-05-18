@@ -27,6 +27,7 @@ open class MSPlayer: UIView {
         case vertical = 1
     }
     
+    private var videoId: String? = nil
     open weak var delegate: MSPlayerDelegate?
     open var playerLayerView: MSPlayerLayerView?
     fileprivate var controlView: MSPlayerControlView!
@@ -141,10 +142,10 @@ open class MSPlayer: UIView {
      - parameter resource: media resource
      - parameter definitionIndex: starting definition index, default start with the first definition
     */
-    open func setVideoBy(_ resource: MSPlayerResource, definitionIndex: Int = 0) {
+    open func setVideoBy(_ resource: MSPlayerResource, definitionIndex: Int = 0, videoIdForRecord: String? = nil) {
         isURLSet = false
         self.resource = resource
-        
+        self.videoId = videoIdForRecord
         currentDefinition = definitionIndex
         controlView.prepareUI(for: resource,
                               selected: definitionIndex)
@@ -154,6 +155,13 @@ open class MSPlayer: UIView {
             isURLSet = true
             let asset = resource.definitions[definitionIndex]
             playerLayerView?.playAsset(asset: asset.avURLAsset)
+            if videoId != nil {
+                if let lastWatchTime = UserDefaults.standard.value(forKey: videoId!) as? Double {
+                    self.seek(lastWatchTime) {
+                        self.autoPlay()
+                    }
+                }
+            }
         } else {
             controlView.showCover(url: resource.coverURL)
             controlView.hideLoader()
@@ -250,6 +258,13 @@ open class MSPlayer: UIView {
     open func prepareToDealloc() {
         playerLayerView?.prepareToDeinit()
         controlView.prepareToDealloc()
+    }
+    
+    func recordCurrentTime() {
+        if videoId != nil {
+            let currentTime = self.totalDuration * Double(self.progressSliderValue)
+            UserDefaults.standard.set(currentTime, forKey: videoId!)
+        }
     }
     
     /**
@@ -448,6 +463,7 @@ open class MSPlayer: UIView {
     
     // MARK: - 生命週期
     deinit {
+        recordCurrentTime()
         print("MSPlayer dealloc")
         playerLayerView?.pause()
         playerLayerView?.prepareToDeinit()
