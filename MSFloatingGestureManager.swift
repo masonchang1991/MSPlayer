@@ -39,8 +39,6 @@ class MSFloatingGestureManager: NSObject {
         let floatinViewLocation = recognizer.location(in: UIApplication.shared.keyWindow)
         let a = recognizer.location(in: recognizer.view)
         
-        print("floatingViewLocation:", a)
-        
         switch recognizer.state {
         case .began:
             panActionBeganWith(location: floatinViewLocation, recognizer: recognizer)

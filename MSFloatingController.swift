@@ -37,6 +37,7 @@ public class MSFloatingController: NSObject {
                 MSPM.shared().isUsingFloatingControl = false
                 MSFloatingController.sharedInstance = nil
             } else {
+                self.gestureManager = nil
                 MSPM.shared().isUsingFloatingControl = true
             }
         }
@@ -110,24 +111,23 @@ public class MSFloatingController: NSObject {
             
         } else {
             
-            self.closeFloatingVC?()
-            self.floatableType = nil
-            self.floatableType = floatableVC
-            if let floatableVC = floatableType as? UIViewController {
-                self.msplayerWindow?.rootViewController = floatableVC
-                self.floatableType?.floatingController = self
-                self.gestureManager = MSFloatingGestureManager(floatingController: self)
-            }
-            
             //TODO: 如果已經存在則先判斷現在的狀態，如果是min則還原成normal，如果是normal則切換當前vc
             switch state {
                 
             case .minimum:
-            //TODO: - expand current VC
+            //MARK: - expand current VC
                 expand()
+            //MARK: - change current VC
+                fallthrough
             case .normal:
             //TODO: - change current VC
-                print("")
+                self.closeFloatingVC?()
+                self.floatableType = floatableVC
+                if let floatableVC = floatableType as? UIViewController {
+                    self.msplayerWindow?.rootViewController = floatableVC
+                    self.floatableType?.floatingController = self
+                    self.gestureManager = MSFloatingGestureManager(floatingController: self)
+                }
             default:
                 break
             }
