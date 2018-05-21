@@ -36,6 +36,7 @@ public class MSFloatingController: NSObject {
                 self.gestureManager = nil
                 MSPM.shared().isUsingFloatingControl = false
                 MSFloatingController.sharedInstance = nil
+                MSPM.shared().msFloatingWindow = nil
             } else {
                 self.gestureManager = nil
                 MSPM.shared().isUsingFloatingControl = true
@@ -162,8 +163,9 @@ public class MSFloatingController: NSObject {
             msplayerWindow.tag = 777
             msplayerWindow.translatesAutoresizingMaskIntoConstraints = false
             msplayerWindow.isHidden = false
-            msplayerWindow.windowLevel = UIWindowLevelStatusBar + 1
+            msplayerWindow.windowLevel = UIWindowLevelStatusBar - 1
         }
+        MSPM.shared().msFloatingWindow = msplayerWindow
         return msplayerWindow
     }
     

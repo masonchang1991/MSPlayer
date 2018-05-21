@@ -26,7 +26,7 @@ class ViewController: UIViewController {
         player.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         player.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         player.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        player.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        player.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 9 / 16).isActive = true
         MSPlayerConfig.playerPanSeekRate = 0.5
         MSPlayerConfig.playerBrightnessChangeRate = 2.0
         MSPlayerConfig.playerVolumeChangeRate = 0.5

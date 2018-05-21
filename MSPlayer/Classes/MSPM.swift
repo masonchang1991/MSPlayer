@@ -86,6 +86,7 @@ public class MSPM {
 
     /// is Using floating
     var isUsingFloatingControl = false    
+    weak var msFloatingWindow: UIWindow?
     
     /// tint color
     open var loaderTintColor = UIColor.white

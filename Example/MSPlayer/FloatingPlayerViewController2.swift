@@ -1,16 +1,16 @@
 //
-//  FloatingPlayerViewController.swift
+//  FloatingPlayerViewController2.swift
 //  MSPlayer_Example
 //
-//  Created by Mason on 2018/5/17.
+//  Created by Mason on 2018/5/21.
 //  Copyright © 2018年 CocoaPods. All rights reserved.
 //
 
 import UIKit
 import MSPlayer
 
-class FloatingPlayerViewController: UIViewController, MSFloatableViewController {
-   
+class FloatingPlayerViewController2: UIViewController, MSFloatableViewController {
+    
     weak var floatingController: MSFloatingController? =  MSFloatingController.shared()
     
     var floatingView: UIView = MSPlayer()
@@ -36,14 +36,15 @@ class FloatingPlayerViewController: UIViewController, MSFloatableViewController 
         createAnotherVCButton.widthAnchor.constraint(equalToConstant: 250.0).isActive = true
         createAnotherVCButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         
-        createAnotherVCButton.setTitle("Go To Second Video", for: .normal)
+        createAnotherVCButton.setTitle("Go To first Video", for: .normal)
+//        createAnotherVCButton.backgroundColor = UIColor.gray.withAlphaComponent(0.2)
         createAnotherVCButton.addTarget(self, action: #selector(createAnotherVC), for: .touchUpInside)
         
         
         MSPlayerConfig.playerPanSeekRate = 0.5
         MSPlayerConfig.playerBrightnessChangeRate = 2.0
         MSPlayerConfig.playerVolumeChangeRate = 0.5
-        let asset = MSPlayerResource(url: URL(string: "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8")!)
+        let asset = MSPlayerResource(url: URL(string: "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8")!)
         
         if let player = floatingView as? MSPlayer {
             player.setVideoBy(asset)
@@ -70,7 +71,7 @@ class FloatingPlayerViewController: UIViewController, MSFloatableViewController 
     }
     
     func createAnotherVC() {
-        let floatingPlayerVC = FloatingPlayerViewController2()
+        let floatingPlayerVC = FloatingPlayerViewController()
         MSFloatingController.shared().show(true, floatableVC: floatingPlayerVC)
     }
     

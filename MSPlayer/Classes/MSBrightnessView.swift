@@ -184,7 +184,11 @@ class BrightnessView: UIView {
     // Brightness 顯示 隱藏
     func appearBrightnessView() {
         UIView.animate(withDuration: 0.2, animations: {
-            UIApplication.shared.windows.first?.addSubview(BrightnessView.sharedInstance ?? BrightnessView())
+            if MSPM.shared().msFloatingWindow != nil {
+                MSPM.shared().msFloatingWindow?.addSubview(BrightnessView.sharedInstance ?? BrightnessView())
+            } else {
+                UIApplication.shared.keyWindow?.addSubview(BrightnessView.sharedInstance ?? BrightnessView())
+            }
             self.alpha = 1.0
         }) { (finished) in
             self.addTimer()
