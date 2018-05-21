@@ -16,10 +16,10 @@ public class MSFloatingController: NSObject {
         return self.sharedInstance ?? MSFloatingController()
     }
     
-    // MARK: Shared Instance
+    //MARK: Shared Instance
     private static var sharedInstance: MSFloatingController?
     
-    // MARK: MSFloatingViewController floating state
+    //MARK: MSFloatingViewController floating state
     public enum FloatingState {
         case animation
         case normal
@@ -29,7 +29,7 @@ public class MSFloatingController: NSObject {
     // Avoid init
     private override init() { }
     
-    // MARK: Local Variable
+    //MARK: Local Variable
     var floatableType: MSFloatableViewController? {
         didSet {
             if floatableType == nil {
