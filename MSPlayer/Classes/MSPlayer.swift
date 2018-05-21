@@ -265,7 +265,7 @@ open class MSPlayer: UIView {
     }
     
     func recordCurrentTime() {
-        if videoId != nil {
+        if videoId != nil && MSPM.shared().openRecorder {
             let currentTime = self.totalDuration * Double(self.progressSliderValue)
             let coreDataManager = MSCoreDataManager()
             coreDataManager.saveVideoTimeRecordWith(videoId!, videoTime: currentTime)

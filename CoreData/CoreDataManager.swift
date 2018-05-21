@@ -119,5 +119,21 @@ extension MSCoreDataManager {
             print("Delete video by videoId in VideoTimeRecord error: \(error)")
         }
     }
+    
+    func deleteAllVideoTimeRecords() {
+        let managedContext = MSPM.shared().managedObjectContext
+        let fetchRequest = NSFetchRequest<VideoTimeRecord>(entityName: "VideoTimeRecord")
+        fetchRequest.returnsObjectsAsFaults = false
+        var fetchResults = [VideoTimeRecord]()
+        do {
+            fetchResults = try managedContext.fetch(fetchRequest)
+            for result in fetchResults {
+                let managedObjectData: NSManagedObject = result
+                managedContext.delete(managedObjectData)
+            }
+        } catch let error as NSError {
+            print("Delete video by videoId in VideoTimeRecord error: \(error)")
+        }
+    }
 }
 
