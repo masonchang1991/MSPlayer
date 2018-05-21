@@ -156,9 +156,12 @@ open class MSPlayer: UIView {
             let asset = resource.definitions[definitionIndex]
             playerLayerView?.playAsset(asset: asset.avURLAsset)
             if videoId != nil {
-                if let lastWatchTime = UserDefaults.standard.value(forKey: videoId!) as? Double {
-                    self.seek(lastWatchTime) {
-                        self.autoPlay()
+                let coreDataManager = MSCoreDataManager()
+                coreDataManager.loadVideoTimeRecordWith(videoId!) { (lastWatchTime) in
+                    if let lastWatchTime = lastWatchTime {
+                        self.seek(lastWatchTime) {
+                            self.autoPlay()
+                        }
                     }
                 }
             }
@@ -199,6 +202,7 @@ open class MSPlayer: UIView {
     - parameter allow: should allow to response 'autoPlay' function
     */
     open func pause(autoPlay allow: Bool = false) {
+        recordCurrentTime()
         isPauseByUser = !allow
         // show play cover
         if controlView.playCoverImageView.isHidden {
@@ -263,7 +267,8 @@ open class MSPlayer: UIView {
     func recordCurrentTime() {
         if videoId != nil {
             let currentTime = self.totalDuration * Double(self.progressSliderValue)
-            UserDefaults.standard.set(currentTime, forKey: videoId!)
+            let coreDataManager = MSCoreDataManager()
+            coreDataManager.saveVideoTimeRecordWith(videoId!, videoTime: currentTime)
         }
     }
     

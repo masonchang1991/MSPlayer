@@ -58,6 +58,8 @@
 		91BE1F78563053BFEE22D1E301F0080B /* MSPlayer-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F2D739AE565F0C1888745B1D885989F /* MSPlayer-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		931485D420AC2A0400D6DA6B /* MSFloatableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931485D320AC2A0400D6DA6B /* MSFloatableViewController.swift */; };
 		935A315920A97713009B063E /* MSFloatingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935A315820A97713009B063E /* MSFloatingController.swift */; };
+		9387E60E20B27CA5000C7739 /* VideoTimeRecord.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9387E60C20B27CA5000C7739 /* VideoTimeRecord.xcdatamodeld */; };
+		9387E61120B2833E000C7739 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9387E61020B2833E000C7739 /* CoreDataManager.swift */; };
 		938D910D20AD5E41001857C0 /* MSFloatingGestureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D910C20AD5E41001857C0 /* MSFloatingGestureManager.swift */; };
 		96788657C434A6C2DAEB78379617E564 /* NVActivityIndicatorView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 693C4BD1BD5012D2777845D3B2C6DB51 /* NVActivityIndicatorView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		978BDA5A833773C8D465D5981110EEE1 /* MSPlayerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B7A0802F4EFFB6947F8A15D3457F3F /* MSPlayerControlView.swift */; };
@@ -188,6 +190,8 @@
 		92DDD709CDF9638BCA9FA8014C9B3216 /* NVActivityIndicatorAnimationDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationDelegate.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/NVActivityIndicatorAnimationDelegate.swift; sourceTree = "<group>"; };
 		931485D320AC2A0400D6DA6B /* MSFloatableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSFloatableViewController.swift; sourceTree = "<group>"; };
 		935A315820A97713009B063E /* MSFloatingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSFloatingController.swift; sourceTree = "<group>"; };
+		9387E60D20B27CA5000C7739 /* VideoTimeRecord.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VideoTimeRecord.xcdatamodel; sourceTree = "<group>"; };
+		9387E61020B2833E000C7739 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		938D910C20AD5E41001857C0 /* MSFloatingGestureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSFloatingGestureManager.swift; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		958F54B904EF5EA7A8A367BE3B8B7754 /* NVActivityIndicatorAnimationBallClipRotate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallClipRotate.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallClipRotate.swift; sourceTree = "<group>"; };
@@ -304,6 +308,7 @@
 		1239E577740CF0ADBBFC8831EDE10239 /* MSPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				9387E60F20B28322000C7739 /* CoreData */,
 				BBFBCDEEE35A2102BA5C3E6C731661EF /* FormatDisplay.swift */,
 				D3242DAD592675015FB773CB0AEB718F /* MSBrightnessView.swift */,
 				8550629EC01354546C488A9967C22F70 /* MSPlayer.swift */,
@@ -483,6 +488,15 @@
 				18E1D24960C422133861AEFD04445992 /* Pods-MSPlayer_Tests */,
 			);
 			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		9387E60F20B28322000C7739 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				9387E60C20B27CA5000C7739 /* VideoTimeRecord.xcdatamodeld */,
+				9387E61020B2833E000C7739 /* CoreDataManager.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		A5825A8A24687BECE7AB38ED947014EA /* Pods-MSPlayer_Example */ = {
@@ -782,6 +796,7 @@
 				02465BAEF9B1F050A86493EB60C3784F /* FormatDisplay.swift in Sources */,
 				B525045C84ECB2995491E20F68B1E667 /* MSBrightnessView.swift in Sources */,
 				4694A42BB7EEED009D8CE58C9ECD0091 /* MSPlayer-dummy.m in Sources */,
+				9387E61120B2833E000C7739 /* CoreDataManager.swift in Sources */,
 				4F6AF77A5018C78C8198335359E62628 /* MSPlayer.swift in Sources */,
 				978BDA5A833773C8D465D5981110EEE1 /* MSPlayerControlView.swift in Sources */,
 				39D7E4F6EC0ADB8420D21523AAB7BBC3 /* MSPlayerExtension.swift in Sources */,
@@ -790,6 +805,7 @@
 				D7522C9B615B7091F4172945DB60A1B3 /* MSPlayerResource.swift in Sources */,
 				935A315920A97713009B063E /* MSFloatingController.swift in Sources */,
 				938D910D20AD5E41001857C0 /* MSFloatingGestureManager.swift in Sources */,
+				9387E60E20B27CA5000C7739 /* VideoTimeRecord.xcdatamodeld in Sources */,
 				B269AB04E22E8BABFAA63BB449925BCC /* MSPM.swift in Sources */,
 				894E0E93A0B5F7559D25BDBDD036CE17 /* MSTimeSlider.swift in Sources */,
 			);
@@ -1296,6 +1312,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		9387E60C20B27CA5000C7739 /* VideoTimeRecord.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9387E60D20B27CA5000C7739 /* VideoTimeRecord.xcdatamodel */,
+			);
+			currentVersion = 9387E60D20B27CA5000C7739 /* VideoTimeRecord.xcdatamodel */;
+			path = VideoTimeRecord.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 }
