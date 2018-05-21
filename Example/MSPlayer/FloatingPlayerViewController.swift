@@ -11,7 +11,7 @@ import MSPlayer
 
 class FloatingPlayerViewController: UIViewController, MSFloatableViewController {
    
-    weak var floatingController: MSFloatingController? =  MSFloatingController.shared
+    weak var floatingController: MSFloatingController? =  MSFloatingController.shared()
     
     var floatingView: UIView = MSPlayer()
     

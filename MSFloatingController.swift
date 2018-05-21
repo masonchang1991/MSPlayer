@@ -9,10 +9,15 @@ import Foundation
 
 public class MSFloatingController: NSObject {
     
+    open static func shared() -> MSFloatingController {
+        if self.sharedInstance == nil {
+            self.sharedInstance = MSFloatingController()
+        }
+        return self.sharedInstance ?? MSFloatingController()
+    }
+    
     // MARK: Shared Instance
-    public static let shared: MSFloatingController = {
-        return MSFloatingController()
-    }()
+    private static var sharedInstance: MSFloatingController?
     
     // MARK: MSFloatingViewController floating state
     public enum FloatingState {
@@ -30,6 +35,7 @@ public class MSFloatingController: NSObject {
             if floatableType == nil {
                 self.gestureManager = nil
                 MSPM.shared().isUsingFloatingControl = false
+                MSFloatingController.sharedInstance = nil
             } else {
                 MSPM.shared().isUsingFloatingControl = true
             }

@@ -636,7 +636,7 @@ extension MSPlayer: MSPlayerControlViewDelegate {
                     // 如果是全螢幕則跳出全螢幕
                     fullScreenButtonPressed()
                 } else if MSPM.shared().isUsingFloatingControl {
-                    MSFloatingController.shared.shrink()
+                    MSFloatingController.shared().shrink()
                 } else {
                     // 如果不是全螢幕則popFromNav
                     playerLayerView?.prepareToDeinit()

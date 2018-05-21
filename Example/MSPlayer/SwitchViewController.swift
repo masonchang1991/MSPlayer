@@ -21,7 +21,7 @@ class SwitchViewController: UIViewController {
         
         // Create VC
         let floatingPlayerVC = FloatingPlayerViewController()
-        MSFloatingController.shared.show(true, floatableVC: floatingPlayerVC)
+        MSFloatingController.shared().show(true, floatableVC: floatingPlayerVC)
         
     }
 }
