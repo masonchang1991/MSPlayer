@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-class MSCoreDataManager {
+open class MSCoreDataManager {
     
     fileprivate func save(managedContext: NSManagedObjectContext) {
         do {
