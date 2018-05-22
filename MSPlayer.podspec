@@ -30,8 +30,9 @@ TODO: Add long description of the pod here.
 
   s.ios.deployment_target = '9.0'
 
-  s.source_files = 'MSPlayer/Classes/'
-  s.resources = 'MSPlayer/Classes/VideoTimeRecord.xcdatamodel'
+  s.source_files  = 'MSPlayer/Classes/', 'MSPlayer/Classes/VideoTimeRecord.xcdatamodel', 'MSPlayer/Classes/VideoTimeRecord.xcdatamodel/*.xcdatamodel'
+  s.resources = [ 'MSPlayer/Classes/VideoTimeRecord.xcdatamodel','MSPlayer/Classes/VideoTimeRecord.xcdatamodel/*.xcdatamodel']
+  s.preserve_paths = 'MSPlayer/Classes/VideoTimeRecord.xcdatamodel'
   s.resource_bundles = {
     'MSPlayer' => ['MSPlayer/Assets/*.png']
   }
