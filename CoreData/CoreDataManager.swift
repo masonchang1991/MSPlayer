@@ -34,7 +34,7 @@ extension MSCoreDataManager {
             videoTimeRecord.recordID = videoId
             videoTimeRecord.timeRecord = videoTime
             // 判斷目前是否已經達到三十筆，如果是，則刪除尾項
-            if loadVideoTimeRecords().count >= 3 {
+            if loadVideoTimeRecords().count >= MSPM.shared().recordVideoTimeNumber {
                 deleteLastVideoTimeRecord()
             }
             // 將資料寫入資料庫

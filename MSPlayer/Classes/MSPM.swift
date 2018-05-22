@@ -83,7 +83,9 @@ public class MSPM {
     open var fullScreenIgnoreConstraint = true
     
     open var openRecorder: Bool = true
-
+    //Record user's watch time max number
+    open var recordVideoTimeNumber: Int = 30
+    
     /// is Using floating
     var isUsingFloatingControl = false    
     weak var msFloatingWindow: UIWindow?
