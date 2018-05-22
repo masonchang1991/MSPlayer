@@ -37,7 +37,6 @@ class MSFloatingGestureManager: NSObject {
     @objc func panAction(_ recognizer: UIPanGestureRecognizer) {
         // 根據外面 Keywindow
         let floatinViewLocation = recognizer.location(in: UIApplication.shared.keyWindow)
-        let a = recognizer.location(in: recognizer.view)
         
         switch recognizer.state {
         case .began:
