@@ -32,7 +32,6 @@ TODO: Add long description of the pod here.
 
   s.source_files  = 'MSPlayer/Classes/'
   s.resources = 'MSPlayer/Classes/*.xcdatamodel'
-  s.preserve_paths = 'MSPlayer/Classes/VideoTimeRecord.xcdatamodel'
   s.resource_bundles = {
     'MSPlayer' => ['MSPlayer/Assets/*.png']
   }
