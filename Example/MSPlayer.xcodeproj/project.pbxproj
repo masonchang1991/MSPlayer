@@ -18,6 +18,20 @@
 		931485D820AD579B00D6DA6B /* FloatingPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931485D720AD579B00D6DA6B /* FloatingPlayerViewController.swift */; };
 		9387E61320B2D4A4000C7739 /* FloatingPlayerViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9387E61220B2D4A4000C7739 /* FloatingPlayerViewController2.swift */; };
 		938D910B20AD5A94001857C0 /* SwitchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D910A20AD5A94001857C0 /* SwitchViewController.swift */; };
+		93FF3C5620B535C100477058 /* MSFloatingGestureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF3C4A20B535C000477058 /* MSFloatingGestureManager.swift */; };
+		93FF3C5720B535C100477058 /* MSBrightnessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF3C4B20B535C000477058 /* MSBrightnessView.swift */; };
+		93FF3C5820B535C100477058 /* MSPlayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF3C4C20B535C000477058 /* MSPlayerExtension.swift */; };
+		93FF3C5920B535C100477058 /* MSFloatableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF3C4D20B535C000477058 /* MSFloatableViewController.swift */; };
+		93FF3C5A20B535C100477058 /* MSFloatingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF3C4E20B535C000477058 /* MSFloatingController.swift */; };
+		93FF3C5B20B535C100477058 /* MSPlayerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF3C4F20B535C000477058 /* MSPlayerControlView.swift */; };
+		93FF3C5C20B535C100477058 /* MSPlayerResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF3C5020B535C000477058 /* MSPlayerResource.swift */; };
+		93FF3C5D20B535C100477058 /* MSTimeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF3C5120B535C100477058 /* MSTimeSlider.swift */; };
+		93FF3C5E20B535C100477058 /* MSPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF3C5220B535C100477058 /* MSPM.swift */; };
+		93FF3C5F20B535C100477058 /* FormatDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF3C5320B535C100477058 /* FormatDisplay.swift */; };
+		93FF3C6020B535C100477058 /* MSPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF3C5420B535C100477058 /* MSPlayer.swift */; };
+		93FF3C6120B535C100477058 /* MSPlayerLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF3C5520B535C100477058 /* MSPlayerLayerView.swift */; };
+		93FF3C6320B535D700477058 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF3C6220B535D700477058 /* CoreDataManager.swift */; };
+		93FF3C6620B5364000477058 /* VideoTimeRecord.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93FF3C6420B5364000477058 /* VideoTimeRecord.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +62,20 @@
 		931485D720AD579B00D6DA6B /* FloatingPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPlayerViewController.swift; sourceTree = "<group>"; };
 		9387E61220B2D4A4000C7739 /* FloatingPlayerViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPlayerViewController2.swift; sourceTree = "<group>"; };
 		938D910A20AD5A94001857C0 /* SwitchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchViewController.swift; sourceTree = "<group>"; };
+		93FF3C4A20B535C000477058 /* MSFloatingGestureManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSFloatingGestureManager.swift; sourceTree = "<group>"; };
+		93FF3C4B20B535C000477058 /* MSBrightnessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSBrightnessView.swift; sourceTree = "<group>"; };
+		93FF3C4C20B535C000477058 /* MSPlayerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPlayerExtension.swift; sourceTree = "<group>"; };
+		93FF3C4D20B535C000477058 /* MSFloatableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSFloatableViewController.swift; sourceTree = "<group>"; };
+		93FF3C4E20B535C000477058 /* MSFloatingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSFloatingController.swift; sourceTree = "<group>"; };
+		93FF3C4F20B535C000477058 /* MSPlayerControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPlayerControlView.swift; sourceTree = "<group>"; };
+		93FF3C5020B535C000477058 /* MSPlayerResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPlayerResource.swift; sourceTree = "<group>"; };
+		93FF3C5120B535C100477058 /* MSTimeSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSTimeSlider.swift; sourceTree = "<group>"; };
+		93FF3C5220B535C100477058 /* MSPM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPM.swift; sourceTree = "<group>"; };
+		93FF3C5320B535C100477058 /* FormatDisplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatDisplay.swift; sourceTree = "<group>"; };
+		93FF3C5420B535C100477058 /* MSPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPlayer.swift; sourceTree = "<group>"; };
+		93FF3C5520B535C100477058 /* MSPlayerLayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPlayerLayerView.swift; sourceTree = "<group>"; };
+		93FF3C6220B535D700477058 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		93FF3C6520B5364000477058 /* VideoTimeRecord.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VideoTimeRecord.xcdatamodel; sourceTree = "<group>"; };
 		A0D9E105B0F4E897C9FF8AF5 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		B7C38833E471AB02AE62F1FB /* MSPlayer.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MSPlayer.podspec; path = ../MSPlayer.podspec; sourceTree = "<group>"; };
 		C8DD47D3CEFA9B242E4AAB0E /* Pods_MSPlayer_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MSPlayer_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -172,6 +200,20 @@
 		93CE625C208724C300B02CE0 /* MSPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				93FF3C6220B535D700477058 /* CoreDataManager.swift */,
+				93FF3C5320B535C100477058 /* FormatDisplay.swift */,
+				93FF3C4B20B535C000477058 /* MSBrightnessView.swift */,
+				93FF3C4D20B535C000477058 /* MSFloatableViewController.swift */,
+				93FF3C4E20B535C000477058 /* MSFloatingController.swift */,
+				93FF3C4A20B535C000477058 /* MSFloatingGestureManager.swift */,
+				93FF3C5420B535C100477058 /* MSPlayer.swift */,
+				93FF3C4F20B535C000477058 /* MSPlayerControlView.swift */,
+				93FF3C4C20B535C000477058 /* MSPlayerExtension.swift */,
+				93FF3C5520B535C100477058 /* MSPlayerLayerView.swift */,
+				93FF3C5020B535C000477058 /* MSPlayerResource.swift */,
+				93FF3C5220B535C100477058 /* MSPM.swift */,
+				93FF3C5120B535C100477058 /* MSTimeSlider.swift */,
+				93FF3C6420B5364000477058 /* VideoTimeRecord.xcdatamodeld */,
 			);
 			name = MSPlayer;
 			sourceTree = "<group>";
@@ -391,10 +433,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93FF3C6620B5364000477058 /* VideoTimeRecord.xcdatamodeld in Sources */,
 				9387E61320B2D4A4000C7739 /* FloatingPlayerViewController2.swift in Sources */,
+				93FF3C5920B535C100477058 /* MSFloatableViewController.swift in Sources */,
 				931485D820AD579B00D6DA6B /* FloatingPlayerViewController.swift in Sources */,
+				93FF3C6320B535D700477058 /* CoreDataManager.swift in Sources */,
+				93FF3C5C20B535C100477058 /* MSPlayerResource.swift in Sources */,
+				93FF3C5820B535C100477058 /* MSPlayerExtension.swift in Sources */,
+				93FF3C5E20B535C100477058 /* MSPM.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				938D910B20AD5A94001857C0 /* SwitchViewController.swift in Sources */,
+				93FF3C5D20B535C100477058 /* MSTimeSlider.swift in Sources */,
+				93FF3C5620B535C100477058 /* MSFloatingGestureManager.swift in Sources */,
+				93FF3C5720B535C100477058 /* MSBrightnessView.swift in Sources */,
+				93FF3C5A20B535C100477058 /* MSFloatingController.swift in Sources */,
+				93FF3C5B20B535C100477058 /* MSPlayerControlView.swift in Sources */,
+				93FF3C6020B535C100477058 /* MSPlayer.swift in Sources */,
+				93FF3C5F20B535C100477058 /* FormatDisplay.swift in Sources */,
+				93FF3C6120B535C100477058 /* MSPlayerLayerView.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -639,6 +695,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		93FF3C6420B5364000477058 /* VideoTimeRecord.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				93FF3C6520B5364000477058 /* VideoTimeRecord.xcdatamodel */,
+			);
+			currentVersion = 93FF3C6520B5364000477058 /* VideoTimeRecord.xcdatamodel */;
+			path = VideoTimeRecord.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 607FACC81AFB9204008FA782 /* Project object */;
 }
