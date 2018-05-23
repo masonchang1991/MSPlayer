@@ -5,6 +5,6 @@
         <attribute name="timeRecord" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="VideoTimeRecord" positionX="-54" positionY="0" width="128" height="75"/>
+        <element name="VideoTimeRecord" positionX="-54" positionY="-9" width="128" height="75"/>
     </elements>
 </model>
