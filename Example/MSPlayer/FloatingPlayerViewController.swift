@@ -9,11 +9,11 @@
 import UIKit
 import MSPlayer
 
-class FloatingPlayerViewController: UIViewController, MSFloatableViewController {
+class FloatingPlayerViewController: UIViewController, MSFloatableViewController, UIGestureRecognizerDelegate {
    
     weak var floatingController: MSFloatingController? =  MSFloatingController.shared()
     
-    var floatingView: UIView = MSPlayer()
+    lazy var floatingView: UIView = MSPlayer()
     
     let createAnotherVCButton = UIButton(type: UIButtonType.system)
     
@@ -48,10 +48,24 @@ class FloatingPlayerViewController: UIViewController, MSFloatableViewController 
         if let player = floatingView as? MSPlayer {
             player.setVideoBy(asset)
         }
+        
+        // setup popNav gesture
+        let target = self.navigationController?.interactivePopGestureRecognizer?.delegate
+        let pan = UIPanGestureRecognizer(target: target,
+                                         action: Selector(("handleNavigationTransition:")))
+        pan.delegate = self
+        self.view.addGestureRecognizer(pan)
+        //同时禁用系统原先的侧滑返回功能
+        self.navigationController?.interactivePopGestureRecognizer!.isEnabled = true
+    }
+    
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         self.floatingController?.closeFloatingVC = { [weak self] in
-            if let player = self?.floatingView as? MSPlayer {
-                player.prepareToDealloc()
-            }
+           
         }
         
         self.floatingController?.shrinkFloatingVC = { [weak self] in
@@ -67,11 +81,21 @@ class FloatingPlayerViewController: UIViewController, MSFloatableViewController 
             }
             self?.createAnotherVCButton.isHidden = false
         }
+        
+        self.floatingController?.setToCurrentFloatingVC(self)
+    }
+    
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if self.navigationController?.viewControllers.count == 1 {
+            return false
+        } else {
+            return true
+        }
     }
     
     func createAnotherVC() {
         let floatingPlayerVC = FloatingPlayerViewController2()
-        MSFloatingController.shared().show(true, floatableVC: floatingPlayerVC)
+        MSFloatingController.shared().showWithNav(true, floatableVC: floatingPlayerVC)
     }
     
     

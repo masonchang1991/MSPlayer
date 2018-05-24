@@ -49,7 +49,7 @@ open class MSPlayer: UIView {
     /// AVLayerVideoGravityType
     open var videoGravity = AVLayerVideoGravityResizeAspectFill {
         didSet {
-           self.playerLayerView?.videoGravity = videoGravity
+            self.playerLayerView?.videoGravity = videoGravity
         }
     }
     
@@ -89,7 +89,7 @@ open class MSPlayer: UIView {
     
     /// Adjust the value of pan to seek
     open var panToSeekRate: Double {
-      return MSPlayerConfig.playerPanSeekRate
+        return MSPlayerConfig.playerPanSeekRate
     }
     /// 滑動方向
     fileprivate var panDirection: MSPlayer.MSPanDirection = .horizontal
@@ -141,7 +141,7 @@ open class MSPlayer: UIView {
      
      - parameter resource: media resource
      - parameter definitionIndex: starting definition index, default start with the first definition
-    */
+     */
     open func setVideoBy(_ resource: MSPlayerResource, definitionIndex: Int = 0, videoIdForRecord: String? = nil) {
         isURLSet = false
         self.resource = resource
@@ -172,16 +172,16 @@ open class MSPlayer: UIView {
     }
     /**
      auto start playing, call at viewWillAppear, see more at pause
-    */
+     */
     open func autoPlay() {
         if !isPauseByUser && isURLSet && !isPlayToTheEnd {
-             play()
+            play()
         }
     }
     
     /**
      play
-    */
+     */
     open func play() {
         if resource == nil {
             return
@@ -197,10 +197,10 @@ open class MSPlayer: UIView {
     }
     
     /**
-    Pause
- 
-    - parameter allow: should allow to response 'autoPlay' function
-    */
+     Pause
+     
+     - parameter allow: should allow to response 'autoPlay' function
+     */
     open func pause(autoPlay allow: Bool = false) {
         recordCurrentTime()
         isPauseByUser = !allow
@@ -214,14 +214,14 @@ open class MSPlayer: UIView {
      seek
      
      - parameter to: target time
-    */
+     */
     open func seek(_ targetTime: TimeInterval, completion: (() -> ())? = nil) {
         playerLayerView?.seek(to: targetTime, completion: completion)
     }
     
     /**
      update UI to fullScreen
-    */
+     */
     open func updateUI(_ isFullScreen: Bool) {
         controlView.updateUI(for: isFullScreen)
         self.updateFrame()
@@ -229,9 +229,9 @@ open class MSPlayer: UIView {
     
     /**
      increase volume with step, default step 0.1
- 
+     
      - parameter step: step
-    */
+     */
     open func addVolume(step: Float = 0.1) {
         self.volumeViewSlider.value += step
     }
@@ -240,7 +240,7 @@ open class MSPlayer: UIView {
      decrease volume with step, default step 0.1
      
      - parameter step: step
-    */
+     */
     open func reduceVolume(step: Float = 0.1) {
         self.volumeViewSlider.value -= step
     }
@@ -275,9 +275,9 @@ open class MSPlayer: UIView {
     /**
      If you want to create MSPlayer with custom control in storyBoard.
      create a subclass and override this method
- 
+     
      - return: costom control which you want to use
-    */
+     */
     open class func storyBoardCustomControl() -> MSPlayerControlView? {
         return nil
     }
@@ -399,14 +399,14 @@ open class MSPlayer: UIView {
             // 每次滑動需要疊加時間，通過一定的比例，使滑動一直處於統一水平
             if isUserMoveSlider {
                 // 如果是移動滑桿，則按照他滑動的距離去決定他滑動的進度條多少
-              self.sumTime = self.sumTime + TimeInterval(value) / 100.0 * (TimeInterval(self.totalDuration)/400)
+                self.sumTime = self.sumTime + TimeInterval(value) / 100.0 * (TimeInterval(self.totalDuration)/400)
             } else {
                 // 如果是滑動螢幕，則進度條慢慢前進，總時間越短，totalDurationAdjustParameter也會越小，避免移動過快
                 let totalDurationAdjustParameter = (TimeInterval(self.totalDuration) / 400) < 0.5 ? 0.5: (TimeInterval(self.totalDuration) / 400)
                 self.sumTime = self.sumTime + TimeInterval(value) / 100 * 0.4 * panToSeekRate * totalDurationAdjustParameter
             }
             let totalTime = playerItem.duration
-           
+            
             // 防止出現NAN
             if totalTime.timescale == 0 { return }
             
@@ -485,7 +485,7 @@ open class MSPlayer: UIView {
         configureVolume()
         preparePlayer()
     }
-
+    
     public convenience init() {
         self.init(customControlView: nil)
     }
@@ -640,7 +640,7 @@ extension MSPlayer: MSPlayerControlViewDelegate {
                 if isFullScreen {
                     // 如果是全螢幕則跳出全螢幕
                     fullScreenButtonPressed()
-                } else if MSPM.shared().isUsingFloatingControl {
+                } else if MSFloatingController.sharedInstance != nil {
                     MSFloatingController.shared().shrink()
                 } else {
                     // 如果不是全螢幕則popFromNav
@@ -703,9 +703,9 @@ extension MSPlayer: MSPlayerControlViewDelegate {
     }
     
     // not set
-//    public func controlView(_ controlView: MSPlayerControlView, didChange aspectRatio: MSPM.AspectRatio) {
-//        self.playerLayerView?.aspectRatio = self.aspectRatio
-//    }
+    //    public func controlView(_ controlView: MSPlayerControlView, didChange aspectRatio: MSPM.AspectRatio) {
+    //        self.playerLayerView?.aspectRatio = self.aspectRatio
+    //    }
     
     public func controlView(_ controlView: MSPlayerControlView, didChange playBackRate: Float) {
         self.playerLayerView?.player?.rate = playBackRate

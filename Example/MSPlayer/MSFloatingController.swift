@@ -18,13 +18,19 @@ public class MSFloatingController: NSObject {
     }
     
     //MARK: Shared Instance
-    private static var sharedInstance: MSFloatingController?
+    open private(set) static var sharedInstance: MSFloatingController?
     
     //MARK: MSFloatingViewController floating state
     public enum FloatingState {
         case animation
         case normal
         case minimum
+    }
+    
+    public enum UseFloatingType {
+        case none
+        case normal
+        case withNav
     }
     
     // Avoid init
@@ -34,16 +40,26 @@ public class MSFloatingController: NSObject {
     var floatableType: MSFloatableViewController? {
         didSet {
             if floatableType == nil {
+                self.usingType = .none
                 self.gestureManager = nil
                 MSPM.shared().isUsingFloatingControl = false
                 MSFloatingController.sharedInstance = nil
                 MSPM.shared().msFloatingWindow = nil
             } else {
-                self.gestureManager = nil
+                // 設定使用者使用的類型
+                if self.floatNavigationController != nil {
+                    self.usingType = .withNav
+                } else {
+                    self.usingType = .normal
+                }
                 MSPM.shared().isUsingFloatingControl = true
             }
         }
     }
+    
+    var floatNavigationController: UINavigationController?
+    
+    public var usingType: UseFloatingType = .none
     
     var gestureManager: MSFloatingGestureManager?
     public var msplayerWindow: UIWindow?
@@ -117,23 +133,101 @@ public class MSFloatingController: NSObject {
             switch state {
                 
             case .minimum:
-            //MARK: - expand current VC
+                //MARK: - expand current VC
                 expand()
-            //MARK: - change current VC
+                //MARK: - change current VC
                 fallthrough
             case .normal:
-            //TODO: - change current VC
+                //TODO: - change current VC
                 self.closeFloatingVC?()
                 self.floatableType = floatableVC
                 if let floatableVC = floatableType as? UIViewController {
                     self.msplayerWindow?.rootViewController = floatableVC
                     self.floatableType?.floatingController = self
-                    self.gestureManager = MSFloatingGestureManager(floatingController: self)
                 }
             default:
                 break
             }
         }
+    }
+    
+    public func showWithNav(_ animated: Bool, frame: CGRect = UIScreen.main.bounds, floatableVC: MSFloatableViewController) {
+        
+        if self.floatNavigationController == nil {
+            
+            guard let floatableViewController = floatableVC as? UIViewController else { return }
+            self.floatNavigationController = UINavigationController(rootViewController: floatableViewController)
+            self.floatableType = floatableVC
+            self.windowOriginFrame = frame
+            self.state = .normal
+            guard
+                let msplayerWindow = createCustomWindowWith(frame),
+                let floatableVC = floatableType as? UIViewController else {
+                    return
+            }
+            // set connection between controller and VC
+            msplayerWindow.rootViewController = self.floatNavigationController
+            floatableType?.floatingController = self
+            self.gestureManager = MSFloatingGestureManager(floatingController: self)
+            addObserver()
+            
+            if animated {
+                let screenBounds = UIScreen.main.bounds
+                floatableVC.view.frame = CGRect(x: screenBounds.size.width,
+                                                y: screenBounds.size.height,
+                                                width: msplayerWindow.frame.size.width,
+                                                height: msplayerWindow.frame.size.height)
+                floatableVC.view.alpha = 0
+                floatableVC.view.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
+                
+                UIView.animate(withDuration: 0.5, animations: {
+                    floatableVC.view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                    floatableVC.view.alpha = 1
+                    floatableVC.view.frame = CGRect(x: 0,
+                                                    y: 0,
+                                                    width: msplayerWindow.frame.size.width,
+                                                    height: msplayerWindow.frame.size.height)
+                }) { (finish) in
+                    
+                }
+            } else {
+                floatableVC.view.frame = CGRect(x: 0,
+                                                y: 0,
+                                                width: msplayerWindow.frame.size.width,
+                                                height: msplayerWindow.frame.size.height)
+            }
+            
+        } else {
+            
+            switch state {
+                
+            case .minimum:
+                expand()
+                fallthrough
+            case .normal:
+                guard let floatableViewController = floatableVC as? UIViewController else { return }
+                self.floatNavigationController?.pushViewController(floatableViewController, animated: true)
+                self.floatableType = floatableVC
+                self.floatableType?.floatingController = self
+            default:
+                break
+            }
+        }
+    }
+    
+    //MARK: - when ur using type is withNav, you can use this to pop from nav, if not, don't use this func
+    public func popFromNav() {
+        self.closeFloatingVC?()
+        self.floatNavigationController?.popViewController(animated: true)
+        // 前一個controller
+        if let floatableVC =  self.floatNavigationController?.viewControllers.last as? MSFloatableViewController {
+            self.setToCurrentFloatingVC(floatableVC)
+        }
+    }
+    
+    //MARK: - when ur using type is withNav, you must call this to vc.viewWillAppear to change current floatingController's floatingVC
+    public func setToCurrentFloatingVC(_ currentVC: MSFloatableViewController) {
+        self.floatableType = currentVC
     }
     
     public func close(_ animated: Bool = true) {
@@ -145,8 +239,16 @@ public class MSFloatingController: NSObject {
     public func shrink() {
         //MARK: - 如果 floatableVC 在畫面上，以及目前狀態不等於縮小化狀態，才可以放大
         if floatableType != nil && self.state != .minimum {
-            shrinkViews()
-            shrinkFloatingVC?()
+            switch self.usingType {
+            case .normal:
+                shrinkViews()
+                shrinkFloatingVC?()
+            case .withNav:
+                shrinkViews()
+                shrinkFloatingVC?()
+            default:
+                break
+            }
         }
     }
     
@@ -271,6 +373,7 @@ extension MSFloatingController {
             self.floatingViewTapGesture = nil
             self.floatingViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.expand))
             self.floatableType?.floatingView.addGestureRecognizer(self.floatingViewTapGesture!)
+            self.gestureManager = MSFloatingGestureManager(floatingController: self)
             self.gestureManager?.setSlideGesture()
             
             self.state = .minimum

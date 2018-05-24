@@ -9,7 +9,7 @@
 import UIKit
 import MSPlayer
 
-class FloatingPlayerViewController2: UIViewController, MSFloatableViewController {
+class FloatingPlayerViewController2: UIViewController, MSFloatableViewController, UIGestureRecognizerDelegate {
     
     weak var floatingController: MSFloatingController? =  MSFloatingController.shared()
     
@@ -49,9 +49,24 @@ class FloatingPlayerViewController2: UIViewController, MSFloatableViewController
         if let player = floatingView as? MSPlayer {
             player.setVideoBy(asset)
         }
+        
+        // setup popNav gesture
+        let target = self.navigationController?.interactivePopGestureRecognizer?.delegate
+        let pan = UIPanGestureRecognizer(target: target,
+                                         action: Selector(("handleNavigationTransition:")))
+        pan.delegate = self
+        self.view.addGestureRecognizer(pan)
+        //同时禁用系统原先的侧滑返回功能
+        self.navigationController?.interactivePopGestureRecognizer!.isEnabled = true
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         self.floatingController?.closeFloatingVC = { [weak self] in
             if let player = self?.floatingView as? MSPlayer {
-                player.prepareToDealloc()
+//                player.prepareToDealloc()
             }
         }
         
@@ -70,11 +85,19 @@ class FloatingPlayerViewController2: UIViewController, MSFloatableViewController
         }
     }
     
+    
     func createAnotherVC() {
         let floatingPlayerVC = FloatingPlayerViewController()
-        MSFloatingController.shared().show(true, floatableVC: floatingPlayerVC)
+        MSFloatingController.shared().showWithNav(true, floatableVC: floatingPlayerVC)
     }
     
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if self.navigationController?.viewControllers.count == 1 {
+            return false
+        } else {
+            return true
+        }
+    }
     
     deinit {
         print("class", self.classForCoder, "dealloc")

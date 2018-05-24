@@ -1,4 +1,4 @@
-//
+
 //  MSFloatingGestureManager.swift
 //  MSPlayer
 //
@@ -65,7 +65,7 @@ class MSFloatingGestureManager: NSObject {
     
     func panActionStateChanged(location: CGPoint, recognizer: UIPanGestureRecognizer) {
         //TODO: - 通知外面滑動變更
-        
+        print("location:", location)
         // floatingView的原點 == 你點擊的位置 - 點擊在floatingView上面的y
         var nextYPosition: CGFloat = 0.0
         if (location.y - touchPositionStartY) <= 5 {
@@ -90,7 +90,7 @@ class MSFloatingGestureManager: NSObject {
     }
     
     func panActionStateEnded(location: CGPoint, recognizer: UIPanGestureRecognizer) {
-
+        
         let velocity = recognizer.velocity(in: UIApplication.shared.keyWindow)
         let adjustVelocity = CGPoint(x: velocity.x / 4, y: velocity.y / 4)
         var toBeDissmiss: Bool = false

@@ -11,3 +11,5 @@ public protocol MSFloatableViewController {
     var floatingController: MSFloatingController? { get set }
     var floatingView: UIView { get set }
 }
+
+

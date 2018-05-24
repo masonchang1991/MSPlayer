@@ -115,6 +115,8 @@ public class MSPM {
     open var bottomMaskBackgroundColor = UIColor.black.withAlphaComponent(0.6)
     open var backButtonImage: UIImage? = MSPM.MSImageResourcePath("MSPlayer_back_image")
     open var backButtonImageViewTintColor = UIColor.white
+    open var downButtonImage: UIImage? = MSPM.MSImageResourcePath("MSPlayer_down_image")
+    open var downButtonImageViewTintColor = UIColor.white
     open var playButtonImage: UIImage? = MSPM.MSImageResourcePath("MSPlayer_play_image")
     open var pauseButtonImage: UIImage? = MSPM.MSImageResourcePath("MSPlayer_pause_image")
     open var totalTimeTextColor = UIColor.white

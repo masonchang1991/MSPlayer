@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MSPlayer'
-  s.version          = '1.1.1'
-  s.summary          = 'A quick use videoPlayer'
+  s.version          = '1.1.2'
+  s.summary          = 'A quick use VideoPlayer base on avplayer and support floating like youtube did'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?

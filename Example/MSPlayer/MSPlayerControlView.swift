@@ -498,7 +498,11 @@ open class MSPlayerControlView: UIView {
         // Top Views
         topMaskView.addSubview(backButton)
         backButton.tag = MSPM.ButtonType.back.rawValue
-        backButton.setImage(MSPlayerConfig.backButtonImage, for: .normal)
+        if MSFloatingController.shared().usingType == .normal {
+            backButton.setImage(MSPlayerConfig.downButtonImage, for: .normal)
+        } else {
+            backButton.setImage(MSPlayerConfig.downButtonImage, for: .normal)
+        }
         backButton.imageView?.tintColor = MSPlayerConfig.backButtonImageViewTintColor
         backButton.addTarget(self, action: #selector(onButtonPressed(_:)), for: .touchUpInside)
         
