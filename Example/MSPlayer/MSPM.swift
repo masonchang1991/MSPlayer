@@ -87,8 +87,8 @@ public class MSPM {
     open var recordVideoTimeNumber: Int = 30
     
     /// is Using floating
-    var isUsingFloatingControl = false    
     weak var msFloatingWindow: UIWindow?
+    open var floatingViewMinSize = CGSize(width: 178 * MSPM.screenRatio, height: 100 * MSPM.screenRatio)
     
     /// tint color
     open var loaderTintColor = UIColor.white
@@ -153,7 +153,7 @@ public class MSPM {
         } else if (currentLanguage.range(of: "Hans") != nil) {
             title = "亮度"
         } else {
-           title = "Brightness"
+            title = "Brightness"
         }
         return title
     }

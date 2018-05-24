@@ -42,7 +42,6 @@ public class MSFloatingController: NSObject {
             if floatableType == nil {
                 self.usingType = .none
                 self.gestureManager = nil
-                MSPM.shared().isUsingFloatingControl = false
                 MSFloatingController.sharedInstance = nil
                 MSPM.shared().msFloatingWindow = nil
             } else {
@@ -52,7 +51,6 @@ public class MSFloatingController: NSObject {
                 } else {
                     self.usingType = .normal
                 }
-                MSPM.shared().isUsingFloatingControl = true
             }
         }
     }
@@ -69,7 +67,7 @@ public class MSFloatingController: NSObject {
     public var state: FloatingState = .normal
     
     // FloatingView Setting
-    public var floatingMinimizedFrame = CGSize(width: 144, height: 81)
+    public var floatingMinimizedSize = MSPM.shared().floatingViewMinSize
     public var windowOriginFrame = CGRect.zero
     public var windowMinimizedFrame = CGRect.zero
     public var floatingViewOriginFrame = CGRect.zero
@@ -346,17 +344,17 @@ extension MSFloatingController {
         // 縮小前將originFrame設定好
         self.floatingViewOriginFrame = self.floatableType?.floatingView.frame ?? CGRect.zero
         
-        let yOffset = windowOriginFrame.size.height - self.floatingMinimizedFrame.height
-        let xOffset = windowOriginFrame.size.width - self.floatingMinimizedFrame.width
+        let yOffset = windowOriginFrame.size.height - self.floatingMinimizedSize.height
+        let xOffset = windowOriginFrame.size.width - self.floatingMinimizedSize.width
         
         windowMinimizedFrame.origin.y = yOffset
         windowMinimizedFrame.origin.x = xOffset
-        windowMinimizedFrame.size.width = self.floatingMinimizedFrame.width
-        windowMinimizedFrame.size.height = self.floatingMinimizedFrame.height
+        windowMinimizedFrame.size.width = self.floatingMinimizedSize.width
+        windowMinimizedFrame.size.height = self.floatingMinimizedSize.height
         
         //MARK: - 定義浮動視窗的長度
-        floatingViewMinimizedFrame.size.width = self.floatingMinimizedFrame.width
-        floatingViewMinimizedFrame.size.height = self.floatingMinimizedFrame.height
+        floatingViewMinimizedFrame.size.width = self.floatingMinimizedSize.width
+        floatingViewMinimizedFrame.size.height = self.floatingMinimizedSize.height
         
         //MARK: - set state at animation
         self.state = .animation
