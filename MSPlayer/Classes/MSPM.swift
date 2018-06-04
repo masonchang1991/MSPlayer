@@ -80,6 +80,16 @@ public class MSPM {
         return (UIScreen.main.bounds.width) / CGFloat(375)
     }
     
+    open static var deviceDefaultAspectRatio: AspectRatio {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return .four2THREE
+        } else if UIDevice.current.userInterfaceIdiom == .phone {
+            return .sixteen2NINE
+        } else {
+            return .default
+        }
+    }
+    
     open var openRecorder: Bool = true
     //Record user's watch time max number
     open var recordVideoTimeNumber: Int = 30
@@ -154,7 +164,7 @@ public class MSPM {
         } else if (currentLanguage.range(of: "Hans") != nil) {
             title = "亮度"
         } else {
-           title = "Brightness"
+            title = "Brightness"
         }
         return title
     }
