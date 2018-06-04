@@ -32,7 +32,7 @@ class MSFloatingGestureManager: NSObject {
     
     func setSlideGesture() {
         self.panGesture = UIPanGestureRecognizer(target: self, action: #selector(panAction(_:)))
-        self.floatingController.floatableType?.floatingView.addGestureRecognizer(self.panGesture!)
+        self.floatingController.floatableType?.player.addGestureRecognizer(self.panGesture!)
     }
     
     @objc func panAction(_ recognizer: UIPanGestureRecognizer) {

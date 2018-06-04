@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 public protocol MSFloatableViewController {
     var floatingController: MSFloatingController? { get set }
-    var floatingView: UIView { get set }
+    var player: MSPlayer { get set }
 }
 
 

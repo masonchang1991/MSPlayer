@@ -13,7 +13,7 @@ class NormalFloatingPlayerVC2: UIViewController, MSFloatableViewController, UIGe
     
     weak var floatingController: MSFloatingController? =  MSFloatingController.shared()
     
-    lazy var floatingView: UIView = MSPlayer()
+    lazy var player = MSPlayer()
     
     let createAnotherVCButton = UIButton(type: UIButtonType.system)
     
@@ -27,25 +27,23 @@ class NormalFloatingPlayerVC2: UIViewController, MSFloatableViewController, UIGe
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if let player = self.floatingView as? MSPlayer {
-            player.pause()
-        }
+        player.pause()
     }
     
     func setupView() {
         self.view.backgroundColor = UIColor.white
         
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-        self.view.addSubview(floatingView)
-        floatingView.translatesAutoresizingMaskIntoConstraints = false
-        floatingView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-        floatingView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        floatingView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        floatingView.heightAnchor.constraint(equalTo: self.floatingView.widthAnchor, multiplier: (9/16)).isActive = true
+        self.view.addSubview(player)
+        player.translatesAutoresizingMaskIntoConstraints = false
+        player.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        player.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        player.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        player.heightAnchor.constraint(equalTo: self.player.widthAnchor, multiplier: (9/16)).isActive = true
         
         self.view.addSubview(createAnotherVCButton)
         createAnotherVCButton.translatesAutoresizingMaskIntoConstraints = false
-        createAnotherVCButton.topAnchor.constraint(equalTo: self.floatingView.bottomAnchor).isActive = true
+        createAnotherVCButton.topAnchor.constraint(equalTo: self.player.bottomAnchor).isActive = true
         createAnotherVCButton.heightAnchor.constraint(equalToConstant: 50.0).isActive = true
         createAnotherVCButton.widthAnchor.constraint(equalToConstant: 250.0).isActive = true
         createAnotherVCButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
@@ -59,9 +57,7 @@ class NormalFloatingPlayerVC2: UIViewController, MSFloatableViewController, UIGe
         MSPlayerConfig.playerVolumeChangeRate = 0.5
         let asset = MSPlayerResource(url: URL(string: "http://184.72.239.149/vod/smil:BigBuckBunny.smil/playlist.m3u8")!)
         
-        if let player = floatingView as? MSPlayer {
-            player.setVideoBy(asset)
-        }
+        player.setVideoBy(asset)
         
         //MARK: - Do something when floatingVC being closed
         self.floatingController?.closeFloatingVC = { [weak self] in
