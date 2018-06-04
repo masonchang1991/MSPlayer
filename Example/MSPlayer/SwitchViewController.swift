@@ -52,12 +52,13 @@ extension SwitchViewController: UITableViewDelegate, UITableViewDataSource {
         switch types[indexPath.row] {
         case .onlyPlayer:
             let normalPlayerVC = NormalPlayerVC()
-            self.navigationController?.pushViewController(normalPlayerVC, animated: true)
+            self.navigationController?.pushViewController(normalPlayerVC, animated: false)
+        case .normalFloating:
+            let floatingPlayerVC = NormalFloatingPlayerVC()
+            MSFloatingController.shared().show(true, floatableVC: floatingPlayerVC)
         case .stackFloating:
             let floatingPlayerVC = StackFloatingPlayerVC()
-            MSFloatingController.shared().show(true, floatableVC: floatingPlayerVC)
-        default:
-            break
+            MSStackFloatingController.shared().show(true, floatableVC: floatingPlayerVC)
         }
     }
     

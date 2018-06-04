@@ -67,6 +67,7 @@
 		8B664E620049FE93110962F58DD045C9 /* NVActivityIndicatorAnimationBallZigZagDeflect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF66B6ACB603D3CA7395E65FBCE08CB /* NVActivityIndicatorAnimationBallZigZagDeflect.swift */; };
 		934E9E2C20BD5D61006E3ED4 /* MSStackFloatingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934E9E2B20BD5D61006E3ED4 /* MSStackFloatingController.swift */; };
 		934E9E2E20BD636C006E3ED4 /* MSFloatingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934E9E2D20BD636C006E3ED4 /* MSFloatingType.swift */; };
+		935D34D920C51F6B00FFAE05 /* VideoTimeRecord.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 935D34D820C51F6B00FFAE05 /* VideoTimeRecord.xcdatamodel */; };
 		94F4CEAC9EDB3553E65FB4320CEAE1AA /* NVActivityIndicatorAnimationBallClipRotateMultiple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E60BACC7B4177417855C11A631BDA71 /* NVActivityIndicatorAnimationBallClipRotateMultiple.swift */; };
 		95217686862967CB92B60E3DB9C1AFC1 /* MSPlayer_replay_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22840D3EE9074524A6ADBD11F3D2CE07 /* MSPlayer_replay_image@3x.png */; };
 		96A2FEA383D234BFD0B4E776C8C05F18 /* NVActivityIndicatorAnimationBallScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D862FD51EC285D4764C090315CCB202 /* NVActivityIndicatorAnimationBallScale.swift */; };
@@ -201,6 +202,7 @@
 		92DDD709CDF9638BCA9FA8014C9B3216 /* NVActivityIndicatorAnimationDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationDelegate.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/NVActivityIndicatorAnimationDelegate.swift; sourceTree = "<group>"; };
 		934E9E2B20BD5D61006E3ED4 /* MSStackFloatingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSStackFloatingController.swift; sourceTree = "<group>"; };
 		934E9E2D20BD636C006E3ED4 /* MSFloatingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSFloatingType.swift; sourceTree = "<group>"; };
+		935D34D820C51F6B00FFAE05 /* VideoTimeRecord.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; name = VideoTimeRecord.xcdatamodel; path = MSPlayer/Assets/VideoTimeRecord.xcdatamodel; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		958F54B904EF5EA7A8A367BE3B8B7754 /* NVActivityIndicatorAnimationBallClipRotate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallClipRotate.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallClipRotate.swift; sourceTree = "<group>"; };
 		988D9F492A7836AF0DF64BF19EDB6F08 /* NVActivityIndicatorAnimationLineScalePulseOutRapid.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationLineScalePulseOutRapid.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationLineScalePulseOutRapid.swift; sourceTree = "<group>"; };
@@ -461,6 +463,7 @@
 				FCEB14E05E82F125125884B542541A11 /* MSPlayer_play_image@3x.png */,
 				ECE9F61B9171F6A4BE4F5AC9DC9E8A77 /* MSPlayer_playCover_image@2x.png */,
 				722A9C0F6BDE57FBAD0449B4F0BBDDA6 /* MSPlayer_playCover_image@3x.png */,
+				935D34D820C51F6B00FFAE05 /* VideoTimeRecord.xcdatamodel */,
 				E20266E1696E7D8A08BF5E8B3859A2EE /* MSPlayer_replay_image@2x.png */,
 				22840D3EE9074524A6ADBD11F3D2CE07 /* MSPlayer_replay_image@3x.png */,
 				07947B0B2EC8C5E99D395C1F188F564C /* MSPlayer_seekTo_image@2x.png */,
@@ -748,6 +751,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C63F19E299442E16E85938168D52309 /* CoreDataManager.swift in Sources */,
+				935D34D920C51F6B00FFAE05 /* VideoTimeRecord.xcdatamodel in Sources */,
 				D64A3E65E387975794E98D7B96060EF2 /* FormatDisplay.swift in Sources */,
 				EF3C1EEB9C70B007C9290168ECDCC0BF /* MSBrightnessView.swift in Sources */,
 				25B280B4D777E443818BED38E36ED591 /* MSFloatableViewController.swift in Sources */,

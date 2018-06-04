@@ -17,6 +17,8 @@
 		8AAAD640D98C5392ED470FCB /* Pods_MSPlayer_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506180754ED434DB8C94312F /* Pods_MSPlayer_Example.framework */; };
 		931485D820AD579B00D6DA6B /* StackFloatingPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931485D720AD579B00D6DA6B /* StackFloatingPlayerVC.swift */; };
 		93313FDF20C51C1A0015BEC4 /* VideoTimeRecord.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93313FDD20C51C1A0015BEC4 /* VideoTimeRecord.xcdatamodeld */; };
+		935D34DB20C5204100FFAE05 /* NormalFloatingPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935D34DA20C5204100FFAE05 /* NormalFloatingPlayerVC.swift */; };
+		935D34DD20C520B100FFAE05 /* NormalFloatingPlayerVC2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935D34DC20C520B100FFAE05 /* NormalFloatingPlayerVC2.swift */; };
 		9387E61320B2D4A4000C7739 /* StackFloatingPlayerVC2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9387E61220B2D4A4000C7739 /* StackFloatingPlayerVC2.swift */; };
 		9389755420C50C300048230E /* MSFloatingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389755320C50C300048230E /* MSFloatingType.swift */; };
 		9389755620C50D3C0048230E /* MSStackFloatingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389755520C50D3C0048230E /* MSStackFloatingController.swift */; };
@@ -63,6 +65,8 @@
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		931485D720AD579B00D6DA6B /* StackFloatingPlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackFloatingPlayerVC.swift; sourceTree = "<group>"; };
 		93313FDE20C51C1A0015BEC4 /* VideoTimeRecord.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VideoTimeRecord.xcdatamodel; sourceTree = "<group>"; };
+		935D34DA20C5204100FFAE05 /* NormalFloatingPlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalFloatingPlayerVC.swift; sourceTree = "<group>"; };
+		935D34DC20C520B100FFAE05 /* NormalFloatingPlayerVC2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalFloatingPlayerVC2.swift; sourceTree = "<group>"; };
 		9387E61220B2D4A4000C7739 /* StackFloatingPlayerVC2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackFloatingPlayerVC2.swift; sourceTree = "<group>"; };
 		9389755320C50C300048230E /* MSFloatingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSFloatingType.swift; sourceTree = "<group>"; };
 		9389755520C50D3C0048230E /* MSStackFloatingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSStackFloatingController.swift; sourceTree = "<group>"; };
@@ -143,6 +147,8 @@
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				938D910A20AD5A94001857C0 /* SwitchViewController.swift */,
 				607FACD71AFB9204008FA782 /* NormalPlayerVC.swift */,
+				935D34DA20C5204100FFAE05 /* NormalFloatingPlayerVC.swift */,
+				935D34DC20C520B100FFAE05 /* NormalFloatingPlayerVC2.swift */,
 				931485D720AD579B00D6DA6B /* StackFloatingPlayerVC.swift */,
 				9387E61220B2D4A4000C7739 /* StackFloatingPlayerVC2.swift */,
 				93CE625C208724C300B02CE0 /* MSPlayer */,
@@ -453,8 +459,10 @@
 				93FF3C5620B535C100477058 /* MSFloatingGestureManager.swift in Sources */,
 				93FF3C5720B535C100477058 /* MSBrightnessView.swift in Sources */,
 				9389755420C50C300048230E /* MSFloatingType.swift in Sources */,
+				935D34DD20C520B100FFAE05 /* NormalFloatingPlayerVC2.swift in Sources */,
 				93FF3C5A20B535C100477058 /* MSFloatingController.swift in Sources */,
 				93FF3C5B20B535C100477058 /* MSPlayerControlView.swift in Sources */,
+				935D34DB20C5204100FFAE05 /* NormalFloatingPlayerVC.swift in Sources */,
 				93FF3C6020B535C100477058 /* MSPlayer.swift in Sources */,
 				93FF3C5F20B535C100477058 /* FormatDisplay.swift in Sources */,
 				93313FDF20C51C1A0015BEC4 /* VideoTimeRecord.xcdatamodeld in Sources */,
