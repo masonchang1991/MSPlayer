@@ -135,8 +135,12 @@ open class MSPlayer: UIView {
         case unknown
     }
     
-    // 畫面比例
-    fileprivate var aspectRatio: MSPM.AspectRatio = .default
+    //MARK: - 可以設定此參數決定畫面比例
+    open var aspectRatio: MSPM.AspectRatio? {
+        didSet {
+            self.playerLayerView?.aspectRatio = self.aspectRatio ?? .default
+        }
+    }
     // cache is playing result to improve callback performance
     fileprivate var isPlayingCache: Bool? = nil
     
@@ -717,11 +721,6 @@ extension MSPlayer: MSPlayerControlViewDelegate {
             break
         }
     }
-    
-    // not set
-    //    public func controlView(_ controlView: MSPlayerControlView, didChange aspectRatio: MSPM.AspectRatio) {
-    //        self.playerLayerView?.aspectRatio = self.aspectRatio
-    //    }
     
     public func controlView(_ controlView: MSPlayerControlView, didChange playBackRate: Float) {
         self.playerLayerView?.player?.rate = playBackRate

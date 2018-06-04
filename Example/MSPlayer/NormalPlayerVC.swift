@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import MSPlayer
+import MSPlayer
 import MediaPlayer
 import AVKit
 
@@ -32,7 +32,7 @@ class NormalPlayerVC: UIViewController {
         MSPlayerConfig.playerBrightnessChangeRate = 2.0
         MSPlayerConfig.playerVolumeChangeRate = 0.5
         let asset = MSPlayerResource(url: URL(string: "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8")!)
-        player.setVideoBy(asset)
+        player.setVideoBy(asset, videoIdForRecord: "001")
         
         player.backBlock = { [weak self] (isFullScreen) in
             if isFullScreen == true { return }

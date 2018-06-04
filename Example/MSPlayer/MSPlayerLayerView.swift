@@ -54,7 +54,7 @@ open class MSPlayerLayerView: UIView {
         }
     }
     
-    var aspectRatio: MSPM.AspectRatio = .default {
+    var aspectRatio: MSPM.AspectRatio = MSPM.deviceDefaultAspectRatio {
         didSet {
             self.setNeedsLayout()
         }
