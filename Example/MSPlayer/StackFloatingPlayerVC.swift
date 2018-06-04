@@ -9,9 +9,9 @@
 import UIKit
 import MSPlayer
 
-class FloatingPlayerViewController: UIViewController, MSFloatableViewController, UIGestureRecognizerDelegate {
+class StackFloatingPlayerVC: UIViewController, MSFloatableViewController, UIGestureRecognizerDelegate {
    
-    weak var floatingController: MSFloatingController? =  MSFloatingController.shared()
+    weak var floatingController: MSFloatingController? =  MSStackFloatingController.shared()
     
     lazy var floatingView: UIView = MSPlayer()
     
@@ -20,6 +20,37 @@ class FloatingPlayerViewController: UIViewController, MSFloatableViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setupView()
+        createAnotherVCButton.addTarget(self, action: #selector(createAnotherVC), for: .touchUpInside)
+        self.setupPlayer()
+        
+        // setup popNav gesture
+        let target = self.navigationController?.interactivePopGestureRecognizer?.delegate
+        let pan = UIPanGestureRecognizer(target: target,
+                                         action: Selector(("handleNavigationTransition:")))
+        pan.delegate = self
+        self.view.addGestureRecognizer(pan)
+        //同时禁用系统原先的侧滑返回功能
+        self.navigationController?.interactivePopGestureRecognizer!.isEnabled = false
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        //MARK: - set this vc to be current (must), if you don't setToCurrent, then you can do anything about this floatingVC
+        if let stackFloatingController = self.floatingController as? MSStackFloatingController {
+            stackFloatingController.setToCurrentFloatingVC(self)
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let player = self.floatingView as? MSPlayer {
+            player.pause()
+        }
+    }
+    
+    func setupView() {
         self.view.backgroundColor = UIColor.white
         
         self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -29,6 +60,7 @@ class FloatingPlayerViewController: UIViewController, MSFloatableViewController,
         floatingView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         floatingView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         floatingView.heightAnchor.constraint(equalTo: self.floatingView.widthAnchor, multiplier: (9/16)).isActive = true
+        
         self.view.addSubview(createAnotherVCButton)
         createAnotherVCButton.translatesAutoresizingMaskIntoConstraints = false
         createAnotherVCButton.topAnchor.constraint(equalTo: self.floatingView.bottomAnchor).isActive = true
@@ -37,9 +69,9 @@ class FloatingPlayerViewController: UIViewController, MSFloatableViewController,
         createAnotherVCButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         
         createAnotherVCButton.setTitle("Go To Second Video", for: .normal)
-        createAnotherVCButton.addTarget(self, action: #selector(createAnotherVC), for: .touchUpInside)
-        
-        
+    }
+    
+    func setupPlayer() {
         MSPlayerConfig.playerPanSeekRate = 0.5
         MSPlayerConfig.playerBrightnessChangeRate = 2.0
         MSPlayerConfig.playerVolumeChangeRate = 0.5
@@ -49,40 +81,20 @@ class FloatingPlayerViewController: UIViewController, MSFloatableViewController,
             player.setVideoBy(asset)
         }
         
-        // setup popNav gesture
-        let target = self.navigationController?.interactivePopGestureRecognizer?.delegate
-        let pan = UIPanGestureRecognizer(target: target,
-                                         action: Selector(("handleNavigationTransition:")))
-        pan.delegate = self
-        self.view.addGestureRecognizer(pan)
-        //同时禁用系统原先的侧滑返回功能
-        self.navigationController?.interactivePopGestureRecognizer!.isEnabled = true
-    }
-    
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
+        //MARK: - Do something when floatingVC being closed
         self.floatingController?.closeFloatingVC = { [weak self] in
-           
+            
         }
         
+        //MARK: - Do something when floatingVC being shrinked
         self.floatingController?.shrinkFloatingVC = { [weak self] in
-            if let player = self?.floatingView as? MSPlayer {
-                player.closeControlViewAndRemoveGesture()
-            }
             self?.createAnotherVCButton.isHidden = true
         }
         
+        //MARK: - Do something when floatingVC being expanded
         self.floatingController?.expandFloatingVC = { [weak self] in
-            if let player = self?.floatingView as? MSPlayer {
-                player.openControlViewAndSetGesture()
-            }
             self?.createAnotherVCButton.isHidden = false
         }
-        
-        self.floatingController?.setToCurrentFloatingVC(self)
     }
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -94,10 +106,9 @@ class FloatingPlayerViewController: UIViewController, MSFloatableViewController,
     }
     
     func createAnotherVC() {
-        let floatingPlayerVC = FloatingPlayerViewController2()
-        MSFloatingController.shared().showWithNav(true, floatableVC: floatingPlayerVC)
+        let floatingPlayerVC = StackFloatingPlayerVC2()
+        MSFloatingController.shared().show(true, floatableVC: floatingPlayerVC)
     }
-    
     
     deinit {
         print("class", self.classForCoder, "dealloc")

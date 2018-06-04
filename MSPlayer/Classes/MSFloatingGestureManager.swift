@@ -92,16 +92,20 @@ class MSFloatingGestureManager: NSObject {
     func panActionStateEnded(location: CGPoint, recognizer: UIPanGestureRecognizer) {
         
         let velocity = recognizer.velocity(in: UIApplication.shared.keyWindow)
-        let adjustVelocity = CGPoint(x: velocity.x / 4, y: velocity.y / 4)
+        let adjustVelocity = CGPoint(x: (velocity.x / 2) * MSPlayerConfig.floatingViewDecelerateVelocityRate,
+                                     y: (velocity.y / 2) * MSPlayerConfig.floatingViewDecelerateVelocityRate)
         var toBeDissmiss: Bool = false
         
         var nextYPosition: CGFloat = 0.0
-        if fabs(adjustVelocity.y) > 850 {
+        //MARK: - if adjustVelocity > a special number then it will dismiss
+        if fabs(adjustVelocity.y) > 850 * MSPlayerConfig.floatingViewDismissMinVelocityRate {
             toBeDissmiss = true
             nextYPosition = location.y + adjustVelocity.y
         } else if (location.y + adjustVelocity.y - touchPositionStartY) <= 5 {
+            //MARK: - fix location to edge and not out of bounds
             nextYPosition = 5.0
         } else if (location.y + adjustVelocity.y - touchPositionStartY + floatingController.windowMinimizedFrame.height) > UIScreen.main.bounds.height {
+            //MARK: - fix location to edge and not out of bounds
             nextYPosition = UIScreen.main.bounds.height - floatingController.windowMinimizedFrame.height - 5.0
         } else {
             nextYPosition = location.y + adjustVelocity.y - touchPositionStartY
@@ -112,8 +116,10 @@ class MSFloatingGestureManager: NSObject {
             toBeDissmiss = true
             nextXPosition = location.x + adjustVelocity.x
         } else if (location.x + adjustVelocity.x - touchPositionStartX) <= 5 {
+            //MARK: - fix location to edge and not out of bounds
             nextXPosition = 5.0
         } else if (location.x + adjustVelocity.x - touchPositionStartX + floatingController.windowMinimizedFrame.width) > UIScreen.main.bounds.width {
+            //MARK: - fix location to edge and not out of bounds
             nextXPosition = UIScreen.main.bounds.width - floatingController.windowMinimizedFrame.width - 5.0
         } else {
             nextXPosition = location.x + adjustVelocity.x - touchPositionStartX
@@ -139,7 +145,7 @@ class MSFloatingGestureManager: NSObject {
         
         //Use this to adjust the position of your view accordingly
         floatingController.windowMinimizedFrame.origin = endLoaction
-        UIView.animate(withDuration: 0.5, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.75, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
             self.floatingController.msplayerWindow?.frame = self.floatingController.windowMinimizedFrame
             //TODO: - change alpha
         }, completion: { (_) in

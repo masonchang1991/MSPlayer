@@ -7,11 +7,11 @@
 //
 
 import UIKit
-import MSPlayer
+//import MSPlayer
 import MediaPlayer
 import AVKit
 
-class ViewController: UIViewController {
+class NormalPlayerVC: UIViewController {
 
     lazy var player =  {
         return MSPlayer()
@@ -22,6 +22,7 @@ class ViewController: UIViewController {
         
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.view.addSubview(player)
+        player.delegate = self
         player.translatesAutoresizingMaskIntoConstraints = false
         player.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         player.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
@@ -33,7 +34,8 @@ class ViewController: UIViewController {
         let asset = MSPlayerResource(url: URL(string: "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8")!)
         player.setVideoBy(asset, videoIdForRecord: "TX004")
         
-        player.backBlock = { [weak self] (sure) in
+        player.backBlock = { [weak self] (isFullScreen) in
+            if isFullScreen == true { return }
             self?.navigationController?.popViewController(animated: false)
         }
         player.showBlock = { [weak self] (sure) in
@@ -51,5 +53,29 @@ class ViewController: UIViewController {
         print("viewController dealloc")
     }
 
+}
+
+extension NormalPlayerVC: MSPlayerDelegate {
+    func msPlayer(_ player: MSPlayer, stateDidChange state: MSPM.State) {
+        
+    }
+    
+    func msPlayer(_ player: MSPlayer, loadTimeDidChange loadedDuration: TimeInterval, totalDuration: TimeInterval) {
+        
+    }
+    
+    func msPlayer(_ player: MSPlayer, playTimeDidChange current: TimeInterval, total: TimeInterval) {
+        
+    }
+    
+    func msPlayer(_ player: MSPlayer, isPlaying: Bool) {
+        
+    }
+    
+    func msPlayer(_ player: MSPlayer, orientChanged isFullScreen: Bool) {
+        
+    }
+    
+    
 }
 

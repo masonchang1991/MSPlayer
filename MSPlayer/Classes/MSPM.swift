@@ -23,7 +23,7 @@ public enum MSPlayerTopBarShowCase: Int {
 
 public class MSPM {
     
-    static func shared() -> MSPM {
+    open static func shared() -> MSPM {
         if self.sharedInstance == nil {
             self.sharedInstance = MSPM()
             BrightnessView.shared()
@@ -80,8 +80,6 @@ public class MSPM {
         return (UIScreen.main.bounds.width) / CGFloat(375)
     }
     
-    open var fullScreenIgnoreConstraint = true
-    
     open var openRecorder: Bool = true
     //Record user's watch time max number
     open var recordVideoTimeNumber: Int = 30
@@ -89,6 +87,8 @@ public class MSPM {
     /// is Using floating
     weak var msFloatingWindow: UIWindow?
     open var floatingViewMinSize = CGSize(width: 178 * MSPM.screenRatio, height: 100 * MSPM.screenRatio)
+    open var floatingViewDecelerateVelocityRate: CGFloat = 1.0
+    open var floatingViewDismissMinVelocityRate: CGFloat = 1.0
     
     /// tint color
     open var loaderTintColor = UIColor.white
@@ -113,6 +113,7 @@ public class MSPM {
     open var playCoverImage: UIImage? = MSPM.MSImageResourcePath("MSPlayer_playCover_image")
     open var mainMaskBackgroundColor = UIColor.black.withAlphaComponent(0.1)
     open var bottomMaskBackgroundColor = UIColor.black.withAlphaComponent(0.6)
+    open var isUseBackImage: Bool = true
     open var backButtonImage: UIImage? = MSPM.MSImageResourcePath("MSPlayer_back_image")
     open var backButtonImageViewTintColor = UIColor.white
     open var downButtonImage: UIImage? = MSPM.MSImageResourcePath("MSPlayer_down_image")

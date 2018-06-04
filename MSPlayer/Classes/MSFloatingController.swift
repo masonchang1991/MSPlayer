@@ -10,7 +10,9 @@ import UIKit
 
 public class MSFloatingController: NSObject {
     
-    open static func shared() -> MSFloatingController {
+    open var type: MSFloatingType = .normal
+    
+    open class func shared() -> MSFloatingController {
         if self.sharedInstance == nil {
             self.sharedInstance = MSFloatingController()
         }
@@ -18,7 +20,7 @@ public class MSFloatingController: NSObject {
     }
     
     //MARK: Shared Instance
-    open private(set) static var sharedInstance: MSFloatingController?
+    internal static var sharedInstance: MSFloatingController? 
     
     //MARK: MSFloatingViewController floating state
     public enum FloatingState {
@@ -27,39 +29,21 @@ public class MSFloatingController: NSObject {
         case minimum
     }
     
-    public enum UseFloatingType {
-        case none
-        case normal
-        case withNav
-    }
-    
     // Avoid init
-    private override init() { }
+    internal override init() { }
     
     //MARK: Local Variable
     var floatableType: MSFloatableViewController? {
         didSet {
             if floatableType == nil {
-                self.usingType = .none
                 self.gestureManager = nil
                 MSFloatingController.sharedInstance = nil
                 MSPM.shared().msFloatingWindow = nil
-            } else {
-                // 設定使用者使用的類型
-                if self.floatNavigationController != nil {
-                    self.usingType = .withNav
-                } else {
-                    self.usingType = .normal
-                }
             }
         }
     }
     
-    var floatNavigationController: UINavigationController?
-    
-    public var usingType: UseFloatingType = .none
-    
-    var gestureManager: MSFloatingGestureManager?
+    internal var gestureManager: MSFloatingGestureManager?
     public var msplayerWindow: UIWindow?
     public var closeFloatingVC: (() -> (Void))?
     public var shrinkFloatingVC: (() -> (Void))?
@@ -96,8 +80,8 @@ public class MSFloatingController: NSObject {
             // Set connection between controller and vc
             msplayerWindow.rootViewController = floatableVC
             floatableType?.floatingController = self
-            self.gestureManager = MSFloatingGestureManager(floatingController: self)
             addObserver()
+            changePlayerBackImage(toDown: true)
             
             if animated {
                 let screenBounds = UIScreen.main.bounds
@@ -127,16 +111,15 @@ public class MSFloatingController: NSObject {
             
         } else {
             
-            //TODO: 如果已經存在則先判斷現在的狀態，如果是min則還原成normal，如果是normal則切換當前vc
+            //MARK: 如果已經存在則先判斷現在的狀態，如果是min則還原成normal，如果是normal則切換當前vc
             switch state {
                 
             case .minimum:
                 //MARK: - expand current VC
                 expand()
-                //MARK: - change current VC
                 fallthrough
             case .normal:
-                //TODO: - change current VC
+                //MARK: - replace current VC
                 self.closeFloatingVC?()
                 self.floatableType = floatableVC
                 if let floatableVC = floatableType as? UIViewController {
@@ -149,115 +132,56 @@ public class MSFloatingController: NSObject {
         }
     }
     
-    public func showWithNav(_ animated: Bool, frame: CGRect = UIScreen.main.bounds, floatableVC: MSFloatableViewController) {
-        
-        if self.floatNavigationController == nil {
-            
-            guard let floatableViewController = floatableVC as? UIViewController else { return }
-            self.floatNavigationController = UINavigationController(rootViewController: floatableViewController)
-            self.floatableType = floatableVC
-            self.windowOriginFrame = frame
-            self.state = .normal
-            guard
-                let msplayerWindow = createCustomWindowWith(frame),
-                let floatableVC = floatableType as? UIViewController else {
-                    return
-            }
-            // set connection between controller and VC
-            msplayerWindow.rootViewController = self.floatNavigationController
-            floatableType?.floatingController = self
-            self.gestureManager = MSFloatingGestureManager(floatingController: self)
-            addObserver()
-            
-            if animated {
-                let screenBounds = UIScreen.main.bounds
-                floatableVC.view.frame = CGRect(x: screenBounds.size.width,
-                                                y: screenBounds.size.height,
-                                                width: msplayerWindow.frame.size.width,
-                                                height: msplayerWindow.frame.size.height)
-                floatableVC.view.alpha = 0
-                floatableVC.view.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
-                
-                UIView.animate(withDuration: 0.5, animations: {
-                    floatableVC.view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-                    floatableVC.view.alpha = 1
-                    floatableVC.view.frame = CGRect(x: 0,
-                                                    y: 0,
-                                                    width: msplayerWindow.frame.size.width,
-                                                    height: msplayerWindow.frame.size.height)
-                }) { (finish) in
-                    
-                }
-            } else {
-                floatableVC.view.frame = CGRect(x: 0,
-                                                y: 0,
-                                                width: msplayerWindow.frame.size.width,
-                                                height: msplayerWindow.frame.size.height)
-            }
-            
-        } else {
-            
-            switch state {
-                
-            case .minimum:
-                expand()
-                fallthrough
-            case .normal:
-                guard let floatableViewController = floatableVC as? UIViewController else { return }
-                self.floatNavigationController?.pushViewController(floatableViewController, animated: true)
-                self.floatableType = floatableVC
-                self.floatableType?.floatingController = self
-            default:
-                break
-            }
-        }
-    }
-    
-    //MARK: - when ur using type is withNav, you can use this to pop from nav, if not, don't use this func
-    public func popFromNav() {
-        self.closeFloatingVC?()
-        self.floatNavigationController?.popViewController(animated: true)
-        // 前一個controller
-        if let floatableVC =  self.floatNavigationController?.viewControllers.last as? MSFloatableViewController {
-            self.setToCurrentFloatingVC(floatableVC)
-        }
-    }
-    
-    //MARK: - when ur using type is withNav, you must call this to vc.viewWillAppear to change current floatingController's floatingVC
-    public func setToCurrentFloatingVC(_ currentVC: MSFloatableViewController) {
-        self.floatableType = currentVC
-    }
-    
+    //MARK: - close current vc
     public func close(_ animated: Bool = true) {
         self.closeFloatingVC?()
         self.floatableType = nil
         self.msplayerWindow = nil
     }
     
+    //MARK: - shrink current vc
     public func shrink() {
         //MARK: - 如果 floatableVC 在畫面上，以及目前狀態不等於縮小化狀態，才可以放大
         if floatableType != nil && self.state != .minimum {
-            switch self.usingType {
-            case .normal:
-                shrinkViews()
-                shrinkFloatingVC?()
-            case .withNav:
-                shrinkViews()
-                shrinkFloatingVC?()
-            default:
-                break
-            }
+            shrinkViews()
+            prepareToShrink()
         }
     }
     
+    //MARK: - expand current vc
     public func expand() {
         if floatableType != nil && self.state != .normal {
             expandViews()
-            expandFloatingVC?()
+            prepareToExpand()
         }
     }
     
-    private func createCustomWindowWith(_ frame: CGRect) -> UIWindow? {
+    //MARK: - Do something when you shrink
+    internal func prepareToShrink() {
+        if let player = self.floatableType?.floatingView as? MSPlayer {
+            player.closeControlViewAndRemoveGesture()
+        }
+        shrinkFloatingVC?()
+    }
+    
+    //MARK: - Do something when you shrink
+    internal func prepareToExpand() {
+        if let player = self.floatableType?.floatingView as? MSPlayer {
+            player.openControlViewAndSetGesture()
+        }
+        expandFloatingVC?()
+    }
+    
+    //MARK: - change MSPlayer setting
+    internal func changePlayerBackImage(toDown: Bool) {
+        if let player = self.floatableType?.floatingView as? MSPlayer {
+            player.changeControlViewBackButtonImage(toDown: toDown)
+        }
+    }
+    
+    
+    //MARK: - create floating window
+    internal final func createCustomWindowWith(_ frame: CGRect) -> UIWindow? {
         msplayerWindow = UIWindow(frame: frame)
         if let msplayerWindow = msplayerWindow {
             // Set Window setting
@@ -276,6 +200,12 @@ public class MSFloatingController: NSObject {
     }
     
     @objc fileprivate func onOrientationChanged() {
+        //MARK: - fullScreen and change backImage To back
+        if UIApplication.shared.statusBarOrientation.isLandscape {
+            changePlayerBackImage(toDown: false)
+        } else {
+            changePlayerBackImage(toDown: true)
+        }
         updateFrame()
     }
     
@@ -285,7 +215,6 @@ public class MSFloatingController: NSObject {
         }
     }
     
-    
     func addObserver() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.onOrientationChanged),
@@ -294,7 +223,9 @@ public class MSFloatingController: NSObject {
     }
     
     func removeObserver() {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
+        NotificationCenter.default.removeObserver(self,
+                                                  name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation,
+                                                  object: nil)
     }
     
     func prepareToDealloc() {
@@ -302,44 +233,43 @@ public class MSFloatingController: NSObject {
     }
     
     deinit {
+        prepareToDealloc()
         print("class: \(self.classForCoder) dealloc")
     }
 }
 
 extension MSFloatingController {
     
-    fileprivate func expandViews(isAnimation: Bool = true) {
+    internal final func expandViews(isAnimation: Bool = true) {
         //MARK: - set state at animation
         if isAnimation {
             self.state = .animation
             UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseIn, animations: {
-                self.floatableType!.floatingView.frame = self.floatingViewOriginFrame
-                self.floatableType?.floatingView.translatesAutoresizingMaskIntoConstraints = false
+                self.floatableType?.floatingView.frame = self.floatingViewOriginFrame
                 self.msplayerWindow?.frame = self.windowOriginFrame
-                self.floatableType!.floatingView.alpha = 1.0
+                self.floatableType?.floatingView.alpha = 1.0
                 self.floatableType?.floatingView.layer.borderWidth = 0
             }) { (finished) in
                 if let floatingGesture = self.floatingViewTapGesture {
-                    self.floatableType!.floatingView.removeGestureRecognizer(floatingGesture)
+                    self.floatableType?.floatingView.removeGestureRecognizer(floatingGesture)
                 }
                 self.floatingViewTapGesture = nil
                 self.state = .normal
             }
         } else {
-            self.floatableType!.floatingView.frame = self.floatingViewOriginFrame
-            self.floatableType?.floatingView.translatesAutoresizingMaskIntoConstraints = false
+            self.floatableType?.floatingView.frame = self.floatingViewOriginFrame
             self.msplayerWindow?.frame = self.windowOriginFrame
-            self.floatableType!.floatingView.alpha = 1.0
+            self.floatableType?.floatingView.alpha = 1.0
             self.floatableType?.floatingView.layer.borderWidth = 0
             if let floatingGesture = self.floatingViewTapGesture {
-                self.floatableType!.floatingView.removeGestureRecognizer(floatingGesture)
+                self.floatableType?.floatingView.removeGestureRecognizer(floatingGesture)
             }
             self.floatingViewTapGesture = nil
             self.state = .normal
         }
     }
     
-    fileprivate func shrinkViews() {
+    internal final func shrinkViews() {
         
         // 縮小前將originFrame設定好
         self.floatingViewOriginFrame = self.floatableType?.floatingView.frame ?? CGRect.zero
@@ -359,8 +289,7 @@ extension MSFloatingController {
         //MARK: - set state at animation
         self.state = .animation
         UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseOut, animations: {
-            self.floatableType?.floatingView.translatesAutoresizingMaskIntoConstraints = true
-            self.floatableType!.floatingView.frame = self.floatingViewMinimizedFrame
+            self.floatableType?.floatingView.frame = self.floatingViewMinimizedFrame
             self.msplayerWindow?.frame = self.windowMinimizedFrame
             self.floatableType?.floatingView.layer.borderWidth = 1
             self.floatableType?.floatingView.layer.borderColor = UIColor.white.withAlphaComponent(0.5).cgColor
@@ -375,6 +304,7 @@ extension MSFloatingController {
             self.gestureManager?.setSlideGesture()
             
             self.state = .minimum
+            self.floatableType?.floatingView.layoutIfNeeded()
         }
     }
 }

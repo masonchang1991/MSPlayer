@@ -113,6 +113,7 @@ open class MSPlayer: UIView {
     fileprivate var isSliderSliding = false
     fileprivate var isUserMoveSlider = false
     fileprivate var isVolume = false
+    fileprivate var verticalPanPosition: VerticalPanPosition = .unknown
     fileprivate var isMaskShowing = false
     fileprivate var isSlowed = false
     fileprivate var isMirrored = false
@@ -126,6 +127,14 @@ open class MSPlayer: UIView {
             }
         }
     }
+    
+    enum VerticalPanPosition {
+        case left
+        case mid
+        case right
+        case unknown
+    }
+    
     // 畫面比例
     fileprivate var aspectRatio: MSPM.AspectRatio = .default
     // cache is playing result to improve callback performance
@@ -224,7 +233,6 @@ open class MSPlayer: UIView {
      */
     open func updateUI(_ isFullScreen: Bool) {
         controlView.updateUI(for: isFullScreen)
-        self.updateFrame()
     }
     
     /**
@@ -254,6 +262,15 @@ open class MSPlayer: UIView {
     open func openControlViewAndSetGesture() {
         self.controlView.isHidden = false
         self.setGesture()
+    }
+    
+    // Change ControlView backButton image
+    open func changeControlViewBackButtonImage(toDown: Bool) {
+        if toDown {
+            self.controlView.changeBackImageToDownImage()
+        } else {
+            self.controlView.changeDownImageToBackImage()
+        }
     }
     
     /**
@@ -322,10 +339,18 @@ open class MSPlayer: UIView {
             } else {
                 // vertical
                 self.panDirection = .vertical
-                if locationPoint.x > self.bounds.size.width / 2 {
-                    self.isVolume = true
+//                if locationPoint.x > self.bounds.size.width / 2 {
+//                    self.isVolume = true
+//                } else {
+//                    self.isVolume = false
+//                }
+                
+                if locationPoint.x < self.bounds.size.width / 3 {
+                    self.verticalPanPosition = .left
+                } else if locationPoint.x > self.bounds.size.width / 3 && locationPoint.x < self.bounds.size.width * 2 / 3 {
+                    self.verticalPanPosition = .mid
                 } else {
-                    self.isVolume = false
+                    self.verticalPanPosition = .right
                 }
             }
             
@@ -372,7 +397,8 @@ open class MSPlayer: UIView {
                     }
                 }
             case .vertical:
-                self.isVolume = false
+//                self.isVolume = false
+                self.verticalPanPosition = .unknown
             }
         default:
             break
@@ -380,13 +406,13 @@ open class MSPlayer: UIView {
     }
     
     fileprivate func verticalMoved(_ value: CGFloat) {
-        if self.isVolume {
+        if self.verticalPanPosition == .right {
             if MSPlayerConfig.enableVolumeGestures {
                 DispatchQueue.main.async {
                     self.volumeViewSlider.value = AVAudioSession.sharedInstance().outputVolume - (Float(value) * MSPlayerConfig.playerVolumeChangeRate)
                 }
             }
-        } else if MSPlayerConfig.enableBrightnessGestures {
+        } else if self.verticalPanPosition == .left && MSPlayerConfig.enableBrightnessGestures {
             UIScreen.main.brightness -= (value * MSPlayerConfig.playerBrightnessChangeRate)
         }
     }
@@ -453,16 +479,6 @@ open class MSPlayer: UIView {
                 UIApplication.shared.setStatusBarHidden(false, with: .fade)
                 UIApplication.shared.statusBarOrientation = .landscapeRight
             }
-        }
-    }
-    
-    private func updateFrame() {
-        if isFullScreen && MSPlayerConfig.fullScreenIgnoreConstraint {
-            self.translatesAutoresizingMaskIntoConstraints = true
-            self.frame = UIScreen.main.bounds
-            self.layoutIfNeeded()
-        } else if self.translatesAutoresizingMaskIntoConstraints {
-            self.translatesAutoresizingMaskIntoConstraints = false
         }
     }
     
@@ -640,7 +656,7 @@ extension MSPlayer: MSPlayerControlViewDelegate {
                 if isFullScreen {
                     // 如果是全螢幕則跳出全螢幕
                     fullScreenButtonPressed()
-                } else if MSFloatingController.sharedInstance != nil {
+                } else if MSFloatingController.sharedInstance != nil || MSStackFloatingController.sharedInstance != nil {
                     MSFloatingController.shared().shrink()
                 } else {
                     // 如果不是全螢幕則popFromNav

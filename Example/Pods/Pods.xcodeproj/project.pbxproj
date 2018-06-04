@@ -8,93 +8,94 @@
 
 /* Begin PBXBuildFile section */
 		091A941ABF34604DEEA140C8CB83E656 /* NVActivityIndicatorAnimationLineScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CA76F844CD25D0948772C3DA35CF25 /* NVActivityIndicatorAnimationLineScale.swift */; };
-		0FD995B4F11938A31DE9555F6EBC2C7C /* MSPlayerLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39753DF66FDE38736AF1EAE02F9322C /* MSPlayerLayerView.swift */; };
-		0FFDC978A422F6E675E39337589EFE8B /* MSFloatingGestureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592E2E3B38ADDA863187A04141449601 /* MSFloatingGestureManager.swift */; };
-		121F28D5DF241739A81922892898A450 /* MSPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E560A11516C2827CC739A07F563FB24 /* MSPlayer.swift */; };
+		0FD995B4F11938A31DE9555F6EBC2C7C /* MSPlayerLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5285C01D6CEDBD2A01BDFDB813C5EF /* MSPlayerLayerView.swift */; };
+		0FFDC978A422F6E675E39337589EFE8B /* MSFloatingGestureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4387B55C448F1F42BA3E2111563416B2 /* MSFloatingGestureManager.swift */; };
+		10AF09FF5253E4BB9425272A08D11497 /* MSPlayer_playCover_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE9F61B9171F6A4BE4F5AC9DC9E8A77 /* MSPlayer_playCover_image@2x.png */; };
+		11896717489C8329F91F97B30623EDD5 /* MSPlayer_down_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD84A789B926567D1E3B311CDA7F0591 /* MSPlayer_down_image@3x.png */; };
+		121F28D5DF241739A81922892898A450 /* MSPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5E4DCA669FE51F1635CC7792C4A6B0 /* MSPlayer.swift */; };
 		1332C575F24D0E961AE5E89EB97F8B64 /* NVActivityIndicatorAnimationCubeTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EECC668F65B6EB1F6E2AE3664ED837 /* NVActivityIndicatorAnimationCubeTransition.swift */; };
-		14CACD691D31718F252ACC446167DB63 /* MSFloatingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3499DC39F171DE281A7D13E4B50DF4A8 /* MSFloatingController.swift */; };
+		14CACD691D31718F252ACC446167DB63 /* MSFloatingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2380E84EA6D1AB634AEDD06EF0E0D0A6 /* MSFloatingController.swift */; };
+		1A206395C21EC2A729D5E83E5C4F3004 /* MSPlayer_pause_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DBAA971D91F1D2EF97EFCB7934BA6B7D /* MSPlayer_pause_image@3x.png */; };
+		229CB0DCC1CA5ED1245E7A80EDE79800 /* MSPlayer_seekTo_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07947B0B2EC8C5E99D395C1F188F564C /* MSPlayer_seekTo_image@2x.png */; };
 		23055322F946847A8BAA6216E83042DF /* NVActivityIndicatorAnimationTriangleSkewSpin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53001BD78FEF4A48AD39CD9852FC5C43 /* NVActivityIndicatorAnimationTriangleSkewSpin.swift */; };
-		25B280B4D777E443818BED38E36ED591 /* MSFloatableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE7D94BD9047AE0166BE4531312EB66 /* MSFloatableViewController.swift */; };
+		2518B0D3753B3382581B9B30BA5F3786 /* MSPlayer_fullScreen_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC57ED5C8F50F27F1083FC0A8D3CD761 /* MSPlayer_fullScreen_image@3x.png */; };
+		25B280B4D777E443818BED38E36ED591 /* MSFloatableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DA41596AC69B985BE482003906A6D1 /* MSFloatableViewController.swift */; };
 		25DB875B2DF77D168B871CCE49197DFE /* NVActivityIndicatorAnimationLineScalePulseOutRapid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988D9F492A7836AF0DF64BF19EDB6F08 /* NVActivityIndicatorAnimationLineScalePulseOutRapid.swift */; };
 		2654650B5A05CDF3A19B058183CA18E4 /* Pods-MSPlayer_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F0A034F3434E52B8B7F40D4DF5FF66 /* Pods-MSPlayer_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		28D54A918CDCBCDC8FB95E2113545386 /* NVActivityIndicatorAnimationBallPulseSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425B40225C618A2DF97C51AA2ABC88FC /* NVActivityIndicatorAnimationBallPulseSync.swift */; };
 		29C4B2A8C75952E3AD5EE13586A281B1 /* NVActivityIndicatorViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57C1EA35073537E3D80B98E38D0759F /* NVActivityIndicatorViewable.swift */; };
+		2A755C60215DEC355A51E6F953D405BD /* MSPlayer_fullScreen_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D345D06AAB3017B4BDC442A080A2228 /* MSPlayer_fullScreen_image@2x.png */; };
 		2E51590F1C797387FEF57E69DCF15F3D /* Pods-MSPlayer_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFE4D2B15E4B0A80C3618A4C19A06E4 /* Pods-MSPlayer_Tests-dummy.m */; };
-		2F05C86FF3AA810F8D77FF816ADE1D83 /* MSPlayer_seekTo_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7271EDF9F05E1DE1395BCE6F831D9097 /* MSPlayer_seekTo_image@3x.png */; };
 		2F65CC36357CA26E8AABA20A68331956 /* NVActivityIndicatorAnimationSquareSpin.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96B2A3B1E90D3DF1ED85EFE3540DA08 /* NVActivityIndicatorAnimationSquareSpin.swift */; };
 		303145EF8FB315453141A2325D0DA6BA /* NVActivityIndicatorAnimationBallGridPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675F1B3AA5C925505BC25D3B851CDEF2 /* NVActivityIndicatorAnimationBallGridPulse.swift */; };
-		30FA691282B33232F21302B4C95B8D21 /* MSPlayer_brightness_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DC363276CFE5E62F12AA62977C54BE9 /* MSPlayer_brightness_image@2x.png */; };
 		3147C85529C67D7000860C8B24DA35DB /* NVActivityIndicatorAnimationOrbit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04170558FA34BFD29D4599AA39AB789B /* NVActivityIndicatorAnimationOrbit.swift */; };
 		36B2CDF82DCCFCD092DC47A7E0FA7C44 /* NVActivityIndicatorAnimationLineScalePulseOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638B9F9C8DD92321DF6A6BF5257A2951 /* NVActivityIndicatorAnimationLineScalePulseOut.swift */; };
-		3DD7DB0A859A9DFEA57A3D3081E237A3 /* MSPlayer_fullScreen_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 585D1F091EE0C8C1C36EE4992B3053AE /* MSPlayer_fullScreen_image@3x.png */; };
-		44A6CD63C0F796CD7781ADD2264AB463 /* MSPlayer_pause_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BC63A441287B4276A8410FFDE648046 /* MSPlayer_pause_image@2x.png */; };
-		45E879C924EE94106C2EBBF995F07E91 /* MSPlayer_playCover_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0598E4BDA3CEE9628133449AF1C8AFD6 /* MSPlayer_playCover_image@2x.png */; };
-		467B430C6228310B4B2F8759CA48504E /* MSPlayer_replay_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A9A4138A9CECE69AB73757F34B3DB60 /* MSPlayer_replay_image@3x.png */; };
+		3AC4740CA8EB023A46004E76C00ECF7D /* MSPlayer_playCover_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 722A9C0F6BDE57FBAD0449B4F0BBDDA6 /* MSPlayer_playCover_image@3x.png */; };
 		493265228C37C0E20F619B4C2D4A7304 /* NVActivityIndicatorAnimationBallScaleRippleMultiple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81284AB90E1FEF7348F3F6CD26822E41 /* NVActivityIndicatorAnimationBallScaleRippleMultiple.swift */; };
-		4C63F19E299442E16E85938168D52309 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C696806BFD6AC2AA8CA0531CA57A55E6 /* CoreDataManager.swift */; };
+		4B18644C2BDF479BEFB4C3DB3DD97411 /* MSPlayer_slider_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B3973BE596F750584335AAB00EAAFF7 /* MSPlayer_slider_image@3x.png */; };
+		4C63F19E299442E16E85938168D52309 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AE45042CA92A8634BEADB4B9627B47 /* CoreDataManager.swift */; };
 		4EC6BB826D8C1CF0F02AE89B6667E49D /* NVActivityIndicatorAnimationBallClipRotatePulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BEAE0BF28EC137966216D065314CDD /* NVActivityIndicatorAnimationBallClipRotatePulse.swift */; };
 		4F19CF1F22A9C5884206193BAB05DE2D /* NVActivityIndicatorAnimationBallZigZag.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6573097CE506E19DC65518B1AE03E64 /* NVActivityIndicatorAnimationBallZigZag.swift */; };
+		4F9A1D0F702D3C091CC174EBC8E382E3 /* MSPlayer_endFullScreen_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D6B78550205759FAB7C6B26AB430B9 /* MSPlayer_endFullScreen_image@3x.png */; };
 		51BD07C10B7A2D4C7F952DA9EFE78116 /* NVActivityIndicatorAnimationBallRotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374AE26127E5F3DB9833118A7A7FA118 /* NVActivityIndicatorAnimationBallRotate.swift */; };
 		55C94019DE83A003AF8FD89AA8246228 /* NVActivityIndicatorAnimationBallBeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E65BC07C7494023FAEAD2A9CAB57C6 /* NVActivityIndicatorAnimationBallBeat.swift */; };
 		55F07A94913FA1279934F94D7E514E72 /* NVActivityIndicatorAnimationBallClipRotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958F54B904EF5EA7A8A367BE3B8B7754 /* NVActivityIndicatorAnimationBallClipRotate.swift */; };
-		57E172A697C56E004BF7A2BE3581CCBF /* MSPlayer_playCover_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1AAFA9772CE55887A775DCB5399B856 /* MSPlayer_playCover_image@3x.png */; };
 		591A98808D20FCCBDB08C150B1471221 /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D003E45750E9C7B6422C72FF10BE6CDC /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift */; };
-		61128DC18462C785B4B07D4BFD2FAFC8 /* MSPlayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A7FEF8D1833A259323785DC6208820 /* MSPlayerExtension.swift */; };
+		61128DC18462C785B4B07D4BFD2FAFC8 /* MSPlayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6AF7CDA0D5B58235DD2C547FC73DD0 /* MSPlayerExtension.swift */; };
 		62AC97D48C8B8F9BB5713A630C12E829 /* NVActivityIndicatorAnimationAudioEqualizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57D1D5C6DA4A49DE85022BA684CE8CA /* NVActivityIndicatorAnimationAudioEqualizer.swift */; };
 		640792F27E1944250783D43BDA186479 /* NVActivityIndicatorAnimationBlank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C132603F99C59BEFF2DB720867D665 /* NVActivityIndicatorAnimationBlank.swift */; };
+		64F00F5DC0B2245710B1C1598D16A072 /* MSPlayer_brightness_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0131505804C971CB2F945E8F68E5B620 /* MSPlayer_brightness_image@3x.png */; };
 		651DCD81F265B591D055FDC41600A78A /* NVActivityIndicatorView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6370D04795536292C34103E1639B4580 /* NVActivityIndicatorView.framework */; };
+		6864E8C064F23F7C20C22948B762904D /* MSPlayer_replay_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E20266E1696E7D8A08BF5E8B3859A2EE /* MSPlayer_replay_image@2x.png */; };
 		6991FCE503FEBEFE6E2FA246D32CB8FE /* NVActivityIndicatorView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F14581A18B79862A97566A7FFC10715 /* NVActivityIndicatorView-dummy.m */; };
+		6FBE460854231CDD0EF948B0C64D7FF3 /* MSPlayer_back_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 401D9AFF256166C6058FEB2845C52CFC /* MSPlayer_back_image@3x.png */; };
 		723B532706971964949F99D30E3714AF /* NVActivityIndicatorAnimationPacman.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69ADAB649440704E2A9D94004837001 /* NVActivityIndicatorAnimationPacman.swift */; };
 		72C97AA408D0B865596E3498A7ED9B4D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D785E1639C52E417946934BC483D7B8 /* Foundation.framework */; };
-		72D4EC0EBCDBADA7FC18D2CC70A5969C /* MSPlayer_pause_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = CFC0FA2F4A87EE832E3B437613C492BA /* MSPlayer_pause_image@3x.png */; };
 		73072CCF819223ED3FD9682839CA2D94 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1DB4B4F6C6DB5E552AFFAF118F910AE /* CoreData.framework */; };
 		74C8221054CD80C6407BF935B61197EE /* NVActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF2D3C403B7B22E9E65CD71B6B19EF4 /* NVActivityIndicatorView.swift */; };
-		7592A810B2E5CE32264978959039717D /* MSPlayerResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303D3FB15A631A272AFD4EE970A249C2 /* MSPlayerResource.swift */; };
+		7592A810B2E5CE32264978959039717D /* MSPlayerResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53B9680C208E9101B67D7BFC0D59EF2 /* MSPlayerResource.swift */; };
 		7734B3AF8D14A4DDC9BB3D4F2E28AACA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3823FE90950CC50D741A3BC232745EBB /* UIKit.framework */; };
-		7997AA88D715C90A1AA3FBEC8830E4BA /* MSPlayer_endFullScreen_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E86E0D93C666D8FB2C34951EAD35031 /* MSPlayer_endFullScreen_image@2x.png */; };
-		7B95153B6AC81B87558C27A7A29653E8 /* MSPlayer_play_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E6D8D7BFACE0A664C22A82962AC9A00 /* MSPlayer_play_image@3x.png */; };
 		7C43DD04BA92E919F8682278712C1470 /* NVActivityIndicatorAnimationBallScaleMultiple.swift in Sources */ = {isa = PBXBuildFile; fileRef = D823962314A436F120CF40A96AB3E256 /* NVActivityIndicatorAnimationBallScaleMultiple.swift */; };
-		7C574CBA0AC17760BE171589E3513C47 /* VideoTimeRecord.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 061A2FCB218DEE310648FA8558A9A7BE /* VideoTimeRecord.xcdatamodeld */; };
+		7D8F4B76FC0A7E7201F16AB16AEF5CDA /* MSPlayer_endFullScreen_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 99B3F0D0004B3C0B8BAC76496CA02C60 /* MSPlayer_endFullScreen_image@2x.png */; };
+		7DFD0B9357F91AE23477B7670E47E557 /* MSPlayer_seekTo_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FA0986D8B21DA5AAA707E08705CFEE2 /* MSPlayer_seekTo_image@3x.png */; };
 		7F695784A73238BFAAC1096F0F5CAA23 /* Pods-MSPlayer_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 44698F9485D965F0936F02964A8C51F6 /* Pods-MSPlayer_Example-dummy.m */; };
 		815BEB9B386364CC404B2A95CA387AD7 /* NVActivityIndicatorAnimationBallPulseRise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0A3D33998A5213FCE7A0843B6E54EE /* NVActivityIndicatorAnimationBallPulseRise.swift */; };
-		82F85B3043320C7B98413228A68FCF2D /* MSPlayer_back_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 506AC618969B45CBA466F2ABCAD6BF15 /* MSPlayer_back_image@3x.png */; };
-		84F7E6BEE7DFDB84FEA69B424DDA7295 /* MSTimeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43E4891ABD48D37133D8C1F20499E8C /* MSTimeSlider.swift */; };
+		8340F7391EA1A1622C551E701C14EEF4 /* MSPlayer_brightness_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8462DBB07F6132CD2D66B815711B33F2 /* MSPlayer_brightness_image@2x.png */; };
+		84F7E6BEE7DFDB84FEA69B424DDA7295 /* MSTimeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487A87EFBBBD0E0099B46EE5235B8488 /* MSTimeSlider.swift */; };
 		876DF7A26E9573882A4B08E251E2F7A8 /* NVActivityIndicatorAnimationBallGridBeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01C43FE6E3AA9DC86CD16E068D2BE1F /* NVActivityIndicatorAnimationBallGridBeat.swift */; };
-		89B4C92C4979051DD5F63CA4C755BF95 /* MSPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B067E321272835E8275E01806A6481 /* MSPM.swift */; };
-		8B5CF9ADB84894C09E58BF5C44F9C4E8 /* MSPlayer_back_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 819B884A4C93D1E4D8584E094D80C1E8 /* MSPlayer_back_image@2x.png */; };
+		89B4C92C4979051DD5F63CA4C755BF95 /* MSPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92224E873B4CE861C60806A804F79680 /* MSPM.swift */; };
 		8B664E620049FE93110962F58DD045C9 /* NVActivityIndicatorAnimationBallZigZagDeflect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF66B6ACB603D3CA7395E65FBCE08CB /* NVActivityIndicatorAnimationBallZigZagDeflect.swift */; };
-		92E0E3A23A7740F2837E1602CA95A7CC /* MSPlayer_endFullScreen_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8CCE5368B888642B97A55F58F513DBDA /* MSPlayer_endFullScreen_image@3x.png */; };
-		930FE13020B67F1500943322 /* MSPlayer_down_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 930FE12E20B67F1400943322 /* MSPlayer_down_image@3x.png */; };
-		930FE13120B67F1500943322 /* MSPlayer_down_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 930FE12F20B67F1500943322 /* MSPlayer_down_image@2x.png */; };
+		934E9E2C20BD5D61006E3ED4 /* MSStackFloatingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934E9E2B20BD5D61006E3ED4 /* MSStackFloatingController.swift */; };
+		934E9E2E20BD636C006E3ED4 /* MSFloatingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934E9E2D20BD636C006E3ED4 /* MSFloatingType.swift */; };
 		94F4CEAC9EDB3553E65FB4320CEAE1AA /* NVActivityIndicatorAnimationBallClipRotateMultiple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E60BACC7B4177417855C11A631BDA71 /* NVActivityIndicatorAnimationBallClipRotateMultiple.swift */; };
+		95217686862967CB92B60E3DB9C1AFC1 /* MSPlayer_replay_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22840D3EE9074524A6ADBD11F3D2CE07 /* MSPlayer_replay_image@3x.png */; };
 		96A2FEA383D234BFD0B4E776C8C05F18 /* NVActivityIndicatorAnimationBallScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D862FD51EC285D4764C090315CCB202 /* NVActivityIndicatorAnimationBallScale.swift */; };
 		96F0DA2EDF54C75900F48119FE97410D /* NVActivityIndicatorShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F45AE21F5822F24890CC8B47910BA4B /* NVActivityIndicatorShape.swift */; };
 		99C65BC4F97911BBC29A4A4D08BB4871 /* NVActivityIndicatorAnimationBallScaleRipple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6CF9C46DE901429F930E62F4C63754 /* NVActivityIndicatorAnimationBallScaleRipple.swift */; };
-		A3417DB1EC98BFED7295F443CC6B588D /* MSPlayer-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D890D095F21A013AE5E85B6593B34218 /* MSPlayer-dummy.m */; };
-		ADA09F4FA2D6DBE5CDF81EB58241B4D2 /* MSPlayer_replay_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9529428BC77C242A386BD366F0F88F5 /* MSPlayer_replay_image@2x.png */; };
-		AF709FFFF091684F17DC556E7649F76A /* MSPlayer_play_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC38A986B746DBC2990CCC95AB4E59DB /* MSPlayer_play_image@2x.png */; };
+		A3417DB1EC98BFED7295F443CC6B588D /* MSPlayer-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E666443DA255E73D00CB97CE6C958B1 /* MSPlayer-dummy.m */; };
+		AD2E76A26C452B1FD807082A0CD4E6A9 /* MSPlayer_play_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15364B1639E501727B90C12CA69FF57F /* MSPlayer_play_image@2x.png */; };
 		B2F8CB0AE9D8911AFBDBCAE7DC2C23D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D785E1639C52E417946934BC483D7B8 /* Foundation.framework */; };
-		B351889CC3CF022FA95285D53C606A01 /* MSPlayer_brightness_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E875D3F08124452A114F61DEC5F5E31 /* MSPlayer_brightness_image@3x.png */; };
 		B443D16E4113368DB24C9CF21951D0FD /* MSPlayer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BF81D4B3A8C6D711CAB4939ED2736437 /* MSPlayer.bundle */; };
-		B84B65AE574BAEF7B80DC25324150372 /* MSPlayer_slider_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C652717F1ACEAB293618EC4304CB6D13 /* MSPlayer_slider_image@3x.png */; };
 		B8FBF9866AE1729BB93F98AD5A993530 /* NVActivityIndicatorAnimationBallPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1320A0E6AAE83E8EE3C845B0EC72636C /* NVActivityIndicatorAnimationBallPulse.swift */; };
 		C721FB88D421B2C4A89704B9BE9AE39C /* NVActivityIndicatorAnimationSemiCircleSpin.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D09FFDCF5D9A31CB17BD982EB68F06 /* NVActivityIndicatorAnimationSemiCircleSpin.swift */; };
 		D16CBCF79DD09C080FA640E7A7E9E208 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D785E1639C52E417946934BC483D7B8 /* Foundation.framework */; };
 		D1797A894449E3A23B5EB8CB753C64F0 /* NVActivityIndicatorAnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DDD709CDF9638BCA9FA8014C9B3216 /* NVActivityIndicatorAnimationDelegate.swift */; };
-		D46569286B676BA810A050F861C83A81 /* MSPlayerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31A81301BFCCE3404D054BD5BB846DF /* MSPlayerControlView.swift */; };
-		D64A3E65E387975794E98D7B96060EF2 /* FormatDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B73C72E18A818EA6020B044C1F5061A /* FormatDisplay.swift */; };
-		D6F91A6A1D9D03EC3173B58944F675AF /* MSPlayer_fullScreen_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E26BDB4F3339A7AF31E9504535B6AC06 /* MSPlayer_fullScreen_image@2x.png */; };
+		D46569286B676BA810A050F861C83A81 /* MSPlayerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F13B7F683A5694CCC1A58B5079DF2B /* MSPlayerControlView.swift */; };
+		D64A3E65E387975794E98D7B96060EF2 /* FormatDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F73E4DFB07C83761DCE7863FFBDA47 /* FormatDisplay.swift */; };
 		DA0512BE227F52AB2CF119309D43CE69 /* NVActivityIndicatorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C3988D2ABCF7E9E73581AC4232B451 /* NVActivityIndicatorPresenter.swift */; };
-		DAB42BF438B9B4C94105A9FF35DE7659 /* MSPlayer_seekTo_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A4A43C86238296D47BBD28168C92E4A8 /* MSPlayer_seekTo_image@2x.png */; };
 		DC71432F511CCD06C4C9C1F99A9EA061 /* Pods-MSPlayer_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F00EA69A9E4859C720D4D4A009F7B577 /* Pods-MSPlayer_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DF4DC91228993D4478CE569FC1BA18A2 /* MSPlayer-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A420005AA33D50575DE584BBC32E749 /* MSPlayer-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DF4DC91228993D4478CE569FC1BA18A2 /* MSPlayer-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AACFF90B379C47D43B56E03BF0969F1 /* MSPlayer-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E065E43BEE279B106947E65C53CC5163 /* NVActivityIndicatorView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 693C4BD1BD5012D2777845D3B2C6DB51 /* NVActivityIndicatorView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E6B729E713E97B9373A3879B1F0013A9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D785E1639C52E417946934BC483D7B8 /* Foundation.framework */; };
+		EC6D379EE16212C990BD157CA1DF5D5F /* MSPlayer_play_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FCEB14E05E82F125125884B542541A11 /* MSPlayer_play_image@3x.png */; };
 		EDB741A714D7039550C09303AFEDADD5 /* NVActivityIndicatorAnimationLineSpinFadeLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172A686D73D23D133D993B945D6E30C5 /* NVActivityIndicatorAnimationLineSpinFadeLoader.swift */; };
-		EF3C1EEB9C70B007C9290168ECDCC0BF /* MSBrightnessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DD36623FB0F676B2BB35733D1A73BF /* MSBrightnessView.swift */; };
+		EF3C1EEB9C70B007C9290168ECDCC0BF /* MSBrightnessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DEDD21BCED3CD500C925DCD272413 /* MSBrightnessView.swift */; };
 		F22314DB22C972DD2B6286553BE889D3 /* NVActivityIndicatorAnimationLineScaleParty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49688839D3E66F4C94F3CA281377CEE8 /* NVActivityIndicatorAnimationLineScaleParty.swift */; };
 		F5A3B6DE3BA9B2A8118C0AC4E7F1381F /* NVActivityIndicatorAnimationBallTrianglePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DAB2EA72D2F927D7AA9F3D9A7F57638 /* NVActivityIndicatorAnimationBallTrianglePath.swift */; };
 		F664D6609ED829843CEF7A189DB3ABEE /* NVActivityIndicatorAnimationBallRotateChase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35E44F6DB762909863AB4E03F4AE576 /* NVActivityIndicatorAnimationBallRotateChase.swift */; };
+		F708F6EE1B3A7EB5A6D0D753BF65B62D /* MSPlayer_down_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98CE7902D95EFC5892C7FCB84F50BCAA /* MSPlayer_down_image@2x.png */; };
+		F88D4B004586A6564F1B331E7E1CD24D /* MSPlayer_pause_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702C23E41AA1017CC1B5BAB3BFEDE3E6 /* MSPlayer_pause_image@2x.png */; };
+		FB9D1AAF9ADA3900957503691DE05B6C /* MSPlayer_back_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A91A6B829E05522CCFFCF879BE1C8A7B /* MSPlayer_back_image@2x.png */; };
 		FE92F504DD78E80AB2EBB7FF22273175 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B1DA8EA08022B19FB6C271CBF43EE6 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
@@ -130,122 +131,123 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0131505804C971CB2F945E8F68E5B620 /* MSPlayer_brightness_image@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_brightness_image@3x.png"; path = "MSPlayer/Assets/MSPlayer_brightness_image@3x.png"; sourceTree = "<group>"; };
+		02D6B78550205759FAB7C6B26AB430B9 /* MSPlayer_endFullScreen_image@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_endFullScreen_image@3x.png"; path = "MSPlayer/Assets/MSPlayer_endFullScreen_image@3x.png"; sourceTree = "<group>"; };
 		04170558FA34BFD29D4599AA39AB789B /* NVActivityIndicatorAnimationOrbit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationOrbit.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationOrbit.swift; sourceTree = "<group>"; };
-		0598E4BDA3CEE9628133449AF1C8AFD6 /* MSPlayer_playCover_image@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_playCover_image@2x.png"; path = "MSPlayer/Assets/MSPlayer_playCover_image@2x.png"; sourceTree = "<group>"; };
+		07947B0B2EC8C5E99D395C1F188F564C /* MSPlayer_seekTo_image@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_seekTo_image@2x.png"; path = "MSPlayer/Assets/MSPlayer_seekTo_image@2x.png"; sourceTree = "<group>"; };
 		0DF2D3C403B7B22E9E65CD71B6B19EF4 /* NVActivityIndicatorView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorView.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/NVActivityIndicatorView.swift; sourceTree = "<group>"; };
-		0E875D3F08124452A114F61DEC5F5E31 /* MSPlayer_brightness_image@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_brightness_image@3x.png"; path = "MSPlayer/Assets/MSPlayer_brightness_image@3x.png"; sourceTree = "<group>"; };
 		1320A0E6AAE83E8EE3C845B0EC72636C /* NVActivityIndicatorAnimationBallPulse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallPulse.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallPulse.swift; sourceTree = "<group>"; };
+		15364B1639E501727B90C12CA69FF57F /* MSPlayer_play_image@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_play_image@2x.png"; path = "MSPlayer/Assets/MSPlayer_play_image@2x.png"; sourceTree = "<group>"; };
 		172A686D73D23D133D993B945D6E30C5 /* NVActivityIndicatorAnimationLineSpinFadeLoader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationLineSpinFadeLoader.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationLineSpinFadeLoader.swift; sourceTree = "<group>"; };
 		1894AD4F6F14963DA4F02051D80FEEFC /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1C95BC472FF43312E0B25F7C3B8EF370 /* Pods-MSPlayer_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MSPlayer_Example.release.xcconfig"; sourceTree = "<group>"; };
-		1DC363276CFE5E62F12AA62977C54BE9 /* MSPlayer_brightness_image@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_brightness_image@2x.png"; path = "MSPlayer/Assets/MSPlayer_brightness_image@2x.png"; sourceTree = "<group>"; };
 		1F592EDE7475266FF084AE8A9C5B5BAC /* NVActivityIndicatorView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = NVActivityIndicatorView.xcconfig; sourceTree = "<group>"; };
+		20DA41596AC69B985BE482003906A6D1 /* MSFloatableViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSFloatableViewController.swift; path = MSPlayer/Classes/MSFloatableViewController.swift; sourceTree = "<group>"; };
 		20E236E58D2A95A20BA8923812299A49 /* NVActivityIndicatorView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NVActivityIndicatorView-prefix.pch"; sourceTree = "<group>"; };
+		22840D3EE9074524A6ADBD11F3D2CE07 /* MSPlayer_replay_image@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_replay_image@3x.png"; path = "MSPlayer/Assets/MSPlayer_replay_image@3x.png"; sourceTree = "<group>"; };
+		2380E84EA6D1AB634AEDD06EF0E0D0A6 /* MSFloatingController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSFloatingController.swift; path = MSPlayer/Classes/MSFloatingController.swift; sourceTree = "<group>"; };
 		2636CF498C10638C8BFAF5870F070334 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B610F727A858E47BF7C8EEF53C913E2 /* Pods-MSPlayer_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MSPlayer_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		2BB25A80A1D168FDE6EC5213CE6BD558 /* Pods-MSPlayer_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MSPlayer_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		2D862FD51EC285D4764C090315CCB202 /* NVActivityIndicatorAnimationBallScale.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallScale.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallScale.swift; sourceTree = "<group>"; };
 		2F45AE21F5822F24890CC8B47910BA4B /* NVActivityIndicatorShape.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorShape.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/NVActivityIndicatorShape.swift; sourceTree = "<group>"; };
-		303D3FB15A631A272AFD4EE970A249C2 /* MSPlayerResource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSPlayerResource.swift; path = MSPlayer/Classes/MSPlayerResource.swift; sourceTree = "<group>"; };
+		2FA0986D8B21DA5AAA707E08705CFEE2 /* MSPlayer_seekTo_image@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_seekTo_image@3x.png"; path = "MSPlayer/Assets/MSPlayer_seekTo_image@3x.png"; sourceTree = "<group>"; };
 		317603B0D5F908BC38D834C67E8E56B8 /* Pods-MSPlayer_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MSPlayer_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		31BEAE0BF28EC137966216D065314CDD /* NVActivityIndicatorAnimationBallClipRotatePulse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallClipRotatePulse.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallClipRotatePulse.swift; sourceTree = "<group>"; };
-		3499DC39F171DE281A7D13E4B50DF4A8 /* MSFloatingController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSFloatingController.swift; path = MSPlayer/Classes/MSFloatingController.swift; sourceTree = "<group>"; };
 		3524138552EC0DE394C197951A66C6ED /* Pods_MSPlayer_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MSPlayer_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		374AE26127E5F3DB9833118A7A7FA118 /* NVActivityIndicatorAnimationBallRotate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallRotate.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallRotate.swift; sourceTree = "<group>"; };
 		37E0724F5265CD9D0FB66CE6337D2B0E /* Pods-MSPlayer_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MSPlayer_Tests-resources.sh"; sourceTree = "<group>"; };
 		3823FE90950CC50D741A3BC232745EBB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		3A420005AA33D50575DE584BBC32E749 /* MSPlayer-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MSPlayer-umbrella.h"; sourceTree = "<group>"; };
-		3BC63A441287B4276A8410FFDE648046 /* MSPlayer_pause_image@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_pause_image@2x.png"; path = "MSPlayer/Assets/MSPlayer_pause_image@2x.png"; sourceTree = "<group>"; };
 		3D0A3D33998A5213FCE7A0843B6E54EE /* NVActivityIndicatorAnimationBallPulseRise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallPulseRise.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallPulseRise.swift; sourceTree = "<group>"; };
+		3D345D06AAB3017B4BDC442A080A2228 /* MSPlayer_fullScreen_image@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_fullScreen_image@2x.png"; path = "MSPlayer/Assets/MSPlayer_fullScreen_image@2x.png"; sourceTree = "<group>"; };
+		401D9AFF256166C6058FEB2845C52CFC /* MSPlayer_back_image@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_back_image@3x.png"; path = "MSPlayer/Assets/MSPlayer_back_image@3x.png"; sourceTree = "<group>"; };
 		425B40225C618A2DF97C51AA2ABC88FC /* NVActivityIndicatorAnimationBallPulseSync.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallPulseSync.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallPulseSync.swift; sourceTree = "<group>"; };
+		4387B55C448F1F42BA3E2111563416B2 /* MSFloatingGestureManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSFloatingGestureManager.swift; path = MSPlayer/Classes/MSFloatingGestureManager.swift; sourceTree = "<group>"; };
 		44698F9485D965F0936F02964A8C51F6 /* Pods-MSPlayer_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MSPlayer_Example-dummy.m"; sourceTree = "<group>"; };
+		487A87EFBBBD0E0099B46EE5235B8488 /* MSTimeSlider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSTimeSlider.swift; path = MSPlayer/Classes/MSTimeSlider.swift; sourceTree = "<group>"; };
 		49688839D3E66F4C94F3CA281377CEE8 /* NVActivityIndicatorAnimationLineScaleParty.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationLineScaleParty.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationLineScaleParty.swift; sourceTree = "<group>"; };
-		506AC618969B45CBA466F2ABCAD6BF15 /* MSPlayer_back_image@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_back_image@3x.png"; path = "MSPlayer/Assets/MSPlayer_back_image@3x.png"; sourceTree = "<group>"; };
-		523782E52DD200D803B213D645539AB5 /* MSPlayer.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MSPlayer.xcconfig; sourceTree = "<group>"; };
+		4C9C9B4EA667DCC4DD79E5DAE771F503 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		53001BD78FEF4A48AD39CD9852FC5C43 /* NVActivityIndicatorAnimationTriangleSkewSpin.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationTriangleSkewSpin.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationTriangleSkewSpin.swift; sourceTree = "<group>"; };
 		53AE61915BE76124713DA401A31B4E69 /* NVActivityIndicatorView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NVActivityIndicatorView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		53E65BC07C7494023FAEAD2A9CAB57C6 /* NVActivityIndicatorAnimationBallBeat.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallBeat.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallBeat.swift; sourceTree = "<group>"; };
-		585D1F091EE0C8C1C36EE4992B3053AE /* MSPlayer_fullScreen_image@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_fullScreen_image@3x.png"; path = "MSPlayer/Assets/MSPlayer_fullScreen_image@3x.png"; sourceTree = "<group>"; };
-		592E2E3B38ADDA863187A04141449601 /* MSFloatingGestureManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSFloatingGestureManager.swift; path = MSPlayer/Classes/MSFloatingGestureManager.swift; sourceTree = "<group>"; };
 		5A5F2EC4AB62FBA4F1241C40100A75AB /* Pods-MSPlayer_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-MSPlayer_Tests.modulemap"; sourceTree = "<group>"; };
 		5AFE4D2B15E4B0A80C3618A4C19A06E4 /* Pods-MSPlayer_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MSPlayer_Tests-dummy.m"; sourceTree = "<group>"; };
+		5B3973BE596F750584335AAB00EAAFF7 /* MSPlayer_slider_image@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_slider_image@3x.png"; path = "MSPlayer/Assets/MSPlayer_slider_image@3x.png"; sourceTree = "<group>"; };
+		5E5E4DCA669FE51F1635CC7792C4A6B0 /* MSPlayer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSPlayer.swift; path = MSPlayer/Classes/MSPlayer.swift; sourceTree = "<group>"; };
 		5E60BACC7B4177417855C11A631BDA71 /* NVActivityIndicatorAnimationBallClipRotateMultiple.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallClipRotateMultiple.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallClipRotateMultiple.swift; sourceTree = "<group>"; };
+		5E666443DA255E73D00CB97CE6C958B1 /* MSPlayer-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MSPlayer-dummy.m"; sourceTree = "<group>"; };
 		6370D04795536292C34103E1639B4580 /* NVActivityIndicatorView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NVActivityIndicatorView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		638B9F9C8DD92321DF6A6BF5257A2951 /* NVActivityIndicatorAnimationLineScalePulseOut.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationLineScalePulseOut.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationLineScalePulseOut.swift; sourceTree = "<group>"; };
-		646221D6D2FC783516A734ED725ACA79 /* MSPlayer.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = MSPlayer.modulemap; sourceTree = "<group>"; };
 		675F1B3AA5C925505BC25D3B851CDEF2 /* NVActivityIndicatorAnimationBallGridPulse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallGridPulse.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallGridPulse.swift; sourceTree = "<group>"; };
 		6812267349900F71FFEF4C6768DC3616 /* MSPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MSPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		693C4BD1BD5012D2777845D3B2C6DB51 /* NVActivityIndicatorView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NVActivityIndicatorView-umbrella.h"; sourceTree = "<group>"; };
-		6E560A11516C2827CC739A07F563FB24 /* MSPlayer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSPlayer.swift; path = MSPlayer/Classes/MSPlayer.swift; sourceTree = "<group>"; };
+		6AACFF90B379C47D43B56E03BF0969F1 /* MSPlayer-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MSPlayer-umbrella.h"; sourceTree = "<group>"; };
 		6FF39593391B2B0718984EFB290ACE85 /* Pods_MSPlayer_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MSPlayer_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7271EDF9F05E1DE1395BCE6F831D9097 /* MSPlayer_seekTo_image@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_seekTo_image@3x.png"; path = "MSPlayer/Assets/MSPlayer_seekTo_image@3x.png"; sourceTree = "<group>"; };
+		702C23E41AA1017CC1B5BAB3BFEDE3E6 /* MSPlayer_pause_image@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_pause_image@2x.png"; path = "MSPlayer/Assets/MSPlayer_pause_image@2x.png"; sourceTree = "<group>"; };
+		722A9C0F6BDE57FBAD0449B4F0BBDDA6 /* MSPlayer_playCover_image@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_playCover_image@3x.png"; path = "MSPlayer/Assets/MSPlayer_playCover_image@3x.png"; sourceTree = "<group>"; };
+		73C2B7DF53A2A20AF436E68BE256B5BA /* ResourceBundle-MSPlayer-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-MSPlayer-Info.plist"; sourceTree = "<group>"; };
 		73CA76F844CD25D0948772C3DA35CF25 /* NVActivityIndicatorAnimationLineScale.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationLineScale.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationLineScale.swift; sourceTree = "<group>"; };
-		7D000B591BD393EC7A2214CAE328BB99 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7D0B61B8821193EF0A99728F607C080F /* MSPlayer-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MSPlayer-prefix.pch"; sourceTree = "<group>"; };
 		7D785E1639C52E417946934BC483D7B8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		7DAB2EA72D2F927D7AA9F3D9A7F57638 /* NVActivityIndicatorAnimationBallTrianglePath.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallTrianglePath.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallTrianglePath.swift; sourceTree = "<group>"; };
-		7E6D8D7BFACE0A664C22A82962AC9A00 /* MSPlayer_play_image@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_play_image@3x.png"; path = "MSPlayer/Assets/MSPlayer_play_image@3x.png"; sourceTree = "<group>"; };
-		7E86E0D93C666D8FB2C34951EAD35031 /* MSPlayer_endFullScreen_image@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_endFullScreen_image@2x.png"; path = "MSPlayer/Assets/MSPlayer_endFullScreen_image@2x.png"; sourceTree = "<group>"; };
 		7E8E8A9B0E6335244B5B61554AC9F0A2 /* Pods-MSPlayer_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MSPlayer_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		7F14581A18B79862A97566A7FFC10715 /* NVActivityIndicatorView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NVActivityIndicatorView-dummy.m"; sourceTree = "<group>"; };
 		8041CAA9979909306D7AD81019676366 /* Pods-MSPlayer_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MSPlayer_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		81284AB90E1FEF7348F3F6CD26822E41 /* NVActivityIndicatorAnimationBallScaleRippleMultiple.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallScaleRippleMultiple.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallScaleRippleMultiple.swift; sourceTree = "<group>"; };
-		819B884A4C93D1E4D8584E094D80C1E8 /* MSPlayer_back_image@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_back_image@2x.png"; path = "MSPlayer/Assets/MSPlayer_back_image@2x.png"; sourceTree = "<group>"; };
+		8462DBB07F6132CD2D66B815711B33F2 /* MSPlayer_brightness_image@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_brightness_image@2x.png"; path = "MSPlayer/Assets/MSPlayer_brightness_image@2x.png"; sourceTree = "<group>"; };
 		85B1DA8EA08022B19FB6C271CBF43EE6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
-		8CCE5368B888642B97A55F58F513DBDA /* MSPlayer_endFullScreen_image@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_endFullScreen_image@3x.png"; path = "MSPlayer/Assets/MSPlayer_endFullScreen_image@3x.png"; sourceTree = "<group>"; };
 		8FF66B6ACB603D3CA7395E65FBCE08CB /* NVActivityIndicatorAnimationBallZigZagDeflect.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallZigZagDeflect.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallZigZagDeflect.swift; sourceTree = "<group>"; };
 		90C132603F99C59BEFF2DB720867D665 /* NVActivityIndicatorAnimationBlank.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBlank.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBlank.swift; sourceTree = "<group>"; };
+		92224E873B4CE861C60806A804F79680 /* MSPM.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSPM.swift; path = MSPlayer/Classes/MSPM.swift; sourceTree = "<group>"; };
 		92DDD709CDF9638BCA9FA8014C9B3216 /* NVActivityIndicatorAnimationDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationDelegate.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/NVActivityIndicatorAnimationDelegate.swift; sourceTree = "<group>"; };
-		930FE12E20B67F1400943322 /* MSPlayer_down_image@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MSPlayer_down_image@3x.png"; path = "MSPlayer/Assets/MSPlayer_down_image@3x.png"; sourceTree = "<group>"; };
-		930FE12F20B67F1500943322 /* MSPlayer_down_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MSPlayer_down_image@2x.png"; path = "MSPlayer/Assets/MSPlayer_down_image@2x.png"; sourceTree = "<group>"; };
+		934E9E2B20BD5D61006E3ED4 /* MSStackFloatingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSStackFloatingController.swift; sourceTree = "<group>"; };
+		934E9E2D20BD636C006E3ED4 /* MSFloatingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSFloatingType.swift; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		942448598AD323FC9C32131703B8C838 /* ResourceBundle-MSPlayer-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-MSPlayer-Info.plist"; sourceTree = "<group>"; };
 		958F54B904EF5EA7A8A367BE3B8B7754 /* NVActivityIndicatorAnimationBallClipRotate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallClipRotate.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallClipRotate.swift; sourceTree = "<group>"; };
 		988D9F492A7836AF0DF64BF19EDB6F08 /* NVActivityIndicatorAnimationLineScalePulseOutRapid.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationLineScalePulseOutRapid.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationLineScalePulseOutRapid.swift; sourceTree = "<group>"; };
-		9A9A4138A9CECE69AB73757F34B3DB60 /* MSPlayer_replay_image@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_replay_image@3x.png"; path = "MSPlayer/Assets/MSPlayer_replay_image@3x.png"; sourceTree = "<group>"; };
-		9B73C72E18A818EA6020B044C1F5061A /* FormatDisplay.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FormatDisplay.swift; path = MSPlayer/Classes/FormatDisplay.swift; sourceTree = "<group>"; };
+		98CE7902D95EFC5892C7FCB84F50BCAA /* MSPlayer_down_image@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_down_image@2x.png"; path = "MSPlayer/Assets/MSPlayer_down_image@2x.png"; sourceTree = "<group>"; };
+		99B3F0D0004B3C0B8BAC76496CA02C60 /* MSPlayer_endFullScreen_image@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_endFullScreen_image@2x.png"; path = "MSPlayer/Assets/MSPlayer_endFullScreen_image@2x.png"; sourceTree = "<group>"; };
+		9D5285C01D6CEDBD2A01BDFDB813C5EF /* MSPlayerLayerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSPlayerLayerView.swift; path = MSPlayer/Classes/MSPlayerLayerView.swift; sourceTree = "<group>"; };
 		9D6CF9C46DE901429F930E62F4C63754 /* NVActivityIndicatorAnimationBallScaleRipple.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallScaleRipple.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallScaleRipple.swift; sourceTree = "<group>"; };
 		A37642FED83C8A32B984A227717B309B /* Pods-MSPlayer_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MSPlayer_Tests-frameworks.sh"; sourceTree = "<group>"; };
-		A4A43C86238296D47BBD28168C92E4A8 /* MSPlayer_seekTo_image@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_seekTo_image@2x.png"; path = "MSPlayer/Assets/MSPlayer_seekTo_image@2x.png"; sourceTree = "<group>"; };
-		A7A7FEF8D1833A259323785DC6208820 /* MSPlayerExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSPlayerExtension.swift; path = MSPlayer/Classes/MSPlayerExtension.swift; sourceTree = "<group>"; };
-		A9529428BC77C242A386BD366F0F88F5 /* MSPlayer_replay_image@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_replay_image@2x.png"; path = "MSPlayer/Assets/MSPlayer_replay_image@2x.png"; sourceTree = "<group>"; };
-		AC38A986B746DBC2990CCC95AB4E59DB /* MSPlayer_play_image@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_play_image@2x.png"; path = "MSPlayer/Assets/MSPlayer_play_image@2x.png"; sourceTree = "<group>"; };
-		B29B01F83CB7CB452121A44C54602EDC /* VideoTimeRecord.xcdatamodel */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcdatamodel; path = VideoTimeRecord.xcdatamodel; sourceTree = "<group>"; };
-		B2B067E321272835E8275E01806A6481 /* MSPM.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSPM.swift; path = MSPlayer/Classes/MSPM.swift; sourceTree = "<group>"; };
-		B39753DF66FDE38736AF1EAE02F9322C /* MSPlayerLayerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSPlayerLayerView.swift; path = MSPlayer/Classes/MSPlayerLayerView.swift; sourceTree = "<group>"; };
+		A91A6B829E05522CCFFCF879BE1C8A7B /* MSPlayer_back_image@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_back_image@2x.png"; path = "MSPlayer/Assets/MSPlayer_back_image@2x.png"; sourceTree = "<group>"; };
+		AC57ED5C8F50F27F1083FC0A8D3CD761 /* MSPlayer_fullScreen_image@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_fullScreen_image@3x.png"; path = "MSPlayer/Assets/MSPlayer_fullScreen_image@3x.png"; sourceTree = "<group>"; };
+		AD84A789B926567D1E3B311CDA7F0591 /* MSPlayer_down_image@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_down_image@3x.png"; path = "MSPlayer/Assets/MSPlayer_down_image@3x.png"; sourceTree = "<group>"; };
+		B4F13B7F683A5694CCC1A58B5079DF2B /* MSPlayerControlView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSPlayerControlView.swift; path = MSPlayer/Classes/MSPlayerControlView.swift; sourceTree = "<group>"; };
 		B5C3988D2ABCF7E9E73581AC4232B451 /* NVActivityIndicatorPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorPresenter.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Presenter/NVActivityIndicatorPresenter.swift; sourceTree = "<group>"; };
+		B627D79C179FEC4D0588563DB8C23A36 /* MSPlayer.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MSPlayer.xcconfig; sourceTree = "<group>"; };
 		B96B2A3B1E90D3DF1ED85EFE3540DA08 /* NVActivityIndicatorAnimationSquareSpin.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationSquareSpin.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationSquareSpin.swift; sourceTree = "<group>"; };
 		BF81D4B3A8C6D711CAB4939ED2736437 /* MSPlayer.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MSPlayer.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		C1AAFA9772CE55887A775DCB5399B856 /* MSPlayer_playCover_image@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_playCover_image@3x.png"; path = "MSPlayer/Assets/MSPlayer_playCover_image@3x.png"; sourceTree = "<group>"; };
 		C57C1EA35073537E3D80B98E38D0759F /* NVActivityIndicatorViewable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorViewable.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Presenter/NVActivityIndicatorViewable.swift; sourceTree = "<group>"; };
-		C652717F1ACEAB293618EC4304CB6D13 /* MSPlayer_slider_image@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_slider_image@3x.png"; path = "MSPlayer/Assets/MSPlayer_slider_image@3x.png"; sourceTree = "<group>"; };
-		C696806BFD6AC2AA8CA0531CA57A55E6 /* CoreDataManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoreDataManager.swift; path = MSPlayer/Classes/CoreDataManager.swift; sourceTree = "<group>"; };
 		C69ADAB649440704E2A9D94004837001 /* NVActivityIndicatorAnimationPacman.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationPacman.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationPacman.swift; sourceTree = "<group>"; };
 		CF05FBB7D33F059EBB46DB03C4408DD2 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CFC0FA2F4A87EE832E3B437613C492BA /* MSPlayer_pause_image@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_pause_image@3x.png"; path = "MSPlayer/Assets/MSPlayer_pause_image@3x.png"; sourceTree = "<group>"; };
 		D003E45750E9C7B6422C72FF10BE6CDC /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallSpinFadeLoader.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallSpinFadeLoader.swift; sourceTree = "<group>"; };
+		D2B49D9B760FB80F0280F39EA7F43421 /* MSPlayer-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MSPlayer-prefix.pch"; sourceTree = "<group>"; };
 		D35E44F6DB762909863AB4E03F4AE576 /* NVActivityIndicatorAnimationBallRotateChase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallRotateChase.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallRotateChase.swift; sourceTree = "<group>"; };
+		D53B9680C208E9101B67D7BFC0D59EF2 /* MSPlayerResource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSPlayerResource.swift; path = MSPlayer/Classes/MSPlayerResource.swift; sourceTree = "<group>"; };
 		D57D1D5C6DA4A49DE85022BA684CE8CA /* NVActivityIndicatorAnimationAudioEqualizer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationAudioEqualizer.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationAudioEqualizer.swift; sourceTree = "<group>"; };
 		D823962314A436F120CF40A96AB3E256 /* NVActivityIndicatorAnimationBallScaleMultiple.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallScaleMultiple.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallScaleMultiple.swift; sourceTree = "<group>"; };
-		D890D095F21A013AE5E85B6593B34218 /* MSPlayer-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MSPlayer-dummy.m"; sourceTree = "<group>"; };
+		DBAA971D91F1D2EF97EFCB7934BA6B7D /* MSPlayer_pause_image@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_pause_image@3x.png"; path = "MSPlayer/Assets/MSPlayer_pause_image@3x.png"; sourceTree = "<group>"; };
 		DCA66A808795AD9F7CE2C670E84BCF2E /* NVActivityIndicatorView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = NVActivityIndicatorView.modulemap; sourceTree = "<group>"; };
 		E01C43FE6E3AA9DC86CD16E068D2BE1F /* NVActivityIndicatorAnimationBallGridBeat.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallGridBeat.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallGridBeat.swift; sourceTree = "<group>"; };
-		E26BDB4F3339A7AF31E9504535B6AC06 /* MSPlayer_fullScreen_image@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_fullScreen_image@2x.png"; path = "MSPlayer/Assets/MSPlayer_fullScreen_image@2x.png"; sourceTree = "<group>"; };
-		E31A81301BFCCE3404D054BD5BB846DF /* MSPlayerControlView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSPlayerControlView.swift; path = MSPlayer/Classes/MSPlayerControlView.swift; sourceTree = "<group>"; };
-		E43E4891ABD48D37133D8C1F20499E8C /* MSTimeSlider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSTimeSlider.swift; path = MSPlayer/Classes/MSTimeSlider.swift; sourceTree = "<group>"; };
-		E4DD36623FB0F676B2BB35733D1A73BF /* MSBrightnessView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSBrightnessView.swift; path = MSPlayer/Classes/MSBrightnessView.swift; sourceTree = "<group>"; };
+		E20266E1696E7D8A08BF5E8B3859A2EE /* MSPlayer_replay_image@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_replay_image@2x.png"; path = "MSPlayer/Assets/MSPlayer_replay_image@2x.png"; sourceTree = "<group>"; };
 		E6913A22BBFE8C3E3762292A10AA4707 /* Pods-MSPlayer_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MSPlayer_Example-resources.sh"; sourceTree = "<group>"; };
 		E69824C3A14448346B618ABC8F10C540 /* Pods-MSPlayer_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MSPlayer_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		E814138FB3DDBAC80B6CCE32FEBEB203 /* Pods-MSPlayer_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MSPlayer_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		E8EECC668F65B6EB1F6E2AE3664ED837 /* NVActivityIndicatorAnimationCubeTransition.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationCubeTransition.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationCubeTransition.swift; sourceTree = "<group>"; };
 		EC30B639732121010572D0A75C6AC491 /* Pods-MSPlayer_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MSPlayer_Example-frameworks.sh"; sourceTree = "<group>"; };
+		ECE9F61B9171F6A4BE4F5AC9DC9E8A77 /* MSPlayer_playCover_image@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_playCover_image@2x.png"; path = "MSPlayer/Assets/MSPlayer_playCover_image@2x.png"; sourceTree = "<group>"; };
+		EF6AF7CDA0D5B58235DD2C547FC73DD0 /* MSPlayerExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSPlayerExtension.swift; path = MSPlayer/Classes/MSPlayerExtension.swift; sourceTree = "<group>"; };
 		F00EA69A9E4859C720D4D4A009F7B577 /* Pods-MSPlayer_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MSPlayer_Tests-umbrella.h"; sourceTree = "<group>"; };
+		F0AE45042CA92A8634BEADB4B9627B47 /* CoreDataManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoreDataManager.swift; path = MSPlayer/Classes/CoreDataManager.swift; sourceTree = "<group>"; };
 		F1DB4B4F6C6DB5E552AFFAF118F910AE /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		F3058DBD635815CB17EC2D1BB2EC59BE /* Pods-MSPlayer_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-MSPlayer_Example.modulemap"; sourceTree = "<group>"; };
 		F4F0A034F3434E52B8B7F40D4DF5FF66 /* Pods-MSPlayer_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MSPlayer_Example-umbrella.h"; sourceTree = "<group>"; };
 		F6573097CE506E19DC65518B1AE03E64 /* NVActivityIndicatorAnimationBallZigZag.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallZigZag.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallZigZag.swift; sourceTree = "<group>"; };
 		F7D09FFDCF5D9A31CB17BD982EB68F06 /* NVActivityIndicatorAnimationSemiCircleSpin.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationSemiCircleSpin.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationSemiCircleSpin.swift; sourceTree = "<group>"; };
-		FFE7D94BD9047AE0166BE4531312EB66 /* MSFloatableViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSFloatableViewController.swift; path = MSPlayer/Classes/MSFloatableViewController.swift; sourceTree = "<group>"; };
+		F8F73E4DFB07C83761DCE7863FFBDA47 /* FormatDisplay.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FormatDisplay.swift; path = MSPlayer/Classes/FormatDisplay.swift; sourceTree = "<group>"; };
+		FCEB14E05E82F125125884B542541A11 /* MSPlayer_play_image@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_play_image@3x.png"; path = "MSPlayer/Assets/MSPlayer_play_image@3x.png"; sourceTree = "<group>"; };
+		FD2A062320AB7DD3EE37CF3B39ABF81C /* MSPlayer.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = MSPlayer.modulemap; sourceTree = "<group>"; };
+		FD8DEDD21BCED3CD500C925DCD272413 /* MSBrightnessView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSBrightnessView.swift; path = MSPlayer/Classes/MSBrightnessView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -377,7 +379,7 @@
 		23B3ADD92FEBF161BDA99CDC3264EB01 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				644CAC3E9367A8FCAE15EF496C362F79 /* MSPlayer */,
+				DED252A0243E0A9C63FCCBA8A649492A /* MSPlayer */,
 			);
 			name = "Development Pods";
 			sourceTree = "<group>";
@@ -419,29 +421,6 @@
 			path = "../Target Support Files/NVActivityIndicatorView";
 			sourceTree = "<group>";
 		};
-		644CAC3E9367A8FCAE15EF496C362F79 /* MSPlayer */ = {
-			isa = PBXGroup;
-			children = (
-				C696806BFD6AC2AA8CA0531CA57A55E6 /* CoreDataManager.swift */,
-				9B73C72E18A818EA6020B044C1F5061A /* FormatDisplay.swift */,
-				E4DD36623FB0F676B2BB35733D1A73BF /* MSBrightnessView.swift */,
-				FFE7D94BD9047AE0166BE4531312EB66 /* MSFloatableViewController.swift */,
-				3499DC39F171DE281A7D13E4B50DF4A8 /* MSFloatingController.swift */,
-				592E2E3B38ADDA863187A04141449601 /* MSFloatingGestureManager.swift */,
-				6E560A11516C2827CC739A07F563FB24 /* MSPlayer.swift */,
-				E31A81301BFCCE3404D054BD5BB846DF /* MSPlayerControlView.swift */,
-				A7A7FEF8D1833A259323785DC6208820 /* MSPlayerExtension.swift */,
-				B39753DF66FDE38736AF1EAE02F9322C /* MSPlayerLayerView.swift */,
-				303D3FB15A631A272AFD4EE970A249C2 /* MSPlayerResource.swift */,
-				B2B067E321272835E8275E01806A6481 /* MSPM.swift */,
-				E43E4891ABD48D37133D8C1F20499E8C /* MSTimeSlider.swift */,
-				DBBA4737510122C72F513A0BAA64A8BD /* Resources */,
-				F33EBF54248EA6069FCE04BEA9D0C8A8 /* Support Files */,
-			);
-			name = MSPlayer;
-			path = ../..;
-			sourceTree = "<group>";
-		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
@@ -463,6 +442,34 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
+		8F76DB182834E11377C028EB4A6654A4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A91A6B829E05522CCFFCF879BE1C8A7B /* MSPlayer_back_image@2x.png */,
+				401D9AFF256166C6058FEB2845C52CFC /* MSPlayer_back_image@3x.png */,
+				8462DBB07F6132CD2D66B815711B33F2 /* MSPlayer_brightness_image@2x.png */,
+				0131505804C971CB2F945E8F68E5B620 /* MSPlayer_brightness_image@3x.png */,
+				98CE7902D95EFC5892C7FCB84F50BCAA /* MSPlayer_down_image@2x.png */,
+				AD84A789B926567D1E3B311CDA7F0591 /* MSPlayer_down_image@3x.png */,
+				99B3F0D0004B3C0B8BAC76496CA02C60 /* MSPlayer_endFullScreen_image@2x.png */,
+				02D6B78550205759FAB7C6B26AB430B9 /* MSPlayer_endFullScreen_image@3x.png */,
+				3D345D06AAB3017B4BDC442A080A2228 /* MSPlayer_fullScreen_image@2x.png */,
+				AC57ED5C8F50F27F1083FC0A8D3CD761 /* MSPlayer_fullScreen_image@3x.png */,
+				702C23E41AA1017CC1B5BAB3BFEDE3E6 /* MSPlayer_pause_image@2x.png */,
+				DBAA971D91F1D2EF97EFCB7934BA6B7D /* MSPlayer_pause_image@3x.png */,
+				15364B1639E501727B90C12CA69FF57F /* MSPlayer_play_image@2x.png */,
+				FCEB14E05E82F125125884B542541A11 /* MSPlayer_play_image@3x.png */,
+				ECE9F61B9171F6A4BE4F5AC9DC9E8A77 /* MSPlayer_playCover_image@2x.png */,
+				722A9C0F6BDE57FBAD0449B4F0BBDDA6 /* MSPlayer_playCover_image@3x.png */,
+				E20266E1696E7D8A08BF5E8B3859A2EE /* MSPlayer_replay_image@2x.png */,
+				22840D3EE9074524A6ADBD11F3D2CE07 /* MSPlayer_replay_image@3x.png */,
+				07947B0B2EC8C5E99D395C1F188F564C /* MSPlayer_seekTo_image@2x.png */,
+				2FA0986D8B21DA5AAA707E08705CFEE2 /* MSPlayer_seekTo_image@3x.png */,
+				5B3973BE596F750584335AAB00EAAFF7 /* MSPlayer_slider_image@3x.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		A5825A8A24687BECE7AB38ED947014EA /* Pods-MSPlayer_Example */ = {
 			isa = PBXGroup;
 			children = (
@@ -481,33 +488,44 @@
 			path = "Target Support Files/Pods-MSPlayer_Example";
 			sourceTree = "<group>";
 		};
-		DBBA4737510122C72F513A0BAA64A8BD /* Resources */ = {
+		A681F25DD5E0E0AD1FA15134D38AAF63 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				819B884A4C93D1E4D8584E094D80C1E8 /* MSPlayer_back_image@2x.png */,
-				506AC618969B45CBA466F2ABCAD6BF15 /* MSPlayer_back_image@3x.png */,
-				1DC363276CFE5E62F12AA62977C54BE9 /* MSPlayer_brightness_image@2x.png */,
-				0E875D3F08124452A114F61DEC5F5E31 /* MSPlayer_brightness_image@3x.png */,
-				7E86E0D93C666D8FB2C34951EAD35031 /* MSPlayer_endFullScreen_image@2x.png */,
-				8CCE5368B888642B97A55F58F513DBDA /* MSPlayer_endFullScreen_image@3x.png */,
-				E26BDB4F3339A7AF31E9504535B6AC06 /* MSPlayer_fullScreen_image@2x.png */,
-				585D1F091EE0C8C1C36EE4992B3053AE /* MSPlayer_fullScreen_image@3x.png */,
-				930FE12F20B67F1500943322 /* MSPlayer_down_image@2x.png */,
-				930FE12E20B67F1400943322 /* MSPlayer_down_image@3x.png */,
-				3BC63A441287B4276A8410FFDE648046 /* MSPlayer_pause_image@2x.png */,
-				CFC0FA2F4A87EE832E3B437613C492BA /* MSPlayer_pause_image@3x.png */,
-				AC38A986B746DBC2990CCC95AB4E59DB /* MSPlayer_play_image@2x.png */,
-				7E6D8D7BFACE0A664C22A82962AC9A00 /* MSPlayer_play_image@3x.png */,
-				0598E4BDA3CEE9628133449AF1C8AFD6 /* MSPlayer_playCover_image@2x.png */,
-				C1AAFA9772CE55887A775DCB5399B856 /* MSPlayer_playCover_image@3x.png */,
-				A9529428BC77C242A386BD366F0F88F5 /* MSPlayer_replay_image@2x.png */,
-				9A9A4138A9CECE69AB73757F34B3DB60 /* MSPlayer_replay_image@3x.png */,
-				A4A43C86238296D47BBD28168C92E4A8 /* MSPlayer_seekTo_image@2x.png */,
-				7271EDF9F05E1DE1395BCE6F831D9097 /* MSPlayer_seekTo_image@3x.png */,
-				C652717F1ACEAB293618EC4304CB6D13 /* MSPlayer_slider_image@3x.png */,
-				061A2FCB218DEE310648FA8558A9A7BE /* VideoTimeRecord.xcdatamodeld */,
+				4C9C9B4EA667DCC4DD79E5DAE771F503 /* Info.plist */,
+				FD2A062320AB7DD3EE37CF3B39ABF81C /* MSPlayer.modulemap */,
+				B627D79C179FEC4D0588563DB8C23A36 /* MSPlayer.xcconfig */,
+				5E666443DA255E73D00CB97CE6C958B1 /* MSPlayer-dummy.m */,
+				D2B49D9B760FB80F0280F39EA7F43421 /* MSPlayer-prefix.pch */,
+				6AACFF90B379C47D43B56E03BF0969F1 /* MSPlayer-umbrella.h */,
+				73C2B7DF53A2A20AF436E68BE256B5BA /* ResourceBundle-MSPlayer-Info.plist */,
 			);
-			name = Resources;
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/MSPlayer";
+			sourceTree = "<group>";
+		};
+		DED252A0243E0A9C63FCCBA8A649492A /* MSPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				F0AE45042CA92A8634BEADB4B9627B47 /* CoreDataManager.swift */,
+				F8F73E4DFB07C83761DCE7863FFBDA47 /* FormatDisplay.swift */,
+				FD8DEDD21BCED3CD500C925DCD272413 /* MSBrightnessView.swift */,
+				20DA41596AC69B985BE482003906A6D1 /* MSFloatableViewController.swift */,
+				934E9E2D20BD636C006E3ED4 /* MSFloatingType.swift */,
+				2380E84EA6D1AB634AEDD06EF0E0D0A6 /* MSFloatingController.swift */,
+				934E9E2B20BD5D61006E3ED4 /* MSStackFloatingController.swift */,
+				4387B55C448F1F42BA3E2111563416B2 /* MSFloatingGestureManager.swift */,
+				5E5E4DCA669FE51F1635CC7792C4A6B0 /* MSPlayer.swift */,
+				B4F13B7F683A5694CCC1A58B5079DF2B /* MSPlayerControlView.swift */,
+				EF6AF7CDA0D5B58235DD2C547FC73DD0 /* MSPlayerExtension.swift */,
+				9D5285C01D6CEDBD2A01BDFDB813C5EF /* MSPlayerLayerView.swift */,
+				D53B9680C208E9101B67D7BFC0D59EF2 /* MSPlayerResource.swift */,
+				92224E873B4CE861C60806A804F79680 /* MSPM.swift */,
+				487A87EFBBBD0E0099B46EE5235B8488 /* MSTimeSlider.swift */,
+				8F76DB182834E11377C028EB4A6654A4 /* Resources */,
+				A681F25DD5E0E0AD1FA15134D38AAF63 /* Support Files */,
+			);
+			name = MSPlayer;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		E4FDAE32ED45DC00B87D192BAB73C53D /* Frameworks */ = {
@@ -517,21 +535,6 @@
 				44D13D7C4C9836288F56A209CA2BDADE /* iOS */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		F33EBF54248EA6069FCE04BEA9D0C8A8 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				7D000B591BD393EC7A2214CAE328BB99 /* Info.plist */,
-				646221D6D2FC783516A734ED725ACA79 /* MSPlayer.modulemap */,
-				523782E52DD200D803B213D645539AB5 /* MSPlayer.xcconfig */,
-				D890D095F21A013AE5E85B6593B34218 /* MSPlayer-dummy.m */,
-				7D0B61B8821193EF0A99728F607C080F /* MSPlayer-prefix.pch */,
-				3A420005AA33D50575DE584BBC32E749 /* MSPlayer-umbrella.h */,
-				942448598AD323FC9C32131703B8C838 /* ResourceBundle-MSPlayer-Info.plist */,
-			);
-			name = "Support Files";
-			path = "Example/Pods/Target Support Files/MSPlayer";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -614,7 +617,7 @@
 			buildPhases = (
 				68ED75E171A1025C1BD1C5338E1D3ED2 /* Sources */,
 				E17C03E6B90F4C0338621841AEE7A5FE /* Frameworks */,
-				9996449BFDCB8C6711B29EF712D8F771 /* Resources */,
+				2FE8312B01180262805551CA206675B1 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -697,35 +700,35 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				930FE13120B67F1500943322 /* MSPlayer_down_image@2x.png in Resources */,
-				930FE13020B67F1500943322 /* MSPlayer_down_image@3x.png in Resources */,
 				B443D16E4113368DB24C9CF21951D0FD /* MSPlayer.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9996449BFDCB8C6711B29EF712D8F771 /* Resources */ = {
+		2FE8312B01180262805551CA206675B1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B5CF9ADB84894C09E58BF5C44F9C4E8 /* MSPlayer_back_image@2x.png in Resources */,
-				82F85B3043320C7B98413228A68FCF2D /* MSPlayer_back_image@3x.png in Resources */,
-				30FA691282B33232F21302B4C95B8D21 /* MSPlayer_brightness_image@2x.png in Resources */,
-				B351889CC3CF022FA95285D53C606A01 /* MSPlayer_brightness_image@3x.png in Resources */,
-				7997AA88D715C90A1AA3FBEC8830E4BA /* MSPlayer_endFullScreen_image@2x.png in Resources */,
-				92E0E3A23A7740F2837E1602CA95A7CC /* MSPlayer_endFullScreen_image@3x.png in Resources */,
-				D6F91A6A1D9D03EC3173B58944F675AF /* MSPlayer_fullScreen_image@2x.png in Resources */,
-				3DD7DB0A859A9DFEA57A3D3081E237A3 /* MSPlayer_fullScreen_image@3x.png in Resources */,
-				44A6CD63C0F796CD7781ADD2264AB463 /* MSPlayer_pause_image@2x.png in Resources */,
-				72D4EC0EBCDBADA7FC18D2CC70A5969C /* MSPlayer_pause_image@3x.png in Resources */,
-				AF709FFFF091684F17DC556E7649F76A /* MSPlayer_play_image@2x.png in Resources */,
-				7B95153B6AC81B87558C27A7A29653E8 /* MSPlayer_play_image@3x.png in Resources */,
-				45E879C924EE94106C2EBBF995F07E91 /* MSPlayer_playCover_image@2x.png in Resources */,
-				57E172A697C56E004BF7A2BE3581CCBF /* MSPlayer_playCover_image@3x.png in Resources */,
-				ADA09F4FA2D6DBE5CDF81EB58241B4D2 /* MSPlayer_replay_image@2x.png in Resources */,
-				467B430C6228310B4B2F8759CA48504E /* MSPlayer_replay_image@3x.png in Resources */,
-				DAB42BF438B9B4C94105A9FF35DE7659 /* MSPlayer_seekTo_image@2x.png in Resources */,
-				2F05C86FF3AA810F8D77FF816ADE1D83 /* MSPlayer_seekTo_image@3x.png in Resources */,
-				B84B65AE574BAEF7B80DC25324150372 /* MSPlayer_slider_image@3x.png in Resources */,
+				FB9D1AAF9ADA3900957503691DE05B6C /* MSPlayer_back_image@2x.png in Resources */,
+				6FBE460854231CDD0EF948B0C64D7FF3 /* MSPlayer_back_image@3x.png in Resources */,
+				8340F7391EA1A1622C551E701C14EEF4 /* MSPlayer_brightness_image@2x.png in Resources */,
+				64F00F5DC0B2245710B1C1598D16A072 /* MSPlayer_brightness_image@3x.png in Resources */,
+				F708F6EE1B3A7EB5A6D0D753BF65B62D /* MSPlayer_down_image@2x.png in Resources */,
+				11896717489C8329F91F97B30623EDD5 /* MSPlayer_down_image@3x.png in Resources */,
+				7D8F4B76FC0A7E7201F16AB16AEF5CDA /* MSPlayer_endFullScreen_image@2x.png in Resources */,
+				4F9A1D0F702D3C091CC174EBC8E382E3 /* MSPlayer_endFullScreen_image@3x.png in Resources */,
+				2A755C60215DEC355A51E6F953D405BD /* MSPlayer_fullScreen_image@2x.png in Resources */,
+				2518B0D3753B3382581B9B30BA5F3786 /* MSPlayer_fullScreen_image@3x.png in Resources */,
+				F88D4B004586A6564F1B331E7E1CD24D /* MSPlayer_pause_image@2x.png in Resources */,
+				1A206395C21EC2A729D5E83E5C4F3004 /* MSPlayer_pause_image@3x.png in Resources */,
+				AD2E76A26C452B1FD807082A0CD4E6A9 /* MSPlayer_play_image@2x.png in Resources */,
+				EC6D379EE16212C990BD157CA1DF5D5F /* MSPlayer_play_image@3x.png in Resources */,
+				10AF09FF5253E4BB9425272A08D11497 /* MSPlayer_playCover_image@2x.png in Resources */,
+				3AC4740CA8EB023A46004E76C00ECF7D /* MSPlayer_playCover_image@3x.png in Resources */,
+				6864E8C064F23F7C20C22948B762904D /* MSPlayer_replay_image@2x.png in Resources */,
+				95217686862967CB92B60E3DB9C1AFC1 /* MSPlayer_replay_image@3x.png in Resources */,
+				229CB0DCC1CA5ED1245E7A80EDE79800 /* MSPlayer_seekTo_image@2x.png in Resources */,
+				7DFD0B9357F91AE23477B7670E47E557 /* MSPlayer_seekTo_image@3x.png in Resources */,
+				4B18644C2BDF479BEFB4C3DB3DD97411 /* MSPlayer_slider_image@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -752,13 +755,14 @@
 				0FFDC978A422F6E675E39337589EFE8B /* MSFloatingGestureManager.swift in Sources */,
 				A3417DB1EC98BFED7295F443CC6B588D /* MSPlayer-dummy.m in Sources */,
 				121F28D5DF241739A81922892898A450 /* MSPlayer.swift in Sources */,
+				934E9E2C20BD5D61006E3ED4 /* MSStackFloatingController.swift in Sources */,
+				934E9E2E20BD636C006E3ED4 /* MSFloatingType.swift in Sources */,
 				D46569286B676BA810A050F861C83A81 /* MSPlayerControlView.swift in Sources */,
 				61128DC18462C785B4B07D4BFD2FAFC8 /* MSPlayerExtension.swift in Sources */,
 				0FD995B4F11938A31DE9555F6EBC2C7C /* MSPlayerLayerView.swift in Sources */,
 				7592A810B2E5CE32264978959039717D /* MSPlayerResource.swift in Sources */,
 				89B4C92C4979051DD5F63CA4C755BF95 /* MSPM.swift in Sources */,
 				84F7E6BEE7DFDB84FEA69B424DDA7295 /* MSTimeSlider.swift in Sources */,
-				7C574CBA0AC17760BE171589E3513C47 /* VideoTimeRecord.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -918,7 +922,7 @@
 		};
 		0DCFF1986DF08921C13D336E0374851A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 523782E52DD200D803B213D645539AB5 /* MSPlayer.xcconfig */;
+			baseConfigurationReference = B627D79C179FEC4D0588563DB8C23A36 /* MSPlayer.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/MSPlayer";
@@ -994,7 +998,7 @@
 		};
 		4611FD4046E09C5D9A4F4837435F835B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 523782E52DD200D803B213D645539AB5 /* MSPlayer.xcconfig */;
+			baseConfigurationReference = B627D79C179FEC4D0588563DB8C23A36 /* MSPlayer.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1144,7 +1148,7 @@
 		};
 		9745B2C379784CC65FCA03AB37491289 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 523782E52DD200D803B213D645539AB5 /* MSPlayer.xcconfig */;
+			baseConfigurationReference = B627D79C179FEC4D0588563DB8C23A36 /* MSPlayer.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1244,7 +1248,7 @@
 		};
 		F771C0C85C0ACFC9B9BE2FBD51B41408 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 523782E52DD200D803B213D645539AB5 /* MSPlayer.xcconfig */;
+			baseConfigurationReference = B627D79C179FEC4D0588563DB8C23A36 /* MSPlayer.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/MSPlayer";
@@ -1316,20 +1320,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		061A2FCB218DEE310648FA8558A9A7BE /* VideoTimeRecord.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				B29B01F83CB7CB452121A44C54602EDC /* VideoTimeRecord.xcdatamodel */,
-			);
-			currentVersion = B29B01F83CB7CB452121A44C54602EDC /* VideoTimeRecord.xcdatamodel */;
-			name = VideoTimeRecord.xcdatamodeld;
-			path = MSPlayer/Classes/VideoTimeRecord.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 }

@@ -279,7 +279,6 @@ open class MSPlayerControlView: UIView {
     open func updateUI(for fullScreen: Bool) {
         isFullScreen = fullScreen
         fullScreenButton.isSelected = fullScreen
-        self.updateFrame()
         
         if fullScreen {
             // rawValue == 2 mean none so notShowTopMaskView
@@ -294,16 +293,6 @@ open class MSPlayerControlView: UIView {
             } else {
                 topMaskView.isHidden = false
             }
-        }
-    }
-    
-    private func updateFrame() {
-        if isFullScreen && MSPlayerConfig.fullScreenIgnoreConstraint {
-            self.translatesAutoresizingMaskIntoConstraints = true
-            self.frame = UIScreen.main.bounds
-            self.layoutIfNeeded()
-        } else if self.translatesAutoresizingMaskIntoConstraints {
-            self.translatesAutoresizingMaskIntoConstraints = false
         }
     }
     
@@ -475,6 +464,16 @@ open class MSPlayerControlView: UIView {
         customizeUIComponents()
     }
     
+    func changeBackImageToDownImage() {
+        backButton.setImage(MSPlayerConfig.downButtonImage, for: .normal)
+        MSPlayerConfig.isUseBackImage = false
+    }
+    
+    func changeDownImageToBackImage() {
+        backButton.setImage(MSPlayerConfig.backButtonImage, for: .normal)
+        MSPlayerConfig.isUseBackImage = true
+    }
+    
     func setupUIComponents() {
         
         // Main mask view
@@ -498,8 +497,8 @@ open class MSPlayerControlView: UIView {
         // Top Views
         topMaskView.addSubview(backButton)
         backButton.tag = MSPM.ButtonType.back.rawValue
-        if MSFloatingController.shared().usingType == .normal {
-            backButton.setImage(MSPlayerConfig.downButtonImage, for: .normal)
+        if MSPlayerConfig.isUseBackImage {
+            backButton.setImage(MSPlayerConfig.backButtonImage, for: .normal)
         } else {
             backButton.setImage(MSPlayerConfig.downButtonImage, for: .normal)
         }
