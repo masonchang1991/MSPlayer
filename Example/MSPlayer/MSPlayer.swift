@@ -464,7 +464,7 @@ open class MSPlayer: UIView {
             UIApplication.shared.setStatusBarHidden(false, with: .fade)
             UIApplication.shared.statusBarOrientation = .portrait
         } else {
-            self.translatesAutoresizingMaskIntoConstraints = false
+            
             //先清除現在orientation的值
             //有可能Device是landscape進來(此時statusbar的orientation是portrait)，所以在按下切換全螢幕時
             //有可能我改的UIDevice的orientation值，改前跟改後都是一樣的 例如我landscapeRight進來
@@ -534,9 +534,6 @@ open class MSPlayer: UIView {
         controlView.delegate = self
         controlView.player = self
         
-        controlView.translatesAutoresizingMaskIntoConstraints = false
-        self.translatesAutoresizingMaskIntoConstraints = false
-        controlView.addConstraintWithOther(self, anchorTypes: [.edge2Edge])
         setGesture()
     }
     
@@ -572,13 +569,16 @@ open class MSPlayer: UIView {
         playerLayerView?.videoGravity = videoGravity
         insertSubview(playerLayerView!, at: 0)
         
-        playerLayerView?.translatesAutoresizingMaskIntoConstraints = false
-        self.translatesAutoresizingMaskIntoConstraints = false
-        playerLayerView?.addConstraintWithOther(self, anchorTypes: [.edge2Edge])
         playerLayerView?.delegate = self
         controlView.showLoader()
-        self.layoutIfNeeded()
     }
+    
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        self.playerLayerView?.frame = self.bounds
+        self.controlView.frame = self.bounds
+    }
+    
 }
 
 extension MSPlayer: MSPlayerLayerViewDelegate {

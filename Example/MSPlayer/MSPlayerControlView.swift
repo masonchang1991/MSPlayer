@@ -581,8 +581,6 @@ open class MSPlayerControlView: UIView {
     
     func setupUIConstraint() {
         
-        self.translatesAutoresizingMaskIntoConstraints = false
-        
         // Main mask view
         mainMaskView.translatesAutoresizingMaskIntoConstraints = false
         mainMaskView.addConstraintWithOther(self, anchorTypes: [.edge2Edge])

@@ -58,6 +58,10 @@ public class MSFloatingController: NSObject {
     public var floatingViewMinimizedFrame = CGRect.zero
     internal var floatingViewTapGesture: UITapGestureRecognizer?
     
+    //MARK: - Previous Window Status
+    internal var mainWindowStatusBarStyle: UIStatusBarStyle = UIApplication.shared.statusBarStyle
+    internal var floatingWindowStatusBarStyle: UIStatusBarStyle = .lightContent
+    
     // status
     fileprivate var isFullScreen: Bool {
         get {
@@ -66,6 +70,8 @@ public class MSFloatingController: NSObject {
     }
     
     public func show(_ animated: Bool, frame: CGRect = UIScreen.main.bounds, floatableVC: MSFloatableViewController) {
+        
+        saveMainWindowStatus()
         
         if floatableType == nil {
             
@@ -160,12 +166,29 @@ public class MSFloatingController: NSObject {
     internal func prepareToShrink() {
         self.floatableType?.player.closeControlViewAndRemoveGesture()
         shrinkFloatingVC?()
+        returnToMainWindowStatus()
+    }
+    
+    func returnToMainWindowStatus() {
+        // Save floatingWindow status
+        self.floatingWindowStatusBarStyle = UIApplication.shared.statusBarStyle
+        // Change to mainWindowStatusBarStyle
+        UIApplication.shared.statusBarStyle = self.mainWindowStatusBarStyle
+    }
+    
+    func returnToFloatingWindowStatus() {
+        UIApplication.shared.statusBarStyle = self.floatingWindowStatusBarStyle
+    }
+    
+    func saveMainWindowStatus() {
+        self.mainWindowStatusBarStyle = UIApplication.shared.statusBarStyle
     }
     
     //MARK: - Do something when you shrink
     internal func prepareToExpand() {
         self.floatableType?.player.openControlViewAndSetGesture()
         expandFloatingVC?()
+        returnToFloatingWindowStatus()
     }
     
     //MARK: - change MSPlayer setting
@@ -238,7 +261,7 @@ extension MSFloatingController {
         //MARK: - set state at animation
         if isAnimation {
             self.state = .animation
-            UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseIn, animations: {
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
                 self.floatableType?.player.frame = self.floatingViewOriginFrame
                 self.msplayerWindow?.frame = self.windowOriginFrame
                 self.floatableType?.player.alpha = 1.0
@@ -267,6 +290,9 @@ extension MSFloatingController {
         
         // 縮小前將originFrame設定好
         self.floatingViewOriginFrame = self.floatableType?.player.frame ?? CGRect.zero
+        
+        //
+        self.floatableType?.player.translatesAutoresizingMaskIntoConstraints = true
         
         let yOffset = windowOriginFrame.size.height - self.floatingMinimizedSize.height
         let xOffset = windowOriginFrame.size.width - self.floatingMinimizedSize.width
@@ -302,9 +328,3 @@ extension MSFloatingController {
         }
     }
 }
-
-
-
-
-
-

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MSPlayer'
-  s.version          = '1.1.7'
+  s.version          = '1.1.8'
   s.summary          = 'A quick use VideoPlayer base on avplayer and support floating like youtube did'
 
 # This description is used to generate tags and improve search results.
