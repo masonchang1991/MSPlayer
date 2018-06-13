@@ -42,6 +42,8 @@ public class MSStackFloatingController: MSFloatingController {
     override public func show(_ animated: Bool, frame: CGRect, floatableVC: MSFloatableViewController) {
         
         if self.floatNavigationController == nil {
+            //MARK: - save previous status
+            saveMainWindowStatus()
             
             guard let floatableViewController = floatableVC as? UIViewController else { return }
             self.floatNavigationController = UINavigationController(rootViewController: floatableViewController)
@@ -91,6 +93,7 @@ public class MSStackFloatingController: MSFloatingController {
             switch state {
                 
             case .minimum:
+                saveMainWindowStatus()
                 expand()
                 fallthrough
             case .normal:
@@ -98,7 +101,7 @@ public class MSStackFloatingController: MSFloatingController {
                     print("fail")
                     return
                 }
-                self.floatNavigationController?.pushViewController(floatableViewController, animated: true)
+                self.floatNavigationController?.pushViewController(floatableViewController, animated: false)
                 self.floatableType = floatableVC
                 self.floatableType?.floatingController = self
             default:

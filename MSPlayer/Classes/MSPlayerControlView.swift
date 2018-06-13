@@ -97,14 +97,14 @@ open class MSPlayerControlView: UIView {
     /// load progress view
     open var progressView = UIProgressView()
     /* play button
-       playButton.isSelected = player.isPlaying
-    */
+     playButton.isSelected = player.isPlaying
+     */
     open var playButton = UIButton(type: .custom)
     /// Error Label
     open var notFoundLabel = UILabel()
     /* fullScreen button
-       fullScreenButton.isSelected = player.isFullScreen
-    */
+     fullScreenButton.isSelected = player.isFullScreen
+     */
     open var fullScreenButton = UIButton(type: .custom)
     /// Activity Indector for loading
     open lazy var loadingIndector: NVActivityIndicatorView = {
@@ -131,18 +131,18 @@ open class MSPlayerControlView: UIView {
     
     // MARK: - handle player state change
     /**
-    call on when play time changed, update duration here
- 
-    - parameter currentTime: current play time
-    - parameter totalTime: total duration
-    
-    */
+     call on when play time changed, update duration here
+     
+     - parameter currentTime: current play time
+     - parameter totalTime: total duration
+     
+     */
     open func playTimeDidChange(currentTime: TimeInterval, totalTime: TimeInterval) {
         self.totalTime = totalTime
         self.currentTime = currentTime
         
         totalTimeLabel.text = FormatDisplay.formatSecondsToString(currentTime) + "/" +
-                              FormatDisplay.formatSecondsToString(totalTime)
+            FormatDisplay.formatSecondsToString(totalTime)
         timeSlider.value = Float(currentTime) / Float(totalTime)
         player?.progressSliderValue = timeSlider.value
     }
@@ -152,7 +152,7 @@ open class MSPlayerControlView: UIView {
      
      - parameter loadedDuration: loaded duration
      - parameter totalDuration: total duration
-    */
+     */
     open func loadedTimeDidChange(loadedDuration: TimeInterval, totalDuration: TimeInterval) {
         progressView.setProgress(Float(loadedDuration) / Float(totalDuration), animated: true)
     }
@@ -202,11 +202,11 @@ open class MSPlayerControlView: UIView {
     
     // MARK: - UI update related function
     /**
-    Update UI details when player set with the resource
- 
-    - parameter resource: video resouce
-    - parameter index: default definition's index
-    */
+     Update UI details when player set with the resource
+     
+     - parameter resource: video resouce
+     - parameter index: default definition's index
+     */
     open func prepareUI(for resource: MSPlayerResource, selected index: Int) {
         self.resource = resource
         self.selectedIndex = index
@@ -220,7 +220,7 @@ open class MSPlayerControlView: UIView {
     
     /**
      auto fade out controlView with animation
-    */
+     */
     open func autoFadeOutControlViewWithAnimation() {
         cancelAutoFadeOutAnimation()
         delayItem = DispatchWorkItem { [weak self] in
@@ -236,16 +236,16 @@ open class MSPlayerControlView: UIView {
     
     /**
      cancel auto fade out controlView with animation
-    */
+     */
     open func cancelAutoFadeOutAnimation() {
         delayItem?.cancel()
     }
-
+    
     /**
      Implement of the controlView animation, override if need's custom animation
- 
-    - parameter isShow: is to show the controlView
-    */
+     
+     - parameter isShow: is to show the controlView
+     */
     open func controlViewAnimation(isShow: Bool) {
         
         if self.playerLastState != .playedToTheEnd {
@@ -271,10 +271,10 @@ open class MSPlayerControlView: UIView {
     }
     
     /**
-    Implement of the UI update when screen orient changed
- 
-    - parameter fullScreen: is for full screen
-    */
+     Implement of the UI update when screen orient changed
+     
+     - parameter fullScreen: is for full screen
+     */
     
     open func updateUI(for fullScreen: Bool) {
         isFullScreen = fullScreen
@@ -298,7 +298,7 @@ open class MSPlayerControlView: UIView {
     
     /**
      Call when video play's to the end, override if you need custom UI or animation when played to the end
-    */
+     */
     
     open func showPlayToTheEndView() {
         replayButton.isHidden = false
@@ -368,9 +368,9 @@ open class MSPlayerControlView: UIView {
     // MARK: - Action Response
     /**
      Call when some action button pressed
- 
-    - parameter button: action button
-    */
+     
+     - parameter button: action button
+     */
     @objc open func onButtonPressed(_ button: UIButton) {
         autoFadeOutControlViewWithAnimation()
         if let type = MSPM.ButtonType(rawValue: button.tag) {
@@ -389,10 +389,10 @@ open class MSPlayerControlView: UIView {
     }
     
     /**
-    Call when the tap gesture tapped
- 
-    - parameter gesture: tap gesture
-    */
+     Call when the tap gesture tapped
+     
+     - parameter gesture: tap gesture
+     */
     @objc open func onTapGestureTapped(_ gesture: UITapGestureRecognizer) {
         if playerLastState == .playedToTheEnd {
             return
@@ -436,7 +436,7 @@ open class MSPlayerControlView: UIView {
         cancelAutoFadeOutAnimation()
         let currentTime = Double(sender.value) * totalDuration
         totalTimeLabel.text = FormatDisplay.formatSecondsToString(currentTime) + "/" +
-                              FormatDisplay.formatSecondsToString(self.totalTime)
+            FormatDisplay.formatSecondsToString(self.totalTime)
         delegate?.controlView(self, slider: sender, onSlider: .valueChanged)
     }
     
@@ -580,8 +580,6 @@ open class MSPlayerControlView: UIView {
     }
     
     func setupUIConstraint() {
-        
-        self.translatesAutoresizingMaskIntoConstraints = false
         
         // Main mask view
         mainMaskView.translatesAutoresizingMaskIntoConstraints = false
