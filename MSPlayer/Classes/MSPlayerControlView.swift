@@ -345,7 +345,9 @@ open class MSPlayerControlView: UIView {
     }
     
     open func showPlayCover() {
-        self.playCoverImageView.isHidden = false
+        if !MSPlayerConfig.playCoverImageViewNeedHidden {
+            self.playCoverImageView.isHidden = false
+        }
     }
     
     open func hidePlayCover() {

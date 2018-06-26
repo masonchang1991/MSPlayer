@@ -348,7 +348,7 @@ open class MSPlayerLayerView: UIView {
                 }
                 if let currentItem = player.currentItem {
                     if player.currentTime() >= currentItem.duration {
-//                        moviePlayDidEnd()
+                        //                        moviePlayDidEnd()
                         return
                     }
                     if currentItem.isPlaybackLikelyToKeepUp || currentItem.isPlaybackBufferFull {

@@ -132,14 +132,14 @@ public class MSStackFloatingController: MSFloatingController {
     }
     
     func onRecognizerStateBegan(yPlayerLocation: CGFloat, recognizer: UIPanGestureRecognizer) {
-        self.floatableType?.player.closeControlViewAndRemoveGesture()
+        self.floatableType?.floatingPlayer.closeControlViewAndRemoveGesture()
         panGestureDirection = UIPanGestureRecognizerDirection.Undefined
         
         let velocity = recognizer.velocity(in: recognizer.view)
         detectPanDirection(velocity: velocity)
         
-        touchPositionStartY = recognizer.location(in: self.floatableType?.player).y
-        touchPositionStartX = recognizer.location(in: self.floatableType?.player).x
+        touchPositionStartY = recognizer.location(in: self.floatableType?.floatingPlayer).y
+        touchPositionStartX = recognizer.location(in: self.floatableType?.floatingPlayer).x
     }
     
     func onRecognizerStateChanged(yPlayerLocation: CGFloat, recognizer: UIPanGestureRecognizer) {
@@ -184,12 +184,12 @@ public class MSStackFloatingController: MSFloatingController {
         windowFrame.size.height = windowFrame.height - trueOffset
         windowFrame.origin = changePosition
         
-        var floatingViewFrame = self.floatableType?.player.frame ?? CGRect.zero
+        var floatingViewFrame = self.floatableType?.floatingPlayer.frame ?? CGRect.zero
         floatingViewFrame.size.width = self.windowOriginFrame.width - xOffset
         floatingViewFrame.size.height = floatingViewFrame.size.width * 9 / 16
         
         UIView.animate(withDuration: 0.09, delay: 0.0, options: .curveEaseInOut, animations: {
-            self.floatableType?.player.frame = floatingViewFrame
+            self.floatableType?.floatingPlayer.frame = floatingViewFrame
             self.msplayerWindow?.frame = windowFrame
             
         }, completion: nil)

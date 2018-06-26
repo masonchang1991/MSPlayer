@@ -56,8 +56,8 @@ public class MSPlayerResourceDefinition {
     }
     
     /**
-    Video resource item with definition name and specifying options
- 
+     Video resource item with definition name and specifying options
+     
      - parameter url:
      - parameter definition: url definition
      - parameter options: specifying options for the initialization of the AVURLAsset
@@ -69,7 +69,7 @@ public class MSPlayerResourceDefinition {
      let header = ["User-Agent": "MSPlayer"]
      let definition.options = ["AVURLAssetHTTPHeaderFieldsKey": header]
      ```
-    */
+     */
     public init(url: URL, definition: String, options: [String: Any]? = nil) {
         self.url = url
         self.definition = definition

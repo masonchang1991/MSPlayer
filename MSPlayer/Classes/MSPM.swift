@@ -121,6 +121,7 @@ public class MSPM {
     open var otherMaskViewShowAlpha: CGFloat = 1.0
     open var urlWrongLabelText: String = "Video is unavailable"
     open var playCoverImage: UIImage? = MSPM.MSImageResourcePath("MSPlayer_playCover_image")
+    open var playCoverImageViewNeedHidden: Bool = false
     open var mainMaskBackgroundColor = UIColor.black.withAlphaComponent(0.1)
     open var bottomMaskBackgroundColor = UIColor.black.withAlphaComponent(0.6)
     open var isUseBackImage: Bool = true

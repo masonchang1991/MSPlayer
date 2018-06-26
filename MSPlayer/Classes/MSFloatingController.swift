@@ -164,7 +164,7 @@ public class MSFloatingController: NSObject {
     
     //MARK: - Do something when you shrink
     internal func prepareToShrink() {
-        self.floatableType?.player.closeControlViewAndRemoveGesture()
+        self.floatableType?.floatingPlayer.closeControlViewAndRemoveGesture()
         shrinkFloatingVC?()
         returnToMainWindowStatus()
     }
@@ -186,14 +186,14 @@ public class MSFloatingController: NSObject {
     
     //MARK: - Do something when you shrink
     internal func prepareToExpand() {
-        self.floatableType?.player.openControlViewAndSetGesture()
+        self.floatableType?.floatingPlayer.openControlViewAndSetGesture()
         expandFloatingVC?()
         returnToFloatingWindowStatus()
     }
     
     //MARK: - change MSPlayer setting
     internal func changePlayerBackImage(toDown: Bool) {
-        self.floatableType?.player.changeControlViewBackButtonImage(toDown: toDown)
+        self.floatableType?.floatingPlayer.changeControlViewBackButtonImage(toDown: toDown)
     }
     
     
@@ -213,7 +213,7 @@ public class MSFloatingController: NSObject {
     
     fileprivate func setSlideGesture() {
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(gestureManager?.panAction(_:)))
-        floatableType?.player.addGestureRecognizer(gesture)
+        floatableType?.floatingPlayer.addGestureRecognizer(gesture)
     }
     
     @objc fileprivate func onOrientationChanged() {
@@ -262,24 +262,24 @@ extension MSFloatingController {
         if isAnimation {
             self.state = .animation
             UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
-                self.floatableType?.player.frame = self.floatingViewOriginFrame
+                self.floatableType?.floatingPlayer.frame = self.floatingViewOriginFrame
                 self.msplayerWindow?.frame = self.windowOriginFrame
-                self.floatableType?.player.alpha = 1.0
-                self.floatableType?.player.layer.borderWidth = 0
+                self.floatableType?.floatingPlayer.alpha = 1.0
+                self.floatableType?.floatingPlayer.layer.borderWidth = 0
             }) { (finished) in
                 if let floatingGesture = self.floatingViewTapGesture {
-                    self.floatableType?.player.removeGestureRecognizer(floatingGesture)
+                    self.floatableType?.floatingPlayer.removeGestureRecognizer(floatingGesture)
                 }
                 self.floatingViewTapGesture = nil
                 self.state = .normal
             }
         } else {
-            self.floatableType?.player.frame = self.floatingViewOriginFrame
+            self.floatableType?.floatingPlayer.frame = self.floatingViewOriginFrame
             self.msplayerWindow?.frame = self.windowOriginFrame
-            self.floatableType?.player.alpha = 1.0
-            self.floatableType?.player.layer.borderWidth = 0
+            self.floatableType?.floatingPlayer.alpha = 1.0
+            self.floatableType?.floatingPlayer.layer.borderWidth = 0
             if let floatingGesture = self.floatingViewTapGesture {
-                self.floatableType?.player.removeGestureRecognizer(floatingGesture)
+                self.floatableType?.floatingPlayer.removeGestureRecognizer(floatingGesture)
             }
             self.floatingViewTapGesture = nil
             self.state = .normal
@@ -289,10 +289,10 @@ extension MSFloatingController {
     internal final func shrinkViews() {
         
         // 縮小前將originFrame設定好
-        self.floatingViewOriginFrame = self.floatableType?.player.frame ?? CGRect.zero
+        self.floatingViewOriginFrame = self.floatableType?.floatingPlayer.frame ?? CGRect.zero
         
         //
-        self.floatableType?.player.translatesAutoresizingMaskIntoConstraints = true
+        self.floatableType?.floatingPlayer.translatesAutoresizingMaskIntoConstraints = true
         
         let yOffset = windowOriginFrame.size.height - self.floatingMinimizedSize.height
         let xOffset = windowOriginFrame.size.width - self.floatingMinimizedSize.width
@@ -309,22 +309,22 @@ extension MSFloatingController {
         //MARK: - set state at animation
         self.state = .animation
         UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseOut, animations: {
-            self.floatableType?.player.frame = self.floatingViewMinimizedFrame
+            self.floatableType?.floatingPlayer.frame = self.floatingViewMinimizedFrame
             self.msplayerWindow?.frame = self.windowMinimizedFrame
-            self.floatableType?.player.layer.borderWidth = 1
-            self.floatableType?.player.layer.borderColor = UIColor.white.withAlphaComponent(0.5).cgColor
+            self.floatableType?.floatingPlayer.layer.borderWidth = 1
+            self.floatableType?.floatingPlayer.layer.borderColor = UIColor.white.withAlphaComponent(0.5).cgColor
         }) { (finished) in
             if let floatingGesture = self.floatingViewTapGesture {
-                self.floatableType?.player.removeGestureRecognizer(floatingGesture)
+                self.floatableType?.floatingPlayer.removeGestureRecognizer(floatingGesture)
             }
             self.floatingViewTapGesture = nil
             self.floatingViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.expand))
-            self.floatableType?.player.addGestureRecognizer(self.floatingViewTapGesture!)
+            self.floatableType?.floatingPlayer.addGestureRecognizer(self.floatingViewTapGesture!)
             self.gestureManager = MSFloatingGestureManager(floatingController: self)
             self.gestureManager?.setSlideGesture()
             
             self.state = .minimum
-            self.floatableType?.player.layoutIfNeeded()
+            self.floatableType?.floatingPlayer.layoutIfNeeded()
         }
     }
 }

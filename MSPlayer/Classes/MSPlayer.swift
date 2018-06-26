@@ -220,6 +220,7 @@ open class MSPlayer: UIView {
         // show play cover
         if controlView.playCoverImageView.isHidden {
             controlView.showPlayCover()
+            controlView.hideLoader()
         }
     }
     
