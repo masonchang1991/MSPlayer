@@ -523,7 +523,11 @@ open class MSPlayer: UIView {
     // MARK: - init UI
     fileprivate func initUI() {
         self.backgroundColor = UIColor.black
-        
+        setControlView()
+        setGesture()
+    }
+    
+    fileprivate func setControlView() {
         if let customView = customControlView {
             controlView = customView
         } else {
@@ -534,8 +538,6 @@ open class MSPlayer: UIView {
         controlView.updateUI(for: isFullScreen)
         controlView.delegate = self
         controlView.player = self
-        
-        setGesture()
     }
     
     fileprivate func setGesture() {

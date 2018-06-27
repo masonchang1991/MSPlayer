@@ -214,17 +214,52 @@ public class MSPM {
         do {
             try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
         } catch {
-            // Report any error we got.
-            var dict = [String: AnyObject]()
-            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data" as AnyObject?
-            dict[NSLocalizedFailureReasonErrorKey] = failureReason as AnyObject?
+            //MARK: - avoid user's coreData conflict
+            //版本迁移
+            var sqlPathRoot:NSString = url.absoluteString as NSString
+            var shmurl:NSURL = NSURL(string: sqlPathRoot.appending("-shm"))!
+            var walurl:NSURL = NSURL(string: sqlPathRoot.appending("-wal"))!
+            do{
+                try FileManager.default.removeItem(at: url)
+            }catch{
+                print(error)
+            }
+            do{
+                try FileManager.default.removeItem(at: shmurl as URL)
+            }catch{
+                print(error)
+            }
+            do{
+                try FileManager.default.removeItem(at: walurl as URL)
+            }catch{
+                print(error)
+            }
             
-            dict[NSUnderlyingErrorKey] = error as NSError
-            let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
-            // Replace this with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog("Unresolved error \(wrappedError), \(wrappedError.userInfo)")
-            abort()
+            //再创建一次
+            var persistentStore : NSPersistentStore?
+            
+            do{
+                try persistentStore =  coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
+            }catch{
+                // Report any error we got.
+                var dict = [String: AnyObject]()
+                dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data" as AnyObject
+                dict[NSLocalizedFailureReasonErrorKey] = failureReason as AnyObject
+                dict[NSUnderlyingErrorKey] = error as NSError
+                let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
+                // Replace this with code to handle the error appropriately.
+                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                NSLog("Unresolved error \(wrappedError), \(wrappedError.userInfo)")
+                abort()
+            }
+            if persistentStore == nil
+            {
+                print("版本更替失败了")
+            }
+            else
+            {
+                print("版本更替成功")
+            }
         }
         
         return coordinator

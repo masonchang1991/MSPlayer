@@ -158,6 +158,7 @@ open class MSPlayerControlView: UIView {
     }
     
     open func playerStateDidChange(state: MSPM.State) {
+        hideUrlWrongLabel()
         switch state {
         case .readyToPlay:
             hideLoader()
@@ -356,11 +357,16 @@ open class MSPlayerControlView: UIView {
     
     open func showUrlWrong() {
         hideLoader()
+        notFoundLabel.isHidden = false
         notFoundLabel.text = MSPlayerConfig.urlWrongLabelText
         notFoundLabel.sizeToFit()
         notFoundLabel.center = self.center
         notFoundLabel.textColor = UIColor.white
         self.addSubview(notFoundLabel)
+    }
+    
+    open func hideUrlWrongLabel() {
+        notFoundLabel.isHidden = true
     }
     
     open func prepareToDealloc() {
