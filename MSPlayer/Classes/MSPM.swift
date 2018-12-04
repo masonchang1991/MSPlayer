@@ -23,7 +23,8 @@ public enum MSPlayerTopBarShowCase: Int {
 
 public class MSPM {
     
-    open static func shared() -> MSPM {
+    @discardableResult
+    public static func shared() -> MSPM {
         if self.sharedInstance == nil {
             self.sharedInstance = MSPM()
             BrightnessView.shared()
@@ -277,5 +278,4 @@ public class MSPM {
         let coreDataManager = MSCoreDataManager()
         coreDataManager.deleteAllVideoTimeRecords()
     }
-    
 }

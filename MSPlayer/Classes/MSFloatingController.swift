@@ -10,24 +10,24 @@ import UIKit
 
 public class MSFloatingController: NSObject {
     
-    open var type: MSFloatingType = .normal
-    
-    open class func shared() -> MSFloatingController {
-        if self.sharedInstance == nil {
-            self.sharedInstance = MSFloatingController()
-        }
-        return self.sharedInstance ?? MSFloatingController()
-    }
-    
-    //MARK: Shared Instance
-    internal static var sharedInstance: MSFloatingController?
-    
     //MARK: MSFloatingViewController floating state
     public enum FloatingState {
         case animation
         case normal
         case minimum
     }
+    
+    open var type: MSFloatingType = .normal
+    
+    open class func shared() -> MSFloatingController {
+        if sharedInstance == nil {
+            sharedInstance = MSFloatingController()
+        }
+        return sharedInstance ?? MSFloatingController()
+    }
+    
+    //MARK: Shared Instance
+    internal static var sharedInstance: MSFloatingController?
     
     // Avoid init
     internal override init() { }
@@ -36,7 +36,7 @@ public class MSFloatingController: NSObject {
     var floatableType: MSFloatableViewController? {
         didSet {
             if floatableType == nil {
-                self.gestureManager = nil
+                gestureManager = nil
                 MSFloatingController.sharedInstance = nil
                 MSPM.shared().msFloatingWindow = nil
             }
@@ -75,9 +75,9 @@ public class MSFloatingController: NSObject {
         
         if floatableType == nil {
             
-            self.floatableType = floatableVC
-            self.windowOriginFrame = frame
-            self.state = .normal
+            floatableType = floatableVC
+            windowOriginFrame = frame
+            state = .normal
             guard
                 let msplayerWindow = createCustomWindowWith(frame),
                 let floatableVC = floatableType as? UIViewController else {
@@ -126,11 +126,11 @@ public class MSFloatingController: NSObject {
                 fallthrough
             case .normal:
                 //MARK: - replace current VC
-                self.closeFloatingVC?()
-                self.floatableType = floatableVC
+                closeFloatingVC?()
+                floatableType = floatableVC
                 if let floatableVC = floatableType as? UIViewController {
-                    self.msplayerWindow?.rootViewController = floatableVC
-                    self.floatableType?.floatingController = self
+                    msplayerWindow?.rootViewController = floatableVC
+                    floatableType?.floatingController = self
                 }
             default:
                 break
@@ -140,15 +140,15 @@ public class MSFloatingController: NSObject {
     
     //MARK: - close current vc
     public func close(_ animated: Bool = true) {
-        self.closeFloatingVC?()
-        self.floatableType = nil
-        self.msplayerWindow = nil
+        closeFloatingVC?()
+        floatableType = nil
+        msplayerWindow = nil
     }
     
     //MARK: - shrink current vc
     public func shrink() {
         //MARK: - 如果 floatableVC 在畫面上，以及目前狀態不等於縮小化狀態，才可以放大
-        if floatableType != nil && self.state != .minimum {
+        if floatableType != nil && state != .minimum {
             shrinkViews()
             prepareToShrink()
         }
@@ -156,7 +156,7 @@ public class MSFloatingController: NSObject {
     
     //MARK: - expand current vc
     public func expand() {
-        if floatableType != nil && self.state != .normal {
+        if floatableType != nil && state != .normal {
             expandViews()
             prepareToExpand()
         }
@@ -164,38 +164,37 @@ public class MSFloatingController: NSObject {
     
     //MARK: - Do something when you shrink
     internal func prepareToShrink() {
-        self.floatableType?.floatingPlayer.closeControlViewAndRemoveGesture()
+        floatableType?.floatingPlayer.closeControlViewAndRemoveGesture()
         shrinkFloatingVC?()
         returnToMainWindowStatus()
     }
     
     func returnToMainWindowStatus() {
         // Save floatingWindow status
-        self.floatingWindowStatusBarStyle = UIApplication.shared.statusBarStyle
+        floatingWindowStatusBarStyle = UIApplication.shared.statusBarStyle
         // Change to mainWindowStatusBarStyle
-        UIApplication.shared.statusBarStyle = self.mainWindowStatusBarStyle
+        UIApplication.shared.statusBarStyle = mainWindowStatusBarStyle
     }
     
     func returnToFloatingWindowStatus() {
-        UIApplication.shared.statusBarStyle = self.floatingWindowStatusBarStyle
+        UIApplication.shared.statusBarStyle = floatingWindowStatusBarStyle
     }
     
     func saveMainWindowStatus() {
-        self.mainWindowStatusBarStyle = UIApplication.shared.statusBarStyle
+        mainWindowStatusBarStyle = UIApplication.shared.statusBarStyle
     }
     
     //MARK: - Do something when you shrink
     internal func prepareToExpand() {
-        self.floatableType?.floatingPlayer.openControlViewAndSetGesture()
+        floatableType?.floatingPlayer.openControlViewAndSetGesture()
         expandFloatingVC?()
         returnToFloatingWindowStatus()
     }
     
     //MARK: - change MSPlayer setting
     internal func changePlayerBackImage(toDown: Bool) {
-        self.floatableType?.floatingPlayer.changeControlViewBackButtonImage(toDown: toDown)
+        floatableType?.floatingPlayer.changeControlViewBackButtonImage(toDown: toDown)
     }
-    
     
     //MARK: - create floating window
     internal final func createCustomWindowWith(_ frame: CGRect) -> UIWindow? {
@@ -212,7 +211,8 @@ public class MSFloatingController: NSObject {
     }
     
     fileprivate func setSlideGesture() {
-        let gesture = UIPanGestureRecognizer(target: self, action: #selector(gestureManager?.panAction(_:)))
+        let gesture = UIPanGestureRecognizer(target: self,
+                                             action: #selector(gestureManager?.panAction(_:)))
         floatableType?.floatingPlayer.addGestureRecognizer(gesture)
     }
     
@@ -234,7 +234,7 @@ public class MSFloatingController: NSObject {
     
     func addObserver() {
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.onOrientationChanged),
+                                               selector: #selector(onOrientationChanged),
                                                name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation,
                                                object: nil)
     }
@@ -260,7 +260,7 @@ extension MSFloatingController {
     internal final func expandViews(isAnimation: Bool = true) {
         //MARK: - set state at animation
         if isAnimation {
-            self.state = .animation
+            state = .animation
             UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
                 self.floatableType?.floatingPlayer.frame = self.floatingViewOriginFrame
                 self.msplayerWindow?.frame = self.windowOriginFrame
@@ -274,40 +274,38 @@ extension MSFloatingController {
                 self.state = .normal
             }
         } else {
-            self.floatableType?.floatingPlayer.frame = self.floatingViewOriginFrame
-            self.msplayerWindow?.frame = self.windowOriginFrame
-            self.floatableType?.floatingPlayer.alpha = 1.0
-            self.floatableType?.floatingPlayer.layer.borderWidth = 0
-            if let floatingGesture = self.floatingViewTapGesture {
-                self.floatableType?.floatingPlayer.removeGestureRecognizer(floatingGesture)
+            floatableType?.floatingPlayer.frame = floatingViewOriginFrame
+            msplayerWindow?.frame = windowOriginFrame
+            floatableType?.floatingPlayer.alpha = 1.0
+            floatableType?.floatingPlayer.layer.borderWidth = 0
+            if let floatingGesture = floatingViewTapGesture {
+                floatableType?.floatingPlayer.removeGestureRecognizer(floatingGesture)
             }
-            self.floatingViewTapGesture = nil
-            self.state = .normal
+            floatingViewTapGesture = nil
+            state = .normal
         }
     }
     
     internal final func shrinkViews() {
-        
         // 縮小前將originFrame設定好
-        self.floatingViewOriginFrame = self.floatableType?.floatingPlayer.frame ?? CGRect.zero
-        
+        floatingViewOriginFrame = floatableType?.floatingPlayer.frame ?? CGRect.zero
         //
-        self.floatableType?.floatingPlayer.translatesAutoresizingMaskIntoConstraints = true
+        floatableType?.floatingPlayer.translatesAutoresizingMaskIntoConstraints = true
         
-        let yOffset = windowOriginFrame.size.height - self.floatingMinimizedSize.height
-        let xOffset = windowOriginFrame.size.width - self.floatingMinimizedSize.width
+        let yOffset = windowOriginFrame.size.height - floatingMinimizedSize.height
+        let xOffset = windowOriginFrame.size.width - floatingMinimizedSize.width
         
         windowMinimizedFrame.origin.y = yOffset
         windowMinimizedFrame.origin.x = xOffset
-        windowMinimizedFrame.size.width = self.floatingMinimizedSize.width
-        windowMinimizedFrame.size.height = self.floatingMinimizedSize.height
+        windowMinimizedFrame.size.width = floatingMinimizedSize.width
+        windowMinimizedFrame.size.height = floatingMinimizedSize.height
         
         //MARK: - 定義浮動視窗的長度
-        floatingViewMinimizedFrame.size.width = self.floatingMinimizedSize.width
-        floatingViewMinimizedFrame.size.height = self.floatingMinimizedSize.height
+        floatingViewMinimizedFrame.size.width = floatingMinimizedSize.width
+        floatingViewMinimizedFrame.size.height = floatingMinimizedSize.height
         
         //MARK: - set state at animation
-        self.state = .animation
+        state = .animation
         UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseOut, animations: {
             self.floatableType?.floatingPlayer.frame = self.floatingViewMinimizedFrame
             self.msplayerWindow?.frame = self.windowMinimizedFrame

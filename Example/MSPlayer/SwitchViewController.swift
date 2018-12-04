@@ -26,7 +26,6 @@ class SwitchViewController: UIViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
     }
-    
 }
 
 extension SwitchViewController: UITableViewDelegate, UITableViewDataSource {
@@ -61,7 +60,4 @@ extension SwitchViewController: UITableViewDelegate, UITableViewDataSource {
             MSStackFloatingController.shared().show(true, floatableVC: floatingPlayerVC)
         }
     }
-    
-    
-    
 }

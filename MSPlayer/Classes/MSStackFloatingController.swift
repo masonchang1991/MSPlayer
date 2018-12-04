@@ -10,6 +10,14 @@ import UIKit
 
 public class MSStackFloatingController: MSFloatingController {
     
+    enum UIPanGestureRecognizerDirection {
+        case Undefined
+        case Up
+        case Down
+        case Left
+        case Right
+    }
+    
     public override var type: MSFloatingType {
         get {
             return .stack
@@ -30,14 +38,6 @@ public class MSStackFloatingController: MSFloatingController {
     internal var panGestureDirection: UIPanGestureRecognizerDirection?
     internal var touchPositionStartY: CGFloat?
     internal var touchPositionStartX: CGFloat?
-    
-    enum UIPanGestureRecognizerDirection {
-        case Undefined
-        case Up
-        case Down
-        case Left
-        case Right
-    }
     
     override public func show(_ animated: Bool, frame: CGRect, floatableVC: MSFloatableViewController) {
         
@@ -91,7 +91,6 @@ public class MSStackFloatingController: MSFloatingController {
         } else {
             
             switch state {
-                
             case .minimum:
                 saveMainWindowStatus()
                 expand()
@@ -148,8 +147,10 @@ public class MSStackFloatingController: MSFloatingController {
             let trueOffset = yPlayerLocation - touchPositionStartY!
             let xOffset = trueOffset * 0.35
             print("trueOffset:", trueOffset, "xOffset:", xOffset)
-            adjustViewOnVerticalPan(yPlayerLocation: yPlayerLocation, trueOffset: trueOffset, xOffset: xOffset, recognizer: recognizer)
-            
+            adjustViewOnVerticalPan(yPlayerLocation: yPlayerLocation,
+                                    trueOffset: trueOffset,
+                                    xOffset: xOffset,
+                                    recognizer: recognizer)
         }
     }
     
@@ -159,13 +160,10 @@ public class MSStackFloatingController: MSFloatingController {
             if ((self.msplayerWindow?.frame.origin.y)! < 0) {
                 expandViews()
                 recognizer.setTranslation(CGPoint.zero, in: recognizer.view)
-                return
-                
             } else {
                 if ((self.msplayerWindow?.frame.origin.y)! > (UIScreen.main.bounds.height / 2)) {
                     shrinkViews()
                     recognizer.setTranslation(CGPoint.zero, in: recognizer.view)
-                    return
                 } else {
                     expandViews()
                     recognizer.setTranslation(CGPoint.zero, in: recognizer.view)
@@ -175,7 +173,6 @@ public class MSStackFloatingController: MSFloatingController {
     }
     
     func adjustViewOnVerticalPan(yPlayerLocation: CGFloat, trueOffset: CGFloat, xOffset: CGFloat, recognizer: UIPanGestureRecognizer) {
-        
         //Use this offset to adjust the position of your view accordingly
         let changePosition = CGPoint(x: xOffset, y: trueOffset)
         
@@ -201,15 +198,12 @@ public class MSStackFloatingController: MSFloatingController {
         let isVerticalGesture = fabs(velocity.y) > fabs(velocity.x)
         
         if (isVerticalGesture) {
-            
             if (velocity.y > 0) {
                 panGestureDirection = UIPanGestureRecognizerDirection.Down
             } else {
                 panGestureDirection = UIPanGestureRecognizerDirection.Up
             }
-            
         } else {
-            
             if (velocity.x > 0) {
                 panGestureDirection = UIPanGestureRecognizerDirection.Right
             } else {
@@ -233,4 +227,3 @@ public class MSStackFloatingController: MSFloatingController {
         self.floatableType = currentVC
     }
 }
-

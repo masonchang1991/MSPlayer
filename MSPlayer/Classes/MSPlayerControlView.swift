@@ -61,7 +61,6 @@ open class MSPlayerControlView: UIView {
     open var resource: MSPlayerResource?
     open var selectedIndex = 0
     
-    
     open var totalDuration: TimeInterval = 0
     open var delayItem: DispatchWorkItem?
     
@@ -108,10 +107,14 @@ open class MSPlayerControlView: UIView {
     open var fullScreenButton = UIButton(type: .custom)
     /// Activity Indector for loading
     open lazy var loadingIndector: NVActivityIndicatorView = {
+        let isCurrentLandscape = UIApplication.shared.statusBarOrientation.isLandscape
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
+        let screenRatioOrientationParameter: CGFloat = isCurrentLandscape ? screenHeight/screenWidth : 1.0
         let frame = CGRect(x: 0,
                            y: 0,
-                           width: 30 * MSPM.screenRatio,
-                           height: 30 * MSPM.screenRatio)
+                           width: 30 * MSPM.screenRatio * screenRatioOrientationParameter,
+                           height: 30 * MSPM.screenRatio * screenRatioOrientationParameter)
         let loadingView = NVActivityIndicatorView(frame: frame)
         return loadingView
     }()
@@ -276,7 +279,6 @@ open class MSPlayerControlView: UIView {
      
      - parameter fullScreen: is for full screen
      */
-    
     open func updateUI(for fullScreen: Bool) {
         isFullScreen = fullScreen
         fullScreenButton.isSelected = fullScreen
@@ -330,18 +332,27 @@ open class MSPlayerControlView: UIView {
         self.maskImageView.isHidden = true
     }
     
-    open func showCover(url: URL?) {
+    open func showCover(url: URL?, urlHeaders: [String: String]? = nil) {
         guard let url = url else { return }
         DispatchQueue.global(qos: .default).async {
-            let data = try? Data(contentsOf: url)
-            DispatchQueue.main.async {
-                if let dataUnwrapped = data {
-                    self.maskImageView.image = UIImage(data: dataUnwrapped)
-                } else {
-                    self.maskImageView.image = nil
+            let urlSessionConfiguration = URLSessionConfiguration.default
+            urlSessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+            urlSessionConfiguration.timeoutIntervalForRequest = 15.0
+            urlSessionConfiguration.timeoutIntervalForResource = 15.0
+            let urlSession = URLSession(configuration: urlSessionConfiguration)
+            var request = URLRequest(url: url)
+            request.allHTTPHeaderFields = urlHeaders
+            urlSession.dataTask(with: request, completionHandler: { (data, response, error) in
+                DispatchQueue.main.async {
+                    if let dataUnwrapped = data {
+                        self.maskImageView.isHidden = false
+                        self.maskImageView.image = UIImage(data: dataUnwrapped)
+                    } else {
+                        self.maskImageView.image = nil
+                    }
+                    self.hideLoader()
                 }
-                self.hideLoader()
-            }
+            }).resume()
         }
     }
     
@@ -402,16 +413,12 @@ open class MSPlayerControlView: UIView {
      - parameter gesture: tap gesture
      */
     @objc open func onTapGestureTapped(_ gesture: UITapGestureRecognizer) {
-        if playerLastState == .playedToTheEnd {
-            return
-        }
+        if playerLastState == .playedToTheEnd { return }
         controlViewAnimation(isShow: !isMaskShowing)
     }
     
     @objc open func doubleTapGestureTapped(_ gesture: UITapGestureRecognizer) {
-        if playerLastState == .playedToTheEnd {
-            return
-        }
+        if playerLastState == .playedToTheEnd { return }
         playButton.sendActions(for: .touchUpInside)
     }
     
@@ -483,6 +490,10 @@ open class MSPlayerControlView: UIView {
     }
     
     func setupUIComponents() {
+        let isCurrentLandscape = UIApplication.shared.statusBarOrientation.isLandscape
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
+        let screenRatioOrientationParameter: CGFloat = isCurrentLandscape ? screenHeight/screenWidth : 1.0
         
         // Main mask view
         addSubview(mainMaskView)
@@ -527,7 +538,7 @@ open class MSPlayerControlView: UIView {
         playButton.imageView?.contentMode = .scaleAspectFit
         
         totalTimeLabel.textColor = MSPlayerConfig.totalTimeTextColor
-        totalTimeLabel.font = UIFont(name: "PingFangSC-Medium", size: 10.0 * MSPM.screenRatio)
+        totalTimeLabel.font = UIFont(name: "PingFangSC-Medium", size: 10.0 * MSPM.screenRatio * screenRatioOrientationParameter)
         totalTimeLabel.text = "00:00/00:00"
         totalTimeLabel.textAlignment = .center
         
@@ -543,7 +554,7 @@ open class MSPlayerControlView: UIView {
         timeSlider.addTarget(self, action: #selector(progressSliderValueChanged(_:)),
                              for: .valueChanged)
         timeSlider.addTarget(self, action: #selector(progressSliderTouchEnded(_:)),
-                             for: [.touchUpInside, .touchCancel, .touchUpInside])
+                             for: [.touchUpInside, .touchCancel, .touchDragExit])
         
         progressView.tintColor = MSPlayerConfig.progressViewTintColor
         progressView.trackTintColor = MSPlayerConfig.progressViewTrackTintColor
@@ -551,7 +562,8 @@ open class MSPlayerControlView: UIView {
         fullScreenButton.tag = MSPM.ButtonType.fullScreen.rawValue
         fullScreenButton.setImage(MSPlayerConfig.fullScreenButtonImage, for: .normal)
         fullScreenButton.setImage(MSPlayerConfig.endFullScreenButtonImage, for: .selected)
-        fullScreenButton.addTarget(self, action: #selector(onButtonPressed(_:)),
+        fullScreenButton.addTarget(self,
+                                   action: #selector(onButtonPressed(_:)),
                                    for: .touchUpInside)
         
         loadingIndector.type =  MSPlayerConfig.loaderType
@@ -562,7 +574,7 @@ open class MSPlayerControlView: UIView {
         seekToView.addSubview(seekToViewImage)
         seekToView.addSubview(seekToLabel)
         
-        seekToLabel.font = UIFont.systemFont(ofSize: 13 * MSPM.screenRatio)
+        seekToLabel.font = UIFont.systemFont(ofSize: 13 * MSPM.screenRatio * screenRatioOrientationParameter)
         seekToLabel.textColor = MSPlayerConfig.seekToLabelTextColor
         
         seekToView.backgroundColor = MSPlayerConfig.seekToViewBackgroundColor
@@ -588,6 +600,10 @@ open class MSPlayerControlView: UIView {
     }
     
     func setupUIConstraint() {
+        let isCurrentLandscape = UIApplication.shared.statusBarOrientation.isLandscape
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
+        let screenRatioOrientationParameter: CGFloat = isCurrentLandscape ? screenHeight/screenWidth : 1.0
         
         // Main mask view
         mainMaskView.translatesAutoresizingMaskIntoConstraints = false
@@ -597,11 +613,17 @@ open class MSPlayerControlView: UIView {
         maskImageView.addConstraintWithOther(mainMaskView, anchorTypes: [.edge2Edge])
         
         playCoverImageView.translatesAutoresizingMaskIntoConstraints = false
-        playCoverImageView.addConstraintWithOther(mainMaskView, anchorTypes: [.width2Width(1.0 / 7.0, priority: 1000),
-                                                                              .height2Width(1.0 / 7.0, priority: 1000),
+        playCoverImageView.addConstraintWithOther(mainMaskView, anchorTypes: [.width2Width(Double(1.0 / 7.0), priority: 1000),
+                                                                              .height2Width(Double(1.0 / 7.0), priority: 1000),
                                                                               .centerX2CenterX(0, priority: 1000),
                                                                               .centerY2CenterY(0, priority: 1000)])
+        //MARK: - maybe you would rotate screen before I get statusbar height
+        // so change isStatusBarHidden to false to get statusBarHeight and restore to origin
+        let statusBarIsHidden = UIApplication.shared.isStatusBarHidden
+        UIApplication.shared.isStatusBarHidden = false
         let statusBarHeight = UIApplication.shared.statusBarFrame.height
+        UIApplication.shared.isStatusBarHidden = statusBarIsHidden
+        
         topMaskView.translatesAutoresizingMaskIntoConstraints = false
         topMaskView.addConstraintWithOther(mainMaskView, anchorTypes: [.top2Top(statusBarHeight, priority: 1000),
                                                                        .leading2Leading(0, priority: 1000),
@@ -611,14 +633,14 @@ open class MSPlayerControlView: UIView {
         bottomMaskView.addConstraintWithOther(mainMaskView, anchorTypes: [.bottom2Bottom(0, priority: 1000),
                                                                           .leading2Leading(0, priority: 1000),
                                                                           .trailing2Trailing(0, priority: 1000),
-                                                                          .height2Width(30.0 / 375.0, priority: 900)])
+                                                                          .height2Width(Double(30.0 / 375.0 * screenRatioOrientationParameter), priority: 900)])
         bottomMaskView.heightAnchor.constraint(greaterThanOrEqualToConstant: 40.0).isActive = true
         
         // Top Views
         backButton.translatesAutoresizingMaskIntoConstraints = false
-        backButton.addConstraintWithOther(mainMaskView, anchorTypes: [.width(30 * MSPM.screenRatio, priority: 1000),
-                                                                      .height(30 * MSPM.screenRatio, priority: 1000),
-                                                                      .leading2Leading(15 * MSPM.screenRatio, priority: 1000)])
+        backButton.addConstraintWithOther(mainMaskView, anchorTypes: [.width(30 * MSPM.screenRatio * screenRatioOrientationParameter, priority: 1000),
+                                                                      .height(30 * MSPM.screenRatio * screenRatioOrientationParameter, priority: 1000),
+                                                                      .leading2Leading(15 * MSPM.screenRatio * screenRatioOrientationParameter, priority: 1000)])
         backButton.addConstraintWithOther(topMaskView, anchorTypes: [.top2Top(0, priority: 1000)])
         
         // Bottom Views
@@ -648,7 +670,7 @@ open class MSPlayerControlView: UIView {
         progressView.addConstraintWithOther(playButton, anchorTypes: [.centerY2CenterY(0, priority: 1000)])
         progressView.addConstraintWithOther(timeSlider, anchorTypes: [.leading2Leading(0, priority: 1000),
                                                                       .trailing2Trailing(0, priority: 1000)])
-        progressView.addConstraintWithOther(bottomMaskView, anchorTypes: [.height2Height(2.0 / 32.0, priority: 1000)])
+        progressView.addConstraintWithOther(bottomMaskView, anchorTypes: [.height2Height(2.0 / 32.0 , priority: 1000)])
         
         loadingIndector.translatesAutoresizingMaskIntoConstraints = false
         loadingIndector.addConstraintWithOther(mainMaskView, anchorTypes: [.centerX2CenterX(0, priority: 1000),
@@ -658,14 +680,14 @@ open class MSPlayerControlView: UIView {
         seekToView.translatesAutoresizingMaskIntoConstraints = false
         seekToView.addConstraintWithOther(self, anchorTypes: [.centerX2CenterX(0, priority: 1000),
                                                               .centerY2CenterY(0, priority: 1000),
-                                                              .width(100 * MSPM.screenRatio, priority: 1000),
-                                                              .height(40 * MSPM.screenRatio, priority: 1000)])
+                                                              .width(100 * MSPM.screenRatio * screenRatioOrientationParameter, priority: 1000),
+                                                              .height(40 * MSPM.screenRatio * screenRatioOrientationParameter, priority: 1000)])
         
         seekToViewImage.translatesAutoresizingMaskIntoConstraints = false
-        seekToViewImage.addConstraintWithOther(seekToView, anchorTypes: [.leading2Leading(15 * MSPM.screenRatio, priority: 1000),
+        seekToViewImage.addConstraintWithOther(seekToView, anchorTypes: [.leading2Leading(15 * MSPM.screenRatio * screenRatioOrientationParameter, priority: 1000),
                                                                          .centerY2CenterY(0, priority: 1000),
-                                                                         .height(15 * MSPM.screenRatio, priority: 1000),
-                                                                         .width(25 * MSPM.screenRatio, priority: 1000)])
+                                                                         .height(15 * MSPM.screenRatio * screenRatioOrientationParameter, priority: 1000),
+                                                                         .width(25 * MSPM.screenRatio * screenRatioOrientationParameter, priority: 1000)])
         
         seekToLabel.translatesAutoresizingMaskIntoConstraints = false
         seekToLabel.addConstraintWithOther(seekToViewImage, anchorTypes: [.leading2Trailing(10, priority: 1000)])
@@ -674,8 +696,8 @@ open class MSPlayerControlView: UIView {
         replayButton.translatesAutoresizingMaskIntoConstraints = false
         replayButton.addConstraintWithOther(mainMaskView, anchorTypes: [.centerX2CenterX(0, priority: 1000),
                                                                         .centerY2CenterY(0, priority: 1000),
-                                                                        .height(50 * MSPM.screenRatio, priority: 1000),
-                                                                        .width(50 * MSPM.screenRatio, priority: 1000)])
+                                                                        .height(50 * MSPM.screenRatio * screenRatioOrientationParameter, priority: 1000),
+                                                                        .width(50 * MSPM.screenRatio * screenRatioOrientationParameter, priority: 1000)])
     }
     
     /// Add Customize functions here
@@ -683,8 +705,7 @@ open class MSPlayerControlView: UIView {
         
     }
     
-    
     deinit {
-        print("MSPlayerControlView dealloc")
+        print(classForCoder, "dealloc")
     }
 }

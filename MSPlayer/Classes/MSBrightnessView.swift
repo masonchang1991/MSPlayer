@@ -31,11 +31,13 @@ class BrightnessView: UIView {
         return version
     }
     
-    static func shared() {
+    @discardableResult
+    static func shared() -> BrightnessView? {
         if self.sharedInstance == nil {
             self.sharedInstance = BrightnessView()
             self.sharedInstance?.tag = 200
         }
+        return sharedInstance
     }
     
     override init(frame: CGRect) {
@@ -150,7 +152,6 @@ class BrightnessView: UIView {
     }
     
     func addStatucBarNotification() {
-        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(statusBarOrientationNotification(_:)),
                                                name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation,
@@ -210,6 +211,15 @@ class BrightnessView: UIView {
         }
     }
     
+    open func removeBrightnessView() {
+        for subview in UIApplication.shared.windows.first?.subviews ?? [] {
+            if subview.tag == 200 {
+                subview.removeFromSuperview()
+            }
+        }
+        self.removeTimer()
+    }
+    
     func addTimer() {
         if self.timer != nil { return }
         self.timer = Timer(timeInterval: 2,
@@ -229,6 +239,6 @@ class BrightnessView: UIView {
     deinit {
         UIScreen.main.removeObserver(self, forKeyPath: "brightness")
         NotificationCenter.default.removeObserver(self)
-        print("BrightnessView gone")
+        print(classForCoder.self, "dealloc - MSPlayer")
     }
 }

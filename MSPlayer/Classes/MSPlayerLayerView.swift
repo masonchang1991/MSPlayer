@@ -39,10 +39,10 @@ open class MSPlayerLayerView: UIView {
         return nil
     }()
     /// VideoGravity
-    open var videoGravity = AVLayerVideoGravityResizeAspectFill {
+    open var videoGravity = AVLayerVideoGravityResizeAspect {
         didSet {
             self.playerLayer?.videoGravity = videoGravity
-            print("")
+            print("videoGravity", self.playerLayer?.videoGravity)
         }
     }
     
@@ -131,9 +131,9 @@ open class MSPlayerLayerView: UIView {
             // play with sound in slience mode
             do {
                 try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-            } catch {
+            } catch(let error) {
                 // TODO: Error handle
-                print("error")
+                print("play error:", error)
             }
             player.play()
             setupTimer()
@@ -257,10 +257,10 @@ open class MSPlayerLayerView: UIView {
                 self.playerLayer?.frame  = self.bounds
             }
         case .sixteen2NINE:
-            self.playerLayer?.videoGravity = "AVLayerVideoGravityResize"
+            self.playerLayer?.videoGravity = AVLayerVideoGravityResizeAspect
             self.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.width/(16/9))
         case .four2THREE:
-            self.playerLayer?.videoGravity = "AVLayerVideoGravityResize"
+            self.playerLayer?.videoGravity = AVLayerVideoGravityResizeAspect
             let width = self.bounds.height * 4 / 3
             self.playerLayer?.frame = CGRect(x: (self.bounds.width - width)/2,
                                              y: 0,
@@ -335,6 +335,7 @@ open class MSPlayerLayerView: UIView {
                     if playerItem.isPlaybackLikelyToKeepUp || playerItem.isPlaybackBufferFull {
                         self.state = .bufferFinished
                     } else if playerItem.error != nil {
+                        print("playerItem:", playerItem.error)
                         self.state = .error
                     } else {
                         self.state = .buffering
@@ -419,6 +420,6 @@ open class MSPlayerLayerView: UIView {
     }
     
     deinit {
-        print("MSPlayerLayerView dealloc")
+        print(classForCoder, "dealloc")
     }
 }

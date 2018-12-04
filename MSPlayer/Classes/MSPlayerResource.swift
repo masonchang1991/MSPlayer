@@ -13,6 +13,7 @@ public class MSPlayerResource {
     
     public let name : String
     public var coverURL : URL?
+    public var coverURLRequestHeaders: [String: String]?
     public let definitions: [MSPlayerResourceDefinition]
     
     /**
@@ -22,9 +23,9 @@ public class MSPlayerResource {
      - parameter url: video url
      - parameter cover: video cover, will show before playing, and hide when play
      */
-    public convenience init(url: URL, name: String = "", coverURL: URL? = nil) {
+    public convenience init(url: URL, name: String = "", coverURL: URL? = nil, coverURLRequestHeaders: [String: String]? = nil) {
         let definition = MSPlayerResourceDefinition(url: url, definition: "")
-        self.init(name: name, definitions: [definition], coverURL: coverURL)
+        self.init(name: name, definitions: [definition], coverURL: coverURL, coverURLRequestHeaders: coverURLRequestHeaders)
     }
     
     /**
@@ -34,10 +35,11 @@ public class MSPlayerResource {
      - parameter definitions: video definitions
      - parameter cover: video cover
      */
-    public init(name: String = "", definitions: [MSPlayerResourceDefinition], coverURL: URL? = nil) {
+    public init(name: String = "", definitions: [MSPlayerResourceDefinition], coverURL: URL? = nil, coverURLRequestHeaders: [String: String]? = nil) {
         self.name = name
         self.coverURL = coverURL
         self.definitions = definitions
+        self.coverURLRequestHeaders = coverURLRequestHeaders
     }
 }
 

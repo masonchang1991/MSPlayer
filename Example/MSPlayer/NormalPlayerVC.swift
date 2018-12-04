@@ -35,24 +35,19 @@ class NormalPlayerVC: UIViewController {
         player.setVideoBy(asset, videoIdForRecord: "001")
         
         player.backBlock = { [weak self] (isFullScreen) in
+            guard let self = self else { return }
             if isFullScreen == true { return }
-            self?.navigationController?.popViewController(animated: false)
+            self.navigationController?.popViewController(animated: false)
         }
         player.showBlock = { [weak self] (sure) in
-            UIApplication.shared.keyWindow?.rootViewController?.navigationController?.pushViewController(self!, animated: true)
+            guard let self = self else { return }
+            UIApplication.shared.keyWindow?.rootViewController?.navigationController?.pushViewController(self, animated: true)
         }
-        
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     deinit {
-        print("viewController dealloc")
+        print(classForCoder, "dealloc")
     }
-
 }
 
 extension NormalPlayerVC: MSPlayerDelegate {
@@ -75,7 +70,5 @@ extension NormalPlayerVC: MSPlayerDelegate {
     func msPlayer(_ player: MSPlayer, orientChanged isFullScreen: Bool) {
         
     }
-    
-    
 }
 

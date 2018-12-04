@@ -27,7 +27,7 @@ open class MSPlayer: UIView {
         case vertical = 1
     }
     
-    private var videoId: String? = nil
+    open var videoId: String? = nil
     open weak var delegate: MSPlayerDelegate?
     open var playerLayerView: MSPlayerLayerView?
     fileprivate var controlView: MSPlayerControlView!
@@ -47,7 +47,7 @@ open class MSPlayer: UIView {
     open var panGesture: UIPanGestureRecognizer?
     
     /// AVLayerVideoGravityType
-    open var videoGravity = AVLayerVideoGravityResizeAspectFill {
+    open var videoGravity = AVLayerVideoGravityResizeAspect {
         didSet {
             self.playerLayerView?.videoGravity = videoGravity
         }
@@ -112,7 +112,6 @@ open class MSPlayer: UIView {
     fileprivate var isURLSet = false
     fileprivate var isSliderSliding = false
     fileprivate var isUserMoveSlider = false
-    fileprivate var isVolume = false
     fileprivate var verticalPanPosition: VerticalPanPosition = .unknown
     fileprivate var isMaskShowing = false
     fileprivate var isSlowed = false
@@ -168,9 +167,9 @@ open class MSPlayer: UIView {
             isURLSet = true
             let asset = resource.definitions[definitionIndex]
             playerLayerView?.playAsset(asset: asset.avURLAsset)
-            if videoId != nil {
+            if let videoId = videoId {
                 let coreDataManager = MSCoreDataManager()
-                coreDataManager.loadVideoTimeRecordWith(videoId!) { (lastWatchTime) in
+                coreDataManager.loadVideoTimeRecordWith(videoId) { (lastWatchTime) in
                     if let lastWatchTime = lastWatchTime {
                         self.seek(lastWatchTime) {
                             self.autoPlay()
@@ -179,7 +178,8 @@ open class MSPlayer: UIView {
                 }
             }
         } else {
-            controlView.showCover(url: resource.coverURL)
+            controlView.showCover(url: resource.coverURL,
+                                  urlHeaders: resource.coverURLRequestHeaders)
             controlView.hideLoader()
         }
     }
@@ -282,15 +282,18 @@ open class MSPlayer: UIView {
      prepare to dealloc player, call at View or Controllers deinit funciton.
      */
     open func prepareToDealloc() {
+        if isPlayToTheEnd {
+            controlView.hidePlayToTheEndView()
+        }
         playerLayerView?.prepareToDeinit()
         controlView.prepareToDealloc()
     }
     
     func recordCurrentTime() {
-        if videoId != nil && MSPM.shared().openRecorder {
+        if let videoId = videoId, MSPM.shared().openRecorder {
             let currentTime = self.totalDuration * Double(self.progressSliderValue)
             let coreDataManager = MSCoreDataManager()
-            coreDataManager.saveVideoTimeRecordWith(videoId!, videoTime: currentTime)
+            coreDataManager.saveVideoTimeRecordWith(videoId, videoTime: currentTime)
         }
     }
     
@@ -305,7 +308,6 @@ open class MSPlayer: UIView {
     }
     
     // MARK: - Action response
-    
     @objc fileprivate func panDirection(_ pan: UIPanGestureRecognizer) {
         // 播放結束時，手勢忽略
         guard playerLayerView?.state != .playedToTheEnd else { return }
@@ -319,7 +321,6 @@ open class MSPlayer: UIView {
         
         switch pan.state {
         case .began:
-            
             // 使用絕對值來判斷移動的方向
             let x = fabs(velocityPoint.x)
             let y = fabs(velocityPoint.y)
@@ -344,11 +345,6 @@ open class MSPlayer: UIView {
             } else {
                 // vertical
                 self.panDirection = .vertical
-                //                if locationPoint.x > self.bounds.size.width / 2 {
-                //                    self.isVolume = true
-                //                } else {
-                //                    self.isVolume = false
-                //                }
                 
                 if locationPoint.x < self.bounds.size.width / 3 {
                     self.verticalPanPosition = .left
@@ -366,9 +362,9 @@ open class MSPlayer: UIView {
             case .vertical:
                 var changeValue: CGFloat = 0.0
                 if velocityPoint.y < 0 {
-                    changeValue = -0.0125
+                    changeValue = -0.015
                 } else if velocityPoint.y > 0 {
-                    changeValue = 0.0125
+                    changeValue = 0.015
                 } else {
                     // Do nothing in velocityPoint.y == 0
                 }
@@ -402,7 +398,6 @@ open class MSPlayer: UIView {
                     }
                 }
             case .vertical:
-                //                self.isVolume = false
                 self.verticalPanPosition = .unknown
             }
         default:
@@ -414,6 +409,7 @@ open class MSPlayer: UIView {
         if self.verticalPanPosition == .right {
             if MSPlayerConfig.enableVolumeGestures {
                 DispatchQueue.main.async {
+                    BrightnessView.shared()?.removeBrightnessView()
                     self.volumeViewSlider.value = AVAudioSession.sharedInstance().outputVolume - (Float(value) * MSPlayerConfig.playerVolumeChangeRate)
                 }
             }
@@ -485,15 +481,6 @@ open class MSPlayer: UIView {
                 UIApplication.shared.statusBarOrientation = .landscapeRight
             }
         }
-    }
-    
-    // MARK: - 生命週期
-    deinit {
-        recordCurrentTime()
-        print("MSPlayer dealloc")
-        playerLayerView?.pause()
-        playerLayerView?.prepareToDeinit()
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -570,8 +557,9 @@ open class MSPlayer: UIView {
     fileprivate func preparePlayer() {
         playerLayerView = MSPlayerLayerView()
         playerLayerView?.videoGravity = videoGravity
-        insertSubview(playerLayerView!, at: 0)
-        
+        if let playerLayerView = playerLayerView {
+            insertSubview(playerLayerView, at: 0)
+        }
         playerLayerView?.delegate = self
         controlView.showLoader()
     }
@@ -582,6 +570,14 @@ open class MSPlayer: UIView {
         self.controlView.frame = self.bounds
     }
     
+    // MARK: - 生命週期
+    deinit {
+        recordCurrentTime()
+        print(classForCoder, "dealloc")
+        playerLayerView?.pause()
+        playerLayerView?.prepareToDeinit()
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
+    }
 }
 
 extension MSPlayer: MSPlayerLayerViewDelegate {
@@ -638,6 +634,10 @@ extension MSPlayer: MSPlayerLayerViewDelegate {
         totalDuration = totalTime
         if isSliderSliding || self.isSeeking {
             return
+        }
+        
+        if !isPlayToTheEnd {
+            controlView.hidePlayToTheEndView()
         }
         
         controlView.playTimeDidChange(currentTime: currentTime, totalTime: totalTime)
@@ -729,27 +729,3 @@ extension MSPlayer: MSPlayerControlViewDelegate {
         self.playerLayerView?.player?.rate = playBackRate
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
