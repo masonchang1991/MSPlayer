@@ -19,7 +19,7 @@ class SwitchViewController: UIViewController {
         case stackFloating = "Floating Player with Navigation Controller"
     }
     
-    let types: [PlayerType] = [.onlyPlayer, .normalFloating, .stackFloating]
+    let types: [PlayerType] = [.onlyPlayer]
     
     override func viewDidLoad() {
         super.viewDidLoad()

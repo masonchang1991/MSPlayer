@@ -16,26 +16,10 @@
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		8AAAD640D98C5392ED470FCB /* Pods_MSPlayer_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506180754ED434DB8C94312F /* Pods_MSPlayer_Example.framework */; };
 		931485D820AD579B00D6DA6B /* StackFloatingPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931485D720AD579B00D6DA6B /* StackFloatingPlayerVC.swift */; };
-		93313FDF20C51C1A0015BEC4 /* VideoTimeRecord.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93313FDD20C51C1A0015BEC4 /* VideoTimeRecord.xcdatamodeld */; };
 		935D34DB20C5204100FFAE05 /* NormalFloatingPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935D34DA20C5204100FFAE05 /* NormalFloatingPlayerVC.swift */; };
 		935D34DD20C520B100FFAE05 /* NormalFloatingPlayerVC2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935D34DC20C520B100FFAE05 /* NormalFloatingPlayerVC2.swift */; };
 		9387E61320B2D4A4000C7739 /* StackFloatingPlayerVC2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9387E61220B2D4A4000C7739 /* StackFloatingPlayerVC2.swift */; };
-		9389755420C50C300048230E /* MSFloatingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389755320C50C300048230E /* MSFloatingType.swift */; };
-		9389755620C50D3C0048230E /* MSStackFloatingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389755520C50D3C0048230E /* MSStackFloatingController.swift */; };
 		938D910B20AD5A94001857C0 /* SwitchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D910A20AD5A94001857C0 /* SwitchViewController.swift */; };
-		93FF3C5620B535C100477058 /* MSFloatingGestureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF3C4A20B535C000477058 /* MSFloatingGestureManager.swift */; };
-		93FF3C5720B535C100477058 /* MSBrightnessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF3C4B20B535C000477058 /* MSBrightnessView.swift */; };
-		93FF3C5820B535C100477058 /* MSPlayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF3C4C20B535C000477058 /* MSPlayerExtension.swift */; };
-		93FF3C5920B535C100477058 /* MSFloatableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF3C4D20B535C000477058 /* MSFloatableViewController.swift */; };
-		93FF3C5A20B535C100477058 /* MSFloatingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF3C4E20B535C000477058 /* MSFloatingController.swift */; };
-		93FF3C5B20B535C100477058 /* MSPlayerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF3C4F20B535C000477058 /* MSPlayerControlView.swift */; };
-		93FF3C5C20B535C100477058 /* MSPlayerResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF3C5020B535C000477058 /* MSPlayerResource.swift */; };
-		93FF3C5D20B535C100477058 /* MSTimeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF3C5120B535C100477058 /* MSTimeSlider.swift */; };
-		93FF3C5E20B535C100477058 /* MSPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF3C5220B535C100477058 /* MSPM.swift */; };
-		93FF3C5F20B535C100477058 /* FormatDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF3C5320B535C100477058 /* FormatDisplay.swift */; };
-		93FF3C6020B535C100477058 /* MSPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF3C5420B535C100477058 /* MSPlayer.swift */; };
-		93FF3C6120B535C100477058 /* MSPlayerLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF3C5520B535C100477058 /* MSPlayerLayerView.swift */; };
-		93FF3C6320B535D700477058 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF3C6220B535D700477058 /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,26 +48,10 @@
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		931485D720AD579B00D6DA6B /* StackFloatingPlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackFloatingPlayerVC.swift; sourceTree = "<group>"; };
-		93313FDE20C51C1A0015BEC4 /* VideoTimeRecord.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VideoTimeRecord.xcdatamodel; sourceTree = "<group>"; };
 		935D34DA20C5204100FFAE05 /* NormalFloatingPlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalFloatingPlayerVC.swift; sourceTree = "<group>"; };
 		935D34DC20C520B100FFAE05 /* NormalFloatingPlayerVC2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalFloatingPlayerVC2.swift; sourceTree = "<group>"; };
 		9387E61220B2D4A4000C7739 /* StackFloatingPlayerVC2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackFloatingPlayerVC2.swift; sourceTree = "<group>"; };
-		9389755320C50C300048230E /* MSFloatingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSFloatingType.swift; sourceTree = "<group>"; };
-		9389755520C50D3C0048230E /* MSStackFloatingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSStackFloatingController.swift; sourceTree = "<group>"; };
 		938D910A20AD5A94001857C0 /* SwitchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchViewController.swift; sourceTree = "<group>"; };
-		93FF3C4A20B535C000477058 /* MSFloatingGestureManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSFloatingGestureManager.swift; sourceTree = "<group>"; };
-		93FF3C4B20B535C000477058 /* MSBrightnessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSBrightnessView.swift; sourceTree = "<group>"; };
-		93FF3C4C20B535C000477058 /* MSPlayerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPlayerExtension.swift; sourceTree = "<group>"; };
-		93FF3C4D20B535C000477058 /* MSFloatableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSFloatableViewController.swift; sourceTree = "<group>"; };
-		93FF3C4E20B535C000477058 /* MSFloatingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSFloatingController.swift; sourceTree = "<group>"; };
-		93FF3C4F20B535C000477058 /* MSPlayerControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPlayerControlView.swift; sourceTree = "<group>"; };
-		93FF3C5020B535C000477058 /* MSPlayerResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPlayerResource.swift; sourceTree = "<group>"; };
-		93FF3C5120B535C100477058 /* MSTimeSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSTimeSlider.swift; sourceTree = "<group>"; };
-		93FF3C5220B535C100477058 /* MSPM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPM.swift; sourceTree = "<group>"; };
-		93FF3C5320B535C100477058 /* FormatDisplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatDisplay.swift; sourceTree = "<group>"; };
-		93FF3C5420B535C100477058 /* MSPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPlayer.swift; sourceTree = "<group>"; };
-		93FF3C5520B535C100477058 /* MSPlayerLayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSPlayerLayerView.swift; sourceTree = "<group>"; };
-		93FF3C6220B535D700477058 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		A0D9E105B0F4E897C9FF8AF5 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		B7C38833E471AB02AE62F1FB /* MSPlayer.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MSPlayer.podspec; path = ../MSPlayer.podspec; sourceTree = "<group>"; };
 		C8DD47D3CEFA9B242E4AAB0E /* Pods_MSPlayer_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MSPlayer_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -210,22 +178,6 @@
 		93CE625C208724C300B02CE0 /* MSPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				93FF3C6220B535D700477058 /* CoreDataManager.swift */,
-				93FF3C5320B535C100477058 /* FormatDisplay.swift */,
-				93FF3C4B20B535C000477058 /* MSBrightnessView.swift */,
-				93FF3C4D20B535C000477058 /* MSFloatableViewController.swift */,
-				93FF3C4E20B535C000477058 /* MSFloatingController.swift */,
-				93FF3C4A20B535C000477058 /* MSFloatingGestureManager.swift */,
-				9389755520C50D3C0048230E /* MSStackFloatingController.swift */,
-				9389755320C50C300048230E /* MSFloatingType.swift */,
-				93FF3C5420B535C100477058 /* MSPlayer.swift */,
-				93FF3C4F20B535C000477058 /* MSPlayerControlView.swift */,
-				93FF3C4C20B535C000477058 /* MSPlayerExtension.swift */,
-				93FF3C5520B535C100477058 /* MSPlayerLayerView.swift */,
-				93FF3C5020B535C000477058 /* MSPlayerResource.swift */,
-				93FF3C5220B535C100477058 /* MSPM.swift */,
-				93313FDD20C51C1A0015BEC4 /* VideoTimeRecord.xcdatamodeld */,
-				93FF3C5120B535C100477058 /* MSTimeSlider.swift */,
 			);
 			name = MSPlayer;
 			sourceTree = "<group>";
@@ -446,27 +398,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				9387E61320B2D4A4000C7739 /* StackFloatingPlayerVC2.swift in Sources */,
-				93FF3C5920B535C100477058 /* MSFloatableViewController.swift in Sources */,
 				931485D820AD579B00D6DA6B /* StackFloatingPlayerVC.swift in Sources */,
-				93FF3C6320B535D700477058 /* CoreDataManager.swift in Sources */,
-				93FF3C5C20B535C100477058 /* MSPlayerResource.swift in Sources */,
-				93FF3C5820B535C100477058 /* MSPlayerExtension.swift in Sources */,
-				93FF3C5E20B535C100477058 /* MSPM.swift in Sources */,
 				607FACD81AFB9204008FA782 /* NormalPlayerVC.swift in Sources */,
 				938D910B20AD5A94001857C0 /* SwitchViewController.swift in Sources */,
-				93FF3C5D20B535C100477058 /* MSTimeSlider.swift in Sources */,
-				9389755620C50D3C0048230E /* MSStackFloatingController.swift in Sources */,
-				93FF3C5620B535C100477058 /* MSFloatingGestureManager.swift in Sources */,
-				93FF3C5720B535C100477058 /* MSBrightnessView.swift in Sources */,
-				9389755420C50C300048230E /* MSFloatingType.swift in Sources */,
 				935D34DD20C520B100FFAE05 /* NormalFloatingPlayerVC2.swift in Sources */,
-				93FF3C5A20B535C100477058 /* MSFloatingController.swift in Sources */,
-				93FF3C5B20B535C100477058 /* MSPlayerControlView.swift in Sources */,
 				935D34DB20C5204100FFAE05 /* NormalFloatingPlayerVC.swift in Sources */,
-				93FF3C6020B535C100477058 /* MSPlayer.swift in Sources */,
-				93FF3C5F20B535C100477058 /* FormatDisplay.swift in Sources */,
-				93313FDF20C51C1A0015BEC4 /* VideoTimeRecord.xcdatamodeld in Sources */,
-				93FF3C6120B535C100477058 /* MSPlayerLayerView.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -711,19 +647,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		93313FDD20C51C1A0015BEC4 /* VideoTimeRecord.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				93313FDE20C51C1A0015BEC4 /* VideoTimeRecord.xcdatamodel */,
-			);
-			currentVersion = 93313FDE20C51C1A0015BEC4 /* VideoTimeRecord.xcdatamodel */;
-			path = VideoTimeRecord.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 607FACC81AFB9204008FA782 /* Project object */;
 }

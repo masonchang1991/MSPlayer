@@ -11,6 +11,7 @@ import UIKit
 import MSPlayer
 
 class NormalFloatingPlayerVC: UIViewController, MSFloatableViewController, UIGestureRecognizerDelegate {
+    var floatingPlayer: MSPlayer = MSPlayer()
     
     weak var floatingController: MSFloatingController? =  MSFloatingController.shared()
     

@@ -16,18 +16,27 @@ class NormalPlayerVC: UIViewController {
     lazy var player =  {
         return MSPlayer()
     }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-        self.view.addSubview(player)
-        player.delegate = self
+        setupView()
+        setupPlayer()
+    }
+    
+    func setupView() {
+        view.addSubview(player)
         player.translatesAutoresizingMaskIntoConstraints = false
         player.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         player.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         player.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         player.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 9 / 16).isActive = true
+        
+    }
+    
+    func setupPlayer() {
+        player.delegate = self
+        
         MSPlayerConfig.playerPanSeekRate = 0.5
         MSPlayerConfig.playerBrightnessChangeRate = 2.0
         MSPlayerConfig.playerVolumeChangeRate = 0.5

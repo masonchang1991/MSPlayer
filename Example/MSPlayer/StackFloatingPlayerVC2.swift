@@ -11,6 +11,8 @@ import MSPlayer
 
 class StackFloatingPlayerVC2: UIViewController, MSFloatableViewController, UIGestureRecognizerDelegate {
     
+    var floatingPlayer: MSPlayer = MSPlayer()
+    
     weak var floatingController: MSFloatingController? =  MSStackFloatingController.shared()
     
     var player = MSPlayer()
