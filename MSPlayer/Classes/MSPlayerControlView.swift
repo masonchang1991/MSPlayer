@@ -34,7 +34,7 @@ public protocol MSPlayerControlViewDelegate: class {
      - parameter slider: progress slider
      - parameter event:  action
      */
-    func controlView(_ controlView: MSPlayerControlView, slider: UISlider, onSlider event: UIControlEvents)
+    func controlView(_ controlView: MSPlayerControlView, slider: UISlider, onSlider event: UIControl.Event)
     
     /**
      call when needs to change playback rate
@@ -228,8 +228,9 @@ open class MSPlayerControlView: UIView {
     open func autoFadeOutControlViewWithAnimation() {
         cancelAutoFadeOutAnimation()
         delayItem = DispatchWorkItem { [weak self] in
-            if self?.maskImageView.isHidden ?? true {
-                self?.controlViewAnimation(isShow: false)
+            guard let self = self else { return }
+            if self.maskImageView.isHidden {
+                self.controlViewAnimation(isShow: false)
             }
         }
         if let item = delayItem {
@@ -242,7 +243,8 @@ open class MSPlayerControlView: UIView {
      cancel auto fade out controlView with animation
      */
     open func cancelAutoFadeOutAnimation() {
-        delayItem?.cancel()
+        guard let delayItem = delayItem else { return }
+        delayItem.cancel()
     }
     
     /**
@@ -489,7 +491,7 @@ open class MSPlayerControlView: UIView {
         MSPlayerConfig.isUseBackImage = true
     }
     
-    func setupUIComponents() {
+    open func setupUIComponents() {
         let isCurrentLandscape = UIApplication.shared.statusBarOrientation.isLandscape
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
@@ -538,7 +540,8 @@ open class MSPlayerControlView: UIView {
         playButton.imageView?.contentMode = .scaleAspectFit
         
         totalTimeLabel.textColor = MSPlayerConfig.totalTimeTextColor
-        totalTimeLabel.font = UIFont(name: "PingFangSC-Medium", size: 10.0 * MSPM.screenRatio * screenRatioOrientationParameter)
+        totalTimeLabel.font = UIFont(name: "PingFangSC-Medium",
+                                     size: 10.0 * MSPM.screenRatio * screenRatioOrientationParameter)
         totalTimeLabel.text = "00:00/00:00"
         totalTimeLabel.textAlignment = .center
         
@@ -599,7 +602,7 @@ open class MSPlayerControlView: UIView {
         addGestureRecognizer(doubleTapGesture)
     }
     
-    func setupUIConstraint() {
+    open func setupUIConstraint() {
         let isCurrentLandscape = UIApplication.shared.statusBarOrientation.isLandscape
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height

@@ -39,10 +39,10 @@ open class MSPlayerLayerView: UIView {
         return nil
     }()
     /// VideoGravity
-    open var videoGravity = AVLayerVideoGravityResizeAspect {
+    open var videoGravity = convertFromAVLayerVideoGravity(AVLayerVideoGravity.resizeAspect) {
         didSet {
-            self.playerLayer?.videoGravity = videoGravity
-            print("videoGravity", self.playerLayer?.videoGravity)
+            self.playerLayer?.videoGravity = convertToAVLayerVideoGravity(videoGravity)
+            print("videoGravity", convertFromAVLayerVideoGravity(self.playerLayer?.videoGravity ?? .resizeAspect))
         }
     }
     
@@ -119,7 +119,7 @@ open class MSPlayerLayerView: UIView {
         
         playerLayer?.removeFromSuperlayer()
         playerLayer = AVPlayerLayer(player: player)
-        playerLayer!.videoGravity = videoGravity
+        playerLayer!.videoGravity = convertToAVLayerVideoGravity(videoGravity)
         layer.addSublayer(playerLayer!)
         
         setNeedsLayout()
@@ -130,7 +130,14 @@ open class MSPlayerLayerView: UIView {
         if let player = player {
             // play with sound in slience mode
             do {
-                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+                if #available(iOS 10.0, *) {
+                    try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+                } else {
+                    AVAudioSession.sharedInstance().perform(NSSelectorFromString("setCategory:withOptions:error:"),
+                                                            with: AVAudioSession.Category.playback,
+                                                            with: [AVAudioSession.CategoryOptions.duckOthers])
+                }
+                try AVAudioSession.sharedInstance().setActive(true)
             } catch(let error) {
                 // TODO: Error handle
                 print("play error:", error)
@@ -153,7 +160,7 @@ open class MSPlayerLayerView: UIView {
             if item == self.playerItem {
                 switch keyPath {
                 case "status":
-                    if player?.status == AVPlayerStatus.readyToPlay {
+                    if player?.status == AVPlayer.Status.readyToPlay {
                         self.state = .buffering
                         if shouldSeekTo != 0 {
                             print("MSPlayerLayer | Should seek to \(shouldSeekTo)")
@@ -166,7 +173,7 @@ open class MSPlayerLayerView: UIView {
                             self.hasReadyToPlay = true
                             self.state = .readyToPlay
                         }
-                    } else if player?.status == AVPlayerStatus.failed {
+                    } else if player?.status == AVPlayer.Status.failed {
                         self.state = .error
                     }
                     
@@ -253,14 +260,14 @@ open class MSPlayerLayerView: UIView {
         switch self.aspectRatio {
         case .default:
             DispatchQueue.main.async {
-                self.playerLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
+                self.playerLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
                 self.playerLayer?.frame  = self.bounds
             }
         case .sixteen2NINE:
-            self.playerLayer?.videoGravity = AVLayerVideoGravityResizeAspect
+            self.playerLayer?.videoGravity = AVLayerVideoGravity.resizeAspect
             self.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.width/(16/9))
         case .four2THREE:
-            self.playerLayer?.videoGravity = AVLayerVideoGravityResizeAspect
+            self.playerLayer?.videoGravity = AVLayerVideoGravity.resizeAspect
             let width = self.bounds.height * 4 / 3
             self.playerLayer?.frame = CGRect(x: (self.bounds.width - width)/2,
                                              y: 0,
@@ -287,7 +294,7 @@ open class MSPlayerLayerView: UIView {
     }
     
     open func onTimeSliderBegan() {
-        if self.player?.currentItem?.status == AVPlayerItemStatus.readyToPlay {
+        if self.player?.currentItem?.status == AVPlayerItem.Status.readyToPlay {
             self.timer?.fireDate = Date.distantFuture
         }
     }
@@ -298,9 +305,9 @@ open class MSPlayerLayerView: UIView {
             return
         }
         setupTimer()
-        if self.player?.currentItem?.status == AVPlayerItemStatus.readyToPlay {
-            let draggedTime = CMTimeMake(Int64(seconds), 1)
-            self.player!.seek(to: draggedTime, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (finished) in
+        if self.player?.currentItem?.status == AVPlayerItem.Status.readyToPlay {
+            let draggedTime = CMTimeMake(value: Int64(seconds), timescale: 1)
+            self.player!.seek(to: draggedTime, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero, completionHandler: { (finished) in
                 completion?()
             })
         } else {
@@ -422,4 +429,19 @@ open class MSPlayerLayerView: UIView {
     deinit {
         print(classForCoder, "dealloc")
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVLayerVideoGravity(_ input: AVLayerVideoGravity) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToAVLayerVideoGravity(_ input: String) -> AVLayerVideoGravity {
+	return AVLayerVideoGravity(rawValue: input)
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
 }

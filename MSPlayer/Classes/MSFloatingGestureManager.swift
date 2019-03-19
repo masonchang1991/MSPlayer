@@ -133,7 +133,7 @@ class MSFloatingGestureManager: NSObject {
         
         //Use this to adjust the position of your view accordingly
         floatingController.windowMinimizedFrame.origin = nextLocation
-        UIView.animate(withDuration: 0.1, delay: 0.0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.1, delay: 0.0, options: UIView.AnimationOptions.curveEaseInOut, animations: {
             self.floatingController.msplayerWindow?.frame = self.floatingController.windowMinimizedFrame
             //TODO: - change alpha
         }, completion: nil)
@@ -145,7 +145,7 @@ class MSFloatingGestureManager: NSObject {
         
         //Use this to adjust the position of your view accordingly
         floatingController.windowMinimizedFrame.origin = endLoaction
-        UIView.animate(withDuration: 0.75, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.75, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
             self.floatingController.msplayerWindow?.frame = self.floatingController.windowMinimizedFrame
             //TODO: - change alpha
         }, completion: { (_) in

@@ -148,13 +148,13 @@ class BrightnessView: UIView {
         }
         self.backImageView.center = CGPoint(x: 155 * 0.5,
                                             y: 155 * 0.5)
-        self.superview?.bringSubview(toFront: self)
+        self.superview?.bringSubviewToFront(self)
     }
     
     func addStatucBarNotification() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(statusBarOrientationNotification(_:)),
-                                               name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation,
+                                               name: UIApplication.didChangeStatusBarOrientationNotification,
                                                object: nil)
     }
     
@@ -178,7 +178,7 @@ class BrightnessView: UIView {
     }
     
     // statusBar change notify
-    func statusBarOrientationNotification(_ notify: NSNotification) {
+    @objc func statusBarOrientationNotification(_ notify: NSNotification) {
         self.setNeedsLayout()
     }
     
@@ -196,7 +196,7 @@ class BrightnessView: UIView {
         }
     }
     
-    func disappearBrightnessView() {
+    @objc func disappearBrightnessView() {
         if self.alpha == 1.0 {
             UIView.animate(withDuration: 0.5, animations: {
                 self.alpha = 0.0
@@ -228,7 +228,7 @@ class BrightnessView: UIView {
                            userInfo: nil,
                            repeats: false)
         RunLoop.main.add(self.timer ?? Timer(),
-                         forMode: RunLoopMode.defaultRunLoopMode)
+                         forMode: RunLoop.Mode.default)
     }
     
     func removeTimer() {

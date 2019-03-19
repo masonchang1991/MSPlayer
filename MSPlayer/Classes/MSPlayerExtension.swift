@@ -30,73 +30,73 @@ public enum ConstraintAnchorType {
 }
 
 extension UIView {
-    func addConstraintWithOther(_ otherView: UIView, anchorTypes: [ConstraintAnchorType], active: Bool = true) {
+    open func addConstraintWithOther(_ otherView: UIView, anchorTypes: [ConstraintAnchorType], active: Bool = true) {
         
         anchorTypes.forEach({
             switch $0 {
             case .bottom2Bottom(let constant, let priority):
                 let cs = bottomAnchor.constraint(equalTo: otherView.bottomAnchor, constant: constant)
-                cs.priority = priority
+                cs.priority = UILayoutPriority(rawValue: priority)
                 cs.isActive = active
             case .bottom2Top(let constant, let priority):
                 let cs = bottomAnchor.constraint(equalTo: otherView.topAnchor, constant: constant)
-                cs.priority = priority
+                cs.priority = UILayoutPriority(rawValue: priority)
                 cs.isActive = active
             case .leading2Leading(let constant, let priority):
                 let cs = leadingAnchor.constraint(equalTo: otherView.leadingAnchor, constant: constant)
-                cs.priority = priority
+                cs.priority = UILayoutPriority(rawValue: priority)
                 cs.isActive = active
             case .leading2Trailing(let constant, let priority):
                 let cs = leadingAnchor.constraint(equalTo: otherView.trailingAnchor, constant: constant)
-                cs.priority = priority
+                cs.priority = UILayoutPriority(rawValue: priority)
                 cs.isActive = active
             case .top2Top(let constant, let priority):
                 let cs = topAnchor.constraint(equalTo: otherView.topAnchor, constant: constant)
-                cs.priority = priority
+                cs.priority = UILayoutPriority(rawValue: priority)
                 cs.isActive = active
             case .top2Bottom(let constant, let priority):
                 let cs = topAnchor.constraint(equalTo: otherView.bottomAnchor, constant: constant)
-                cs.priority = priority
+                cs.priority = UILayoutPriority(rawValue: priority)
                 cs.isActive = active
             case .trailing2Trailing(let constant, let priority):
                 let cs = trailingAnchor.constraint(equalTo: otherView.trailingAnchor, constant: constant)
-                cs.priority = priority
+                cs.priority = UILayoutPriority(rawValue: priority)
                 cs.isActive = active
             case .trailing2Leading(let constant, let priority):
                 let cs = trailingAnchor.constraint(equalTo: otherView.leadingAnchor, constant: constant)
-                cs.priority = priority
+                cs.priority = UILayoutPriority(rawValue: priority)
                 cs.isActive = active
             case .centerX2CenterX(let constant, let priority):
                 let cs = centerXAnchor.constraint(equalTo: otherView.centerXAnchor, constant: constant)
-                cs.priority = priority
+                cs.priority = UILayoutPriority(rawValue: priority)
                 cs.isActive = active
             case .centerY2CenterY(let constant, let priority):
                 let cs = centerYAnchor.constraint(equalTo: otherView.centerYAnchor, constant: constant)
-                cs.priority = priority
+                cs.priority = UILayoutPriority(rawValue: priority)
                 cs.isActive = active
             case .height(let constant, let priority):
                 let cs = heightAnchor.constraint(equalToConstant: constant)
-                cs.priority = priority
+                cs.priority = UILayoutPriority(rawValue: priority)
                 cs.isActive = active
             case .width(let constant, let priority):
                 let cs = widthAnchor.constraint(equalToConstant: constant)
-                cs.priority = priority
+                cs.priority = UILayoutPriority(rawValue: priority)
                 cs.isActive = active
             case .height2Height(let mutiplier, let priority):
                 let cs = heightAnchor.constraint(equalTo: otherView.heightAnchor, multiplier: CGFloat(mutiplier))
-                cs.priority = priority
+                cs.priority = UILayoutPriority(rawValue: priority)
                 cs.isActive = active
             case .height2Width(let mutiplier, let priority):
                 let cs = heightAnchor.constraint(equalTo: otherView.widthAnchor, multiplier: CGFloat(mutiplier))
-                cs.priority = priority
+                cs.priority = UILayoutPriority(rawValue: priority)
                 cs.isActive = active
             case .width2Width(let mutiplier, let priority):
                 let cs = widthAnchor.constraint(equalTo: otherView.widthAnchor, multiplier: CGFloat(mutiplier))
-                cs.priority = priority
+                cs.priority = UILayoutPriority(rawValue: priority)
                 cs.isActive = active
             case .width2Height(let mutiplier, let priority):
                 let cs = widthAnchor.constraint(equalTo: otherView.heightAnchor, multiplier: CGFloat(mutiplier))
-                cs.priority = priority
+                cs.priority = UILayoutPriority(rawValue: priority)
                 cs.isActive = active
             case .edge2Edge:
                 bottomAnchor.constraint(equalTo: otherView.bottomAnchor).isActive = active

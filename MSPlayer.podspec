@@ -39,5 +39,5 @@ TODO: Add long description of the pod here.
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   s.frameworks = 'CoreData'
-  s.dependency 'NVActivityIndicatorView', '4.0.0'
+  s.dependency 'NVActivityIndicatorView'
 end

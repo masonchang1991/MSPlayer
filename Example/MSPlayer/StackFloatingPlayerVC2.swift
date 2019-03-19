@@ -17,7 +17,7 @@ class StackFloatingPlayerVC2: UIViewController, MSFloatableViewController, UIGes
     
     var player = MSPlayer()
     
-    let createAnotherVCButton = UIButton(type: UIButtonType.system)
+    let createAnotherVCButton = UIButton(type: UIButton.ButtonType.system)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,7 +103,7 @@ class StackFloatingPlayerVC2: UIViewController, MSFloatableViewController, UIGes
         }
     }
     
-    func createAnotherVC() {
+    @objc func createAnotherVC() {
         let floatingPlayerVC = StackFloatingPlayerVC()
         MSFloatingController.shared().show(true, floatableVC: floatingPlayerVC)
     }

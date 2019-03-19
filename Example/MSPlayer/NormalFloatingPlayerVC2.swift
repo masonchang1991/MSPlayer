@@ -17,7 +17,7 @@ class NormalFloatingPlayerVC2: UIViewController, MSFloatableViewController, UIGe
     
     lazy var player = MSPlayer()
     
-    let createAnotherVCButton = UIButton(type: UIButtonType.system)
+    let createAnotherVCButton = UIButton(type: UIButton.ButtonType.system)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,7 +85,7 @@ class NormalFloatingPlayerVC2: UIViewController, MSFloatableViewController, UIGe
         }
     }
     
-    func createAnotherVC() {
+    @objc func createAnotherVC() {
         let floatingPlayerVC = NormalFloatingPlayerVC()
         MSFloatingController.shared().show(true, floatableVC: floatingPlayerVC)
     }

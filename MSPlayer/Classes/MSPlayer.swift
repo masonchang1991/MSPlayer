@@ -47,9 +47,9 @@ open class MSPlayer: UIView {
     open var panGesture: UIPanGestureRecognizer?
     
     /// AVLayerVideoGravityType
-    open var videoGravity = AVLayerVideoGravityResizeAspect {
+    open var videoGravity = convertFromAVLayerVideoGravity(AVLayerVideoGravity.resizeAspect) {
         didSet {
-            self.playerLayerView?.videoGravity = videoGravity
+            self.playerLayerView?.videoGravity = AVLayerVideoGravity(rawValue: videoGravity).rawValue
         }
     }
     
@@ -231,6 +231,44 @@ open class MSPlayer: UIView {
      */
     open func seek(_ targetTime: TimeInterval, completion: (() -> ())? = nil) {
         playerLayerView?.seek(to: targetTime, completion: completion)
+    }
+    
+    open func seekByAddValue(_ value: Int) {
+        if let playerItem = playerLayerView?.playerItem {
+            self.sumTime = self.currentPosition + TimeInterval(value)
+            let totalTime = playerItem.duration
+            // 防止出現NAN
+            if totalTime.timescale == 0 { return }
+            let totalDuration = TimeInterval(totalTime.value) / TimeInterval(totalTime.timescale)
+            if (self.sumTime >= totalDuration) {
+                self.sumTime = totalDuration - 1.0
+            } else if self.sumTime <= 0{
+                self.sumTime = 0
+            }
+            controlView.showSeekToView(to: sumTime,
+                                       total: totalDuration,
+                                       isAdd: self.sumTime > self.horizontalBeginTime)
+        }
+        controlView.hideSeekToView()
+        isSliderSliding = false
+        isUserMoveSlider = false
+        if isPlayToTheEnd {
+            isPlayToTheEnd = false
+            self.nowSeekingCount += 1
+            seek(self.sumTime, completion: {
+                self.play()
+                self.nowSeekingCount -= 1
+                print("end isPlayToEnd nowSeekingCount:", self.nowSeekingCount)
+                // 當有別的seekingAction時，不要把isSeeking關掉，關掉的話，每0.5秒會更新進度條，所以會把進度條跳回去
+            })
+        } else {
+            self.nowSeekingCount += 1
+            seek(self.sumTime, completion: {
+                self.autoPlay()
+                self.nowSeekingCount -= 1
+                print("end not isPlayToEnd nowSeekingCount:", self.nowSeekingCount)
+            })
+        }
     }
     
     /**
@@ -541,7 +579,7 @@ open class MSPlayer: UIView {
     fileprivate func initUIData() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.onOrientationChanged),
-                                               name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation,
+                                               name: UIApplication.didChangeStatusBarOrientationNotification,
                                                object: nil)
     }
     
@@ -556,7 +594,7 @@ open class MSPlayer: UIView {
     
     fileprivate func preparePlayer() {
         playerLayerView = MSPlayerLayerView()
-        playerLayerView?.videoGravity = videoGravity
+        playerLayerView?.videoGravity = AVLayerVideoGravity(rawValue: videoGravity).rawValue
         if let playerLayerView = playerLayerView {
             insertSubview(playerLayerView, at: 0)
         }
@@ -576,7 +614,7 @@ open class MSPlayer: UIView {
         print(classForCoder, "dealloc")
         playerLayerView?.pause()
         playerLayerView?.prepareToDeinit()
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
@@ -697,7 +735,7 @@ extension MSPlayer: MSPlayerControlViewDelegate {
         }
     }
     
-    public func controlView(_ controlView: MSPlayerControlView, slider: UISlider, onSlider event: UIControlEvents) {
+    public func controlView(_ controlView: MSPlayerControlView, slider: UISlider, onSlider event: UIControl.Event) {
         if playerLayerView!.state == .notSetUrl { return }
         switch event {
         case .touchDown:
@@ -728,4 +766,9 @@ extension MSPlayer: MSPlayerControlViewDelegate {
     public func controlView(_ controlView: MSPlayerControlView, didChange playBackRate: Float) {
         self.playerLayerView?.player?.rate = playBackRate
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVLayerVideoGravity(_ input: AVLayerVideoGravity) -> String {
+	return input.rawValue
 }

@@ -155,7 +155,7 @@ public class MSFloatingController: NSObject {
     }
     
     //MARK: - expand current vc
-    public func expand() {
+    @objc public func expand() {
         if floatableType != nil && state != .normal {
             expandViews()
             prepareToExpand()
@@ -204,7 +204,7 @@ public class MSFloatingController: NSObject {
             msplayerWindow.tag = 777
             msplayerWindow.translatesAutoresizingMaskIntoConstraints = false
             msplayerWindow.isHidden = false
-            msplayerWindow.windowLevel = UIWindowLevelStatusBar - 1
+            msplayerWindow.windowLevel = UIWindow.Level.statusBar - 1
         }
         MSPM.shared().msFloatingWindow = msplayerWindow
         return msplayerWindow
@@ -235,13 +235,13 @@ public class MSFloatingController: NSObject {
     func addObserver() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(onOrientationChanged),
-                                               name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation,
+                                               name: UIApplication.didChangeStatusBarOrientationNotification,
                                                object: nil)
     }
     
     func removeObserver() {
         NotificationCenter.default.removeObserver(self,
-                                                  name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation,
+                                                  name: UIApplication.didChangeStatusBarOrientationNotification,
                                                   object: nil)
     }
     
