@@ -30,7 +30,7 @@ open class MSPlayer: UIView {
     open var videoId: String? = nil
     open weak var delegate: MSPlayerDelegate?
     open var playerLayerView: MSPlayerLayerView?
-    fileprivate var controlView: MSPlayerControlView!
+    open var controlView: MSPlayerControlView!
     fileprivate var customControlView: MSPlayerControlView?
     open var currentResource: MSPlayerResource?
     fileprivate var currentDefinition = 0
