@@ -175,6 +175,8 @@ open class MSPlayerLayerView: UIView {
                         }
                     } else if player?.status == AVPlayer.Status.failed {
                         self.state = .error
+                    } else {
+                        self.state = .error
                     }
                     
                 case "loadedTimeRanges":
