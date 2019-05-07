@@ -446,7 +446,7 @@ open class MSPlayer: UIView {
     fileprivate func verticalMoved(_ value: CGFloat) {
         if self.verticalPanPosition == .right {
             if MSPlayerConfig.enableVolumeGestures {
-                DispatchQueue.main.async {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.0001) {
                     BrightnessView.shared()?.removeBrightnessView()
                     self.volumeViewSlider.value = AVAudioSession.sharedInstance().outputVolume - (Float(value) * MSPlayerConfig.playerVolumeChangeRate)
                 }

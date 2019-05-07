@@ -260,19 +260,12 @@ open class MSPlayerLayerView: UIView {
         switch self.aspectRatio {
         case .default:
             DispatchQueue.main.async {
-                self.playerLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
                 self.playerLayer?.frame  = self.bounds
             }
         case .sixteen2NINE:
-            self.playerLayer?.videoGravity = AVLayerVideoGravity.resizeAspect
-            self.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.width/(16/9))
+            self.playerLayer?.frame = self.bounds
         case .four2THREE:
-            self.playerLayer?.videoGravity = AVLayerVideoGravity.resizeAspect
-            let width = self.bounds.height * 4 / 3
-            self.playerLayer?.frame = CGRect(x: (self.bounds.width - width)/2,
-                                             y: 0,
-                                             width: width,
-                                             height: self.bounds.height)
+            self.playerLayer?.frame = self.bounds
         }
     }
     

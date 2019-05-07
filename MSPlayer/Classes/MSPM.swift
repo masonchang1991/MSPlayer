@@ -77,11 +77,11 @@ public class MSPM {
         case replay = 106
     }
     
-    open static var screenRatio: CGFloat {
+    public static var screenRatio: CGFloat {
         return (UIScreen.main.bounds.width) / CGFloat(375)
     }
     
-    open static var deviceDefaultAspectRatio: AspectRatio {
+    public static var deviceDefaultAspectRatio: AspectRatio {
         if UIDevice.current.userInterfaceIdiom == .pad {
             return .four2THREE
         } else if UIDevice.current.userInterfaceIdiom == .phone {
