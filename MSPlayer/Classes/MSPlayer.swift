@@ -360,8 +360,8 @@ open class MSPlayer: UIView {
         switch pan.state {
         case .began:
             // 使用絕對值來判斷移動的方向
-            let x = fabs(velocityPoint.x)
-            let y = fabs(velocityPoint.y)
+            let x = abs(velocityPoint.x)
+            let y = abs(velocityPoint.y)
             
             // horizontal
             if x > y {

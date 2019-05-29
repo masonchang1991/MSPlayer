@@ -90,7 +90,6 @@ class BrightnessView: UIView {
         self.addStatucBarNotification()
         self.addKVOObserver()
         self.alpha = 0.0
-        
     }
     
     // 建立 Tips
