@@ -536,7 +536,7 @@ open class MSPlayer: UIView {
         self.init(customControlView: nil)
     }
     
-    public init(customControlView: MSPlayerControlView?) {
+    @objc public init(customControlView: MSPlayerControlView?) {
         super.init(frame: CGRect.zero)
         self.customControlView = customControlView
         initUI()
@@ -701,8 +701,6 @@ extension MSPlayer: MSPlayerControlViewDelegate {
                 if isFullScreen {
                     // 如果是全螢幕則跳出全螢幕
                     fullScreenButtonPressed()
-                } else if MSFloatingController.sharedInstance != nil || MSStackFloatingController.sharedInstance != nil {
-                    MSFloatingController.shared().shrink()
                 } else {
                     // 如果不是全螢幕則popFromNav
                     playerLayerView?.prepareToDeinit()

@@ -15,11 +15,10 @@
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		8AAAD640D98C5392ED470FCB /* Pods_MSPlayer_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506180754ED434DB8C94312F /* Pods_MSPlayer_Example.framework */; };
-		931485D820AD579B00D6DA6B /* StackFloatingPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931485D720AD579B00D6DA6B /* StackFloatingPlayerVC.swift */; };
-		935D34DB20C5204100FFAE05 /* NormalFloatingPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935D34DA20C5204100FFAE05 /* NormalFloatingPlayerVC.swift */; };
-		935D34DD20C520B100FFAE05 /* NormalFloatingPlayerVC2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935D34DC20C520B100FFAE05 /* NormalFloatingPlayerVC2.swift */; };
-		9387E61320B2D4A4000C7739 /* StackFloatingPlayerVC2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9387E61220B2D4A4000C7739 /* StackFloatingPlayerVC2.swift */; };
-		938D910B20AD5A94001857C0 /* SwitchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D910A20AD5A94001857C0 /* SwitchViewController.swift */; };
+		9303B19B228915AA009CE809 /* SwitchTypeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9303B19A228915AA009CE809 /* SwitchTypeTableViewController.swift */; };
+		93124095229E1F72003CEE03 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93124094229E1F72003CEE03 /* AppCoordinator.swift */; };
+		93124097229E1F95003CEE03 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93124096229E1F95003CEE03 /* Coordinator.swift */; };
+		93124099229E24B6003CEE03 /* NormalPlayerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93124098229E24B6003CEE03 /* NormalPlayerCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,11 +46,10 @@
 		607FACE51AFB9204008FA782 /* MSPlayer_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MSPlayer_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		931485D720AD579B00D6DA6B /* StackFloatingPlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackFloatingPlayerVC.swift; sourceTree = "<group>"; };
-		935D34DA20C5204100FFAE05 /* NormalFloatingPlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalFloatingPlayerVC.swift; sourceTree = "<group>"; };
-		935D34DC20C520B100FFAE05 /* NormalFloatingPlayerVC2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalFloatingPlayerVC2.swift; sourceTree = "<group>"; };
-		9387E61220B2D4A4000C7739 /* StackFloatingPlayerVC2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackFloatingPlayerVC2.swift; sourceTree = "<group>"; };
-		938D910A20AD5A94001857C0 /* SwitchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchViewController.swift; sourceTree = "<group>"; };
+		9303B19A228915AA009CE809 /* SwitchTypeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTypeTableViewController.swift; sourceTree = "<group>"; };
+		93124094229E1F72003CEE03 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		93124096229E1F95003CEE03 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		93124098229E24B6003CEE03 /* NormalPlayerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalPlayerCoordinator.swift; sourceTree = "<group>"; };
 		A0D9E105B0F4E897C9FF8AF5 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		B7C38833E471AB02AE62F1FB /* MSPlayer.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MSPlayer.podspec; path = ../MSPlayer.podspec; sourceTree = "<group>"; };
 		C8DD47D3CEFA9B242E4AAB0E /* Pods_MSPlayer_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MSPlayer_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,12 +111,11 @@
 			isa = PBXGroup;
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
-				938D910A20AD5A94001857C0 /* SwitchViewController.swift */,
+				93124096229E1F95003CEE03 /* Coordinator.swift */,
+				93124094229E1F72003CEE03 /* AppCoordinator.swift */,
+				93124098229E24B6003CEE03 /* NormalPlayerCoordinator.swift */,
 				607FACD71AFB9204008FA782 /* NormalPlayerVC.swift */,
-				935D34DA20C5204100FFAE05 /* NormalFloatingPlayerVC.swift */,
-				935D34DC20C520B100FFAE05 /* NormalFloatingPlayerVC2.swift */,
-				931485D720AD579B00D6DA6B /* StackFloatingPlayerVC.swift */,
-				9387E61220B2D4A4000C7739 /* StackFloatingPlayerVC2.swift */,
+				9303B19A228915AA009CE809 /* SwitchTypeTableViewController.swift */,
 				93CE625C208724C300B02CE0 /* MSPlayer */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
@@ -398,12 +395,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9387E61320B2D4A4000C7739 /* StackFloatingPlayerVC2.swift in Sources */,
-				931485D820AD579B00D6DA6B /* StackFloatingPlayerVC.swift in Sources */,
+				93124099229E24B6003CEE03 /* NormalPlayerCoordinator.swift in Sources */,
+				93124095229E1F72003CEE03 /* AppCoordinator.swift in Sources */,
+				9303B19B228915AA009CE809 /* SwitchTypeTableViewController.swift in Sources */,
+				93124097229E1F95003CEE03 /* Coordinator.swift in Sources */,
 				607FACD81AFB9204008FA782 /* NormalPlayerVC.swift in Sources */,
-				938D910B20AD5A94001857C0 /* SwitchViewController.swift in Sources */,
-				935D34DD20C520B100FFAE05 /* NormalFloatingPlayerVC2.swift in Sources */,
-				935D34DB20C5204100FFAE05 /* NormalFloatingPlayerVC.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -558,7 +554,7 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
@@ -574,7 +570,7 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.2;
 			};
 			name = Release;

@@ -21,7 +21,6 @@
 		2A1E283E9CFD88E15E9072B513251F2E /* NVActivityIndicatorAnimationSemiCircleSpin.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D09FFDCF5D9A31CB17BD982EB68F06 /* NVActivityIndicatorAnimationSemiCircleSpin.swift */; };
 		2BD4B690DC3ABE8C040D6DB343094C4B /* MSPlayer_brightness_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 282ABF9F7B2BDDA41569B9632A20CAE0 /* MSPlayer_brightness_image@2x.png */; };
 		2E51590F1C797387FEF57E69DCF15F3D /* Pods-MSPlayer_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFE4D2B15E4B0A80C3618A4C19A06E4 /* Pods-MSPlayer_Tests-dummy.m */; };
-		31A5728AB55A9EEF9E8E23185B6A5A5C /* MSFloatableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E2E808F110005045448DB6D54D42B8 /* MSFloatableViewController.swift */; };
 		392928A8B34BCEDF488A1268008672EB /* NVActivityIndicatorAnimationTriangleSkewSpin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53001BD78FEF4A48AD39CD9852FC5C43 /* NVActivityIndicatorAnimationTriangleSkewSpin.swift */; };
 		3AF66DD3086E29CC8D87154A2306B335 /* MSPlayer_brightness_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 57DBB542AEA87F7CAA91CCE9DCE763EE /* MSPlayer_brightness_image@3x.png */; };
 		3B174B3ECF909773A39D8D9BBDE239C4 /* NVActivityIndicatorAnimationBallClipRotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958F54B904EF5EA7A8A367BE3B8B7754 /* NVActivityIndicatorAnimationBallClipRotate.swift */; };
@@ -42,7 +41,6 @@
 		602317E339A2BD35607CEC5423150624 /* NVActivityIndicatorAnimationBallScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D862FD51EC285D4764C090315CCB202 /* NVActivityIndicatorAnimationBallScale.swift */; };
 		6110D5BB581A3989DC2551854F4532F7 /* MSPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834A266AE9A2D571D310B818E14B50DA /* MSPM.swift */; };
 		633B392EA4D2CE8E25D03A3E254FF859 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D785E1639C52E417946934BC483D7B8 /* Foundation.framework */; };
-		6D8379F1DD4D8C4EDF03DB2E862507C0 /* MSStackFloatingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461497DAD89B9C0B4A2CE7BEB0D9F2F4 /* MSStackFloatingController.swift */; };
 		737E4CC4AC9B29A12C429569B5DCFDCC /* NVActivityIndicatorView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 693C4BD1BD5012D2777845D3B2C6DB51 /* NVActivityIndicatorView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		77C7517CAB2153D109EDDA1BB2789700 /* MSPlayerLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D52777C643CE011080C68087AEBFC68 /* MSPlayerLayerView.swift */; };
 		78A4684649F021775439382078ABA27D /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D003E45750E9C7B6422C72FF10BE6CDC /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift */; };
@@ -70,7 +68,6 @@
 		A6FED05E842FF7F6F71D8D307F618AFC /* MSPlayer_pause_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B7D0446A28CEB11C84605E72B1431B8 /* MSPlayer_pause_image@2x.png */; };
 		A7D9A16E79EE38E3FDDA67A5990C4193 /* NVActivityIndicatorAnimationOrbit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04170558FA34BFD29D4599AA39AB789B /* NVActivityIndicatorAnimationOrbit.swift */; };
 		B2F8CB0AE9D8911AFBDBCAE7DC2C23D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D785E1639C52E417946934BC483D7B8 /* Foundation.framework */; };
-		B34039AB88C72CC6971187CAF111F471 /* MSFloatingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B5E80CD55071BC8409844B73F6849B /* MSFloatingType.swift */; };
 		B939D3483C7CAEBB9FFB7676949A28D6 /* NVActivityIndicatorAnimationBallClipRotatePulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BEAE0BF28EC137966216D065314CDD /* NVActivityIndicatorAnimationBallClipRotatePulse.swift */; };
 		B9B71EEF0170BD574A439343EA355A6E /* NVActivityIndicatorView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6370D04795536292C34103E1639B4580 /* NVActivityIndicatorView.framework */; };
 		BC87635F48750DEB1B11C9CBBEE5C12C /* NVActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF2D3C403B7B22E9E65CD71B6B19EF4 /* NVActivityIndicatorView.swift */; };
@@ -80,7 +77,6 @@
 		C926CCD6154FC413A27C7B5DF9C8A9E8 /* NVActivityIndicatorAnimationBallGridPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675F1B3AA5C925505BC25D3B851CDEF2 /* NVActivityIndicatorAnimationBallGridPulse.swift */; };
 		CE2FA3D9846D23CB758687B831611985 /* MSTimeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A93BBCB0E1D3CA4124B77500B7E55C /* MSTimeSlider.swift */; };
 		D02AA4C42CB38CAE0E2047F68949D01F /* FormatDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996F18847503B08CDCA8113BD453D3EF /* FormatDisplay.swift */; };
-		D4A1D92E2B2D4C634F8C35B40A97B31E /* MSFloatingGestureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305A72047FD3C122B29DC0CCE8256E91 /* MSFloatingGestureManager.swift */; };
 		D76C9E1ED3E07606428B4472A96C9F00 /* NVActivityIndicatorAnimationBallTrianglePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DAB2EA72D2F927D7AA9F3D9A7F57638 /* NVActivityIndicatorAnimationBallTrianglePath.swift */; };
 		D7E9915D2D6B687AC17215F36E8D8245 /* MSPlayer_endFullScreen_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0969A0F0EFFE193338408CCC6BA9AB5C /* MSPlayer_endFullScreen_image@2x.png */; };
 		DA921EC4F87E69E9997F89E965A40EBC /* NVActivityIndicatorAnimationLineScalePulseOutRapid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988D9F492A7836AF0DF64BF19EDB6F08 /* NVActivityIndicatorAnimationLineScalePulseOutRapid.swift */; };
@@ -96,7 +92,6 @@
 		F15ACA11BB324E5072C483E411758173 /* NVActivityIndicatorAnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DDD709CDF9638BCA9FA8014C9B3216 /* NVActivityIndicatorAnimationDelegate.swift */; };
 		F28DAA4E86EE99D97F59B4D0C8B76254 /* MSPlayer_play_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38725F0587C5C1C78FF7C2F8F9DF1390 /* MSPlayer_play_image@2x.png */; };
 		F5BB1C8D98518105AF2F73F40F70DBC0 /* NVActivityIndicatorAnimationBallZigZag.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6573097CE506E19DC65518B1AE03E64 /* NVActivityIndicatorAnimationBallZigZag.swift */; };
-		F9D6A5F59A7879DC614AFF02C6AF3C7A /* MSFloatingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F08644EBBF871D50BDCFBC234A9C44 /* MSFloatingController.swift */; };
 		FF3A5ECDD40BC686D6C5AAA25976314A /* NVActivityIndicatorAnimationCubeTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EECC668F65B6EB1F6E2AE3664ED837 /* NVActivityIndicatorAnimationCubeTransition.swift */; };
 /* End PBXBuildFile section */
 
@@ -150,7 +145,6 @@
 		2BB25A80A1D168FDE6EC5213CE6BD558 /* Pods-MSPlayer_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MSPlayer_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		2D862FD51EC285D4764C090315CCB202 /* NVActivityIndicatorAnimationBallScale.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallScale.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallScale.swift; sourceTree = "<group>"; };
 		2F45AE21F5822F24890CC8B47910BA4B /* NVActivityIndicatorShape.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorShape.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/NVActivityIndicatorShape.swift; sourceTree = "<group>"; };
-		305A72047FD3C122B29DC0CCE8256E91 /* MSFloatingGestureManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSFloatingGestureManager.swift; path = MSPlayer/Classes/MSFloatingGestureManager.swift; sourceTree = "<group>"; };
 		317603B0D5F908BC38D834C67E8E56B8 /* Pods-MSPlayer_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MSPlayer_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		31BEAE0BF28EC137966216D065314CDD /* NVActivityIndicatorAnimationBallClipRotatePulse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallClipRotatePulse.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallClipRotatePulse.swift; sourceTree = "<group>"; };
 		3524138552EC0DE394C197951A66C6ED /* Pods_MSPlayer_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MSPlayer_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,9 +158,7 @@
 		425B40225C618A2DF97C51AA2ABC88FC /* NVActivityIndicatorAnimationBallPulseSync.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallPulseSync.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallPulseSync.swift; sourceTree = "<group>"; };
 		434DE8B86D90F9C4EFE368FF66AF75A2 /* MSPlayer_replay_image@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_replay_image@3x.png"; path = "MSPlayer/Assets/MSPlayer_replay_image@3x.png"; sourceTree = "<group>"; };
 		44698F9485D965F0936F02964A8C51F6 /* Pods-MSPlayer_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MSPlayer_Example-dummy.m"; sourceTree = "<group>"; };
-		461497DAD89B9C0B4A2CE7BEB0D9F2F4 /* MSStackFloatingController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSStackFloatingController.swift; path = MSPlayer/Classes/MSStackFloatingController.swift; sourceTree = "<group>"; };
 		49688839D3E66F4C94F3CA281377CEE8 /* NVActivityIndicatorAnimationLineScaleParty.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationLineScaleParty.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationLineScaleParty.swift; sourceTree = "<group>"; };
-		49B5E80CD55071BC8409844B73F6849B /* MSFloatingType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSFloatingType.swift; path = MSPlayer/Classes/MSFloatingType.swift; sourceTree = "<group>"; };
 		49DE1216A4C636BE80F98823CF8250AF /* MSPlayer_slider_image@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_slider_image@3x.png"; path = "MSPlayer/Assets/MSPlayer_slider_image@3x.png"; sourceTree = "<group>"; };
 		4B7D0446A28CEB11C84605E72B1431B8 /* MSPlayer_pause_image@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_pause_image@2x.png"; path = "MSPlayer/Assets/MSPlayer_pause_image@2x.png"; sourceTree = "<group>"; };
 		4E05EB05DD4D7976BC467DE8E70A3852 /* MSPlayer-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MSPlayer-dummy.m"; sourceTree = "<group>"; };
@@ -186,7 +178,6 @@
 		675F1B3AA5C925505BC25D3B851CDEF2 /* NVActivityIndicatorAnimationBallGridPulse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallGridPulse.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallGridPulse.swift; sourceTree = "<group>"; };
 		6812267349900F71FFEF4C6768DC3616 /* MSPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MSPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		68EE8F1011CC4073E6FE731B25EFBA25 /* MSPlayer_down_image@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_down_image@2x.png"; path = "MSPlayer/Assets/MSPlayer_down_image@2x.png"; sourceTree = "<group>"; };
-		68F08644EBBF871D50BDCFBC234A9C44 /* MSFloatingController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSFloatingController.swift; path = MSPlayer/Classes/MSFloatingController.swift; sourceTree = "<group>"; };
 		693C4BD1BD5012D2777845D3B2C6DB51 /* NVActivityIndicatorView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NVActivityIndicatorView-umbrella.h"; sourceTree = "<group>"; };
 		6A481986CB679F44B4681DF50E9B3E6E /* MSPlayer_pause_image@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MSPlayer_pause_image@3x.png"; path = "MSPlayer/Assets/MSPlayer_pause_image@3x.png"; sourceTree = "<group>"; };
 		6FF39593391B2B0718984EFB290ACE85 /* Pods_MSPlayer_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MSPlayer_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -236,7 +227,6 @@
 		DCA66A808795AD9F7CE2C670E84BCF2E /* NVActivityIndicatorView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = NVActivityIndicatorView.modulemap; sourceTree = "<group>"; };
 		E01C43FE6E3AA9DC86CD16E068D2BE1F /* NVActivityIndicatorAnimationBallGridBeat.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallGridBeat.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallGridBeat.swift; sourceTree = "<group>"; };
 		E0DA30CE0F1A48B65FFA005EC2989EB8 /* MSPlayerControlView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSPlayerControlView.swift; path = MSPlayer/Classes/MSPlayerControlView.swift; sourceTree = "<group>"; };
-		E4E2E808F110005045448DB6D54D42B8 /* MSFloatableViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSFloatableViewController.swift; path = MSPlayer/Classes/MSFloatableViewController.swift; sourceTree = "<group>"; };
 		E6913A22BBFE8C3E3762292A10AA4707 /* Pods-MSPlayer_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MSPlayer_Example-resources.sh"; sourceTree = "<group>"; };
 		E69824C3A14448346B618ABC8F10C540 /* Pods-MSPlayer_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MSPlayer_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		E814138FB3DDBAC80B6CCE32FEBEB203 /* Pods-MSPlayer_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MSPlayer_Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -470,17 +460,12 @@
 				3E99727F582EED45E4B308F75CD510F2 /* CoreDataManager.swift */,
 				996F18847503B08CDCA8113BD453D3EF /* FormatDisplay.swift */,
 				7D7F8BF468F9E4876C084873DB4DDCD6 /* MSBrightnessView.swift */,
-				E4E2E808F110005045448DB6D54D42B8 /* MSFloatableViewController.swift */,
-				68F08644EBBF871D50BDCFBC234A9C44 /* MSFloatingController.swift */,
-				305A72047FD3C122B29DC0CCE8256E91 /* MSFloatingGestureManager.swift */,
-				49B5E80CD55071BC8409844B73F6849B /* MSFloatingType.swift */,
 				61007DE1BBB03FEFE75AE03B26AF3C0B /* MSPlayer.swift */,
 				E0DA30CE0F1A48B65FFA005EC2989EB8 /* MSPlayerControlView.swift */,
 				550E52A19161822D3C0EDBA1460639A8 /* MSPlayerExtension.swift */,
 				5D52777C643CE011080C68087AEBFC68 /* MSPlayerLayerView.swift */,
 				840ACF23EA3777F4A6B8D88DE8318834 /* MSPlayerResource.swift */,
 				834A266AE9A2D571D310B818E14B50DA /* MSPM.swift */,
-				461497DAD89B9C0B4A2CE7BEB0D9F2F4 /* MSStackFloatingController.swift */,
 				15A93BBCB0E1D3CA4124B77500B7E55C /* MSTimeSlider.swift */,
 				8250C4728122198C5E201DC58B3C14E4 /* Resources */,
 				A7E08ED3E28699728403CF194A1677BE /* Support Files */,
@@ -822,10 +807,6 @@
 				808DFC403064B7E7C92433EAC274790E /* CoreDataManager.swift in Sources */,
 				D02AA4C42CB38CAE0E2047F68949D01F /* FormatDisplay.swift in Sources */,
 				502D10EEC9E5B618E54A35212009B42D /* MSBrightnessView.swift in Sources */,
-				31A5728AB55A9EEF9E8E23185B6A5A5C /* MSFloatableViewController.swift in Sources */,
-				F9D6A5F59A7879DC614AFF02C6AF3C7A /* MSFloatingController.swift in Sources */,
-				D4A1D92E2B2D4C634F8C35B40A97B31E /* MSFloatingGestureManager.swift in Sources */,
-				B34039AB88C72CC6971187CAF111F471 /* MSFloatingType.swift in Sources */,
 				263C9DE2171493F217013DE6F2CAB6E9 /* MSPlayer-dummy.m in Sources */,
 				054DE911BE72DB38E5D7D21E35BD8185 /* MSPlayer.swift in Sources */,
 				50A2E115514D22972DDF7F394E3B6CDC /* MSPlayerControlView.swift in Sources */,
@@ -833,7 +814,6 @@
 				77C7517CAB2153D109EDDA1BB2789700 /* MSPlayerLayerView.swift in Sources */,
 				0438B0EAC079775287CFFC7C0A7796C1 /* MSPlayerResource.swift in Sources */,
 				6110D5BB581A3989DC2551854F4532F7 /* MSPM.swift in Sources */,
-				6D8379F1DD4D8C4EDF03DB2E862507C0 /* MSStackFloatingController.swift in Sources */,
 				CE2FA3D9846D23CB758687B831611985 /* MSTimeSlider.swift in Sources */,
 				A4DD4C6E0F75160E99C65DA1C1193109 /* VideoTimeRecord.xcdatamodeld in Sources */,
 			);
