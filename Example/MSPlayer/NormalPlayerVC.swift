@@ -48,10 +48,6 @@ class NormalPlayerVC: UIViewController {
             if isFullScreen == true { return }
             self.navigationController?.popViewController(animated: false)
         }
-        player.showBlock = { [weak self] (sure) in
-            guard let self = self else { return }
-            UIApplication.shared.keyWindow?.rootViewController?.navigationController?.pushViewController(self, animated: true)
-        }
     }
     
     deinit {
