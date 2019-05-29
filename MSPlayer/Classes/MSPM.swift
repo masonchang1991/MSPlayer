@@ -27,7 +27,7 @@ public class MSPM {
     public static func shared() -> MSPM {
         if self.sharedInstance == nil {
             self.sharedInstance = MSPM()
-            BrightnessView.shared()
+            let _ = SystemSettingManager.shared
         }
         return self.sharedInstance!
     }

@@ -95,8 +95,6 @@ open class MSPlayer: UIView {
     fileprivate var panDirection: MSPlayer.MSPanDirection = .horizontal
     /// 進度滑桿值 - ControlView變更時一併變更MSPlayer的值
     open var progressSliderValue: Float = 0.0
-    /// 音量滑桿
-    fileprivate var volumeViewSlider: UISlider!
     
     fileprivate let playerAnimationDuration: Double = MSPlayerConfig.playerAnimationDuration
     fileprivate let playerControlBarAutoFadeOutDuration: Double = MSPlayerConfig.playerControlBarAutoFadeOutDuration
@@ -284,7 +282,8 @@ open class MSPlayer: UIView {
      - parameter step: step
      */
     open func addVolume(step: Float = 0.1) {
-        self.volumeViewSlider.value += step
+        let systemManager = SystemSettingManager.shared
+        systemManager.getVolumeController().changeVolumeBy(step)
     }
     
     /**
@@ -293,7 +292,8 @@ open class MSPlayer: UIView {
      - parameter step: step
      */
     open func reduceVolume(step: Float = 0.1) {
-        self.volumeViewSlider.value -= step
+        let systemManager = SystemSettingManager.shared
+        systemManager.getVolumeController().changeVolumeBy(-step)
     }
     
     // Close ControlView
@@ -444,15 +444,15 @@ open class MSPlayer: UIView {
     }
     
     fileprivate func verticalMoved(_ value: CGFloat) {
+        let systemManager = SystemSettingManager.shared
         if self.verticalPanPosition == .right {
             if MSPlayerConfig.enableVolumeGestures {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.0001) {
-                    BrightnessView.shared()?.removeBrightnessView()
-                    self.volumeViewSlider.value = AVAudioSession.sharedInstance().outputVolume - (Float(value) * MSPlayerConfig.playerVolumeChangeRate)
-                }
+                let changeValue = -(Float(value) * MSPlayerConfig.playerVolumeChangeRate)
+                systemManager.getVolumeController().changeVolumeBy(changeValue)
             }
         } else if self.verticalPanPosition == .left && MSPlayerConfig.enableBrightnessGestures {
-            UIScreen.main.brightness -= (value * MSPlayerConfig.playerBrightnessChangeRate)
+            let changeBrightnessValue = -(value * MSPlayerConfig.playerBrightnessChangeRate)
+            systemManager.getBrightnessController().changeBrightnessByValue(changeBrightnessValue)
         }
     }
     
@@ -528,7 +528,6 @@ open class MSPlayer: UIView {
         }
         initUI()
         initUIData()
-        configureVolume()
         preparePlayer()
     }
     
@@ -541,7 +540,6 @@ open class MSPlayer: UIView {
         self.customControlView = customControlView
         initUI()
         initUIData()
-        configureVolume()
         preparePlayer()
     }
     
@@ -581,15 +579,6 @@ open class MSPlayer: UIView {
                                                selector: #selector(self.onOrientationChanged),
                                                name: UIApplication.didChangeStatusBarOrientationNotification,
                                                object: nil)
-    }
-    
-    fileprivate func configureVolume() {
-        let volumeView = MPVolumeView()
-        for view in volumeView.subviews {
-            if let slider = view as? UISlider {
-                self.volumeViewSlider = slider
-            }
-        }
     }
     
     fileprivate func preparePlayer() {

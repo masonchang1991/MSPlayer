@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import MediaPlayer
 
 public enum ConstraintAnchorType {
     case leading2Leading(CGFloat, priority: Float)

@@ -58,6 +58,8 @@
 		8900562516671C097921C8D26BCCFF9E /* NVActivityIndicatorAnimationLineSpinFadeLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172A686D73D23D133D993B945D6E30C5 /* NVActivityIndicatorAnimationLineSpinFadeLoader.swift */; };
 		8B0A1DA8F1FDD049BE11A283BFB7F687 /* NVActivityIndicatorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C3988D2ABCF7E9E73581AC4232B451 /* NVActivityIndicatorPresenter.swift */; };
 		91FAA65F90C7F810902AD86DCC4B8CD0 /* MSPlayer_pause_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A481986CB679F44B4681DF50E9B3E6E /* MSPlayer_pause_image@3x.png */; };
+		9312409D229E33C9003CEE03 /* MSVolumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9312409C229E33C9003CEE03 /* MSVolumeView.swift */; };
+		9312409F229E466E003CEE03 /* SystemSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9312409E229E466E003CEE03 /* SystemSettingManager.swift */; };
 		9316E6858305C65C7390D73B154CA0BB /* NVActivityIndicatorAnimationBallPulseSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425B40225C618A2DF97C51AA2ABC88FC /* NVActivityIndicatorAnimationBallPulseSync.swift */; };
 		93A53A454B900E85B826D126CF55F3DD /* NVActivityIndicatorShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F45AE21F5822F24890CC8B47910BA4B /* NVActivityIndicatorShape.swift */; };
 		9664DA0DAECAFB7FF074A88F6EB9080B /* MSPlayer_fullScreen_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B69487B5756C9B1454D059C6B6394A9 /* MSPlayer_fullScreen_image@3x.png */; };
@@ -201,6 +203,8 @@
 		8FF66B6ACB603D3CA7395E65FBCE08CB /* NVActivityIndicatorAnimationBallZigZagDeflect.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallZigZagDeflect.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallZigZagDeflect.swift; sourceTree = "<group>"; };
 		90C132603F99C59BEFF2DB720867D665 /* NVActivityIndicatorAnimationBlank.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBlank.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBlank.swift; sourceTree = "<group>"; };
 		92DDD709CDF9638BCA9FA8014C9B3216 /* NVActivityIndicatorAnimationDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationDelegate.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/NVActivityIndicatorAnimationDelegate.swift; sourceTree = "<group>"; };
+		9312409C229E33C9003CEE03 /* MSVolumeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MSVolumeView.swift; path = MSPlayer/Classes/MSVolumeView.swift; sourceTree = "<group>"; };
+		9312409E229E466E003CEE03 /* SystemSettingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemSettingManager.swift; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		958F54B904EF5EA7A8A367BE3B8B7754 /* NVActivityIndicatorAnimationBallClipRotate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallClipRotate.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallClipRotate.swift; sourceTree = "<group>"; };
 		988D9F492A7836AF0DF64BF19EDB6F08 /* NVActivityIndicatorAnimationLineScalePulseOutRapid.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationLineScalePulseOutRapid.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationLineScalePulseOutRapid.swift; sourceTree = "<group>"; };
@@ -459,6 +463,8 @@
 			children = (
 				3E99727F582EED45E4B308F75CD510F2 /* CoreDataManager.swift */,
 				996F18847503B08CDCA8113BD453D3EF /* FormatDisplay.swift */,
+				9312409C229E33C9003CEE03 /* MSVolumeView.swift */,
+				9312409E229E466E003CEE03 /* SystemSettingManager.swift */,
 				7D7F8BF468F9E4876C084873DB4DDCD6 /* MSBrightnessView.swift */,
 				61007DE1BBB03FEFE75AE03B26AF3C0B /* MSPlayer.swift */,
 				E0DA30CE0F1A48B65FFA005EC2989EB8 /* MSPlayerControlView.swift */,
@@ -813,9 +819,11 @@
 				E1303EF0B90F0C34B52CFA8D7F6A7E7B /* MSPlayerExtension.swift in Sources */,
 				77C7517CAB2153D109EDDA1BB2789700 /* MSPlayerLayerView.swift in Sources */,
 				0438B0EAC079775287CFFC7C0A7796C1 /* MSPlayerResource.swift in Sources */,
+				9312409D229E33C9003CEE03 /* MSVolumeView.swift in Sources */,
 				6110D5BB581A3989DC2551854F4532F7 /* MSPM.swift in Sources */,
 				CE2FA3D9846D23CB758687B831611985 /* MSTimeSlider.swift in Sources */,
 				A4DD4C6E0F75160E99C65DA1C1193109 /* VideoTimeRecord.xcdatamodeld in Sources */,
+				9312409F229E466E003CEE03 /* SystemSettingManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
