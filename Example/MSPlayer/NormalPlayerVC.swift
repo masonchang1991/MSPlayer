@@ -24,6 +24,13 @@ class NormalPlayerVC: UIViewController {
         setupPlayer()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            self.player.seekByAddValue(100)
+        }
+    }
+    
     func setupView() {
         view.addSubview(player)
         player.translatesAutoresizingMaskIntoConstraints = false
@@ -37,10 +44,16 @@ class NormalPlayerVC: UIViewController {
     func setupPlayer() {
         player.delegate = self
         
+        MSPlayerConfig.shouldAutoPlay = true
         MSPlayerConfig.playerPanSeekRate = 0.5
         MSPlayerConfig.playerBrightnessChangeRate = 2.0
         MSPlayerConfig.playerVolumeChangeRate = 0.5
-        let asset = MSPlayerResource(url: URL(string: "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8")!)
+        let asset = MSPlayerResource(
+            url: URL(string: "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8")!,
+            name: "test",
+            coverURL: URL(string: "https://i.ytimg.com/vi/MhQKe-aERsU/maxresdefault.jpg")!,
+            coverURLRequestHeaders: nil)
+        
         player.setVideoBy(asset, videoIdForRecord: "001")
         
         player.backBlock = { [weak self] (isFullScreen) in

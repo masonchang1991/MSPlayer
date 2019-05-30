@@ -47,9 +47,7 @@ public protocol MSPlayerControlViewDelegate: class {
 
 // optional protocol func
 extension MSPlayerControlViewDelegate {
-    public func controlView(_ controlView: MSPlayerControlView, didChangeVideoPlaybackRate rate: Float) {
-        
-    }
+    public func controlView(_ controlView: MSPlayerControlView, didChangeVideoPlaybackRate rate: Float) { }
 }
 
 open class MSPlayerControlView: UIView {
@@ -143,11 +141,7 @@ open class MSPlayerControlView: UIView {
     open func playTimeDidChange(currentTime: TimeInterval, totalTime: TimeInterval) {
         self.totalTime = totalTime
         self.currentTime = currentTime
-        
-        totalTimeLabel.text = FormatDisplay.formatSecondsToString(currentTime) + "/" +
-            FormatDisplay.formatSecondsToString(totalTime)
-        timeSlider.value = Float(currentTime) / Float(totalTime)
-        player?.progressSliderValue = timeSlider.value
+        changeSliderAndLabelValueBy(to: currentTime, total: totalTime)
     }
     
     /**
@@ -198,11 +192,16 @@ open class MSPlayerControlView: UIView {
         let rotate = isAdd ? 0: CGFloat(Double.pi)
         seekToViewImage.transform = CGAffineTransform(rotationAngle: rotate)
         
+        changeSliderAndLabelValueBy(to: seconds, total: duration)
+    }
+    
+    private func changeSliderAndLabelValueBy(to seconds: TimeInterval, total duration: TimeInterval) {
         let targetTime = FormatDisplay.formatSecondsToString(seconds)
         timeSlider.value = Float(seconds / duration)
         player?.progressSliderValue = timeSlider.value
         totalTimeLabel.text = targetTime + "/" + FormatDisplay.formatSecondsToString(totalTime)
     }
+    
     
     // MARK: - UI update related function
     /**

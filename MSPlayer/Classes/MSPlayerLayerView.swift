@@ -102,7 +102,7 @@ open class MSPlayerLayerView: UIView {
     open func playAsset(asset: AVURLAsset) {
         urlAsset = asset
         onSetVideoAsset()
-        play()
+//        play()
     }
     // MARK: - 設置 Video URL
     fileprivate func onSetVideoAsset() {
@@ -122,26 +122,27 @@ open class MSPlayerLayerView: UIView {
         playerLayer!.videoGravity = convertToAVLayerVideoGravity(videoGravity)
         layer.addSublayer(playerLayer!)
         
+        // play with sound in slience mode
+        do {
+            if #available(iOS 10.0, *) {
+                try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            } else {
+                AVAudioSession.sharedInstance().perform(NSSelectorFromString("setCategory:withOptions:error:"),
+                                                        with: AVAudioSession.Category.playback,
+                                                        with: [AVAudioSession.CategoryOptions.duckOthers])
+            }
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch(let error) {
+            // TODO: Error handle
+            print("play error:", error)
+        }
+        
         setNeedsLayout()
         layoutIfNeeded()
     }
     
     open func play() {
         if let player = player {
-            // play with sound in slience mode
-            do {
-                if #available(iOS 10.0, *) {
-                    try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
-                } else {
-                    AVAudioSession.sharedInstance().perform(NSSelectorFromString("setCategory:withOptions:error:"),
-                                                            with: AVAudioSession.Category.playback,
-                                                            with: [AVAudioSession.CategoryOptions.duckOthers])
-                }
-                try AVAudioSession.sharedInstance().setActive(true)
-            } catch(let error) {
-                // TODO: Error handle
-                print("play error:", error)
-            }
             player.play()
             setupTimer()
             isPlaying = true
@@ -174,7 +175,7 @@ open class MSPlayerLayerView: UIView {
                             self.state = .readyToPlay
                         }
                     } else if player?.status == AVPlayer.Status.failed {
-                        self.state = .error
+                        self.state = .error(player?.error)
                     }
                     
                 case "loadedTimeRanges":
@@ -336,7 +337,7 @@ open class MSPlayerLayerView: UIView {
                         self.state = .bufferFinished
                     } else if playerItem.error != nil {
                         print("playerItem:", playerItem.error)
-                        self.state = .error
+                        self.state = .error(playerItem.error)
                     } else {
                         self.state = .buffering
                     }
@@ -344,7 +345,7 @@ open class MSPlayerLayerView: UIView {
             }
             if player.rate == 0.0 {
                 if player.error != nil {
-                    self.state = .error
+                    self.state = .error(player.error)
                     return
                 }
                 if let currentItem = player.currentItem {

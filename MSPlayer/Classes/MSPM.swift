@@ -48,13 +48,21 @@ public class MSPM {
      - playedToTheEnd: played to the End
      - error:          error with playing
      */
-    public enum State {
+    public enum State: Equatable {
         case notSetUrl
         case readyToPlay
         case buffering
         case bufferFinished
         case playedToTheEnd
-        case error
+        case error(Error?)
+        
+        public static func ==(lhs: State, rhs: State) -> Bool {
+            switch (lhs, rhs) {
+            case (.error, .error):
+                return true
+            default: return lhs == rhs
+            }
+        }
     }
     /**
      video aspect ratio types
@@ -150,7 +158,7 @@ public class MSPM {
     open var playerPanSeekRate: Double = 1.0
     open var playerAnimationDuration: Double = 4.0
     open var playerControlBarAutoFadeOutDuration = 0.5
-    open var playerVolumeChangeRate: Float = 1.0
+    open var playerVolumeChangeRate: Float = 1.2
     open var playerBrightnessChangeRate: CGFloat = 1.0
     
     // BrightnessView
