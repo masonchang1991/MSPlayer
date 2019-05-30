@@ -110,13 +110,13 @@ open class MSPlayerLayerView: UIView {
         player = AVPlayer(playerItem: playerItem)
         guard let player = player else { return }
         player.addObserver(self, forKeyPath: "rate", options: .new, context: nil)
-        
-        guard var playerLayer = playerLayer else { return }
-        
-        playerLayer.removeFromSuperlayer()
+
+        playerLayer?.removeFromSuperlayer()
         playerLayer = AVPlayerLayer(player: player)
-        playerLayer.videoGravity = convertToAVLayerVideoGravity(videoGravity)
-        layer.addSublayer(playerLayer)
+        playerLayer?.videoGravity = convertToAVLayerVideoGravity(videoGravity)
+        if let playerLayer = playerLayer {
+            layer.addSublayer(playerLayer)
+        }
         
         setNeedsLayout()
         layoutIfNeeded()

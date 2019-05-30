@@ -319,10 +319,6 @@ open class MSPlayerControlView: UIView {
         showCover(url: URL(string: cover))
     }
     
-    open func hideToolMaskView() {
-        topMaskView.alpha = 0.0
-        bottomMaskView.alpha = 0.0
-    }
     open func hideCover() {
         videoCoverImageView.isHidden = true
     }
