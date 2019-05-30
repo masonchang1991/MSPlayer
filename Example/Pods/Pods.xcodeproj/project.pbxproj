@@ -61,7 +61,6 @@
 		9312409D229E33C9003CEE03 /* MSVolumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9312409C229E33C9003CEE03 /* MSVolumeView.swift */; };
 		9312409F229E466E003CEE03 /* SystemSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9312409E229E466E003CEE03 /* SystemSettingManager.swift */; };
 		9316E6858305C65C7390D73B154CA0BB /* NVActivityIndicatorAnimationBallPulseSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425B40225C618A2DF97C51AA2ABC88FC /* NVActivityIndicatorAnimationBallPulseSync.swift */; };
-		9328E145229EB7F8003CA1FA /* GestureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9328E144229EB7F8003CA1FA /* GestureView.swift */; };
 		936CA82A229FE98700026F11 /* GestureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936CA829229FE98700026F11 /* GestureView.swift */; };
 		93A53A454B900E85B826D126CF55F3DD /* NVActivityIndicatorShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F45AE21F5822F24890CC8B47910BA4B /* NVActivityIndicatorShape.swift */; };
 		9664DA0DAECAFB7FF074A88F6EB9080B /* MSPlayer_fullScreen_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B69487B5756C9B1454D059C6B6394A9 /* MSPlayer_fullScreen_image@3x.png */; };
@@ -207,7 +206,6 @@
 		92DDD709CDF9638BCA9FA8014C9B3216 /* NVActivityIndicatorAnimationDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationDelegate.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/NVActivityIndicatorAnimationDelegate.swift; sourceTree = "<group>"; };
 		9312409C229E33C9003CEE03 /* MSVolumeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MSVolumeView.swift; path = MSPlayer/Classes/MSVolumeView.swift; sourceTree = "<group>"; };
 		9312409E229E466E003CEE03 /* SystemSettingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemSettingManager.swift; sourceTree = "<group>"; };
-		9328E144229EB7F8003CA1FA /* GestureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureView.swift; sourceTree = "<group>"; };
 		936CA829229FE98700026F11 /* GestureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GestureView.swift; path = MSPlayer/Classes/GestureView.swift; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		958F54B904EF5EA7A8A367BE3B8B7754 /* NVActivityIndicatorAnimationBallClipRotate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallClipRotate.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallClipRotate.swift; sourceTree = "<group>"; };
@@ -472,7 +470,6 @@
 				936CA829229FE98700026F11 /* GestureView.swift */,
 				7D7F8BF468F9E4876C084873DB4DDCD6 /* MSBrightnessView.swift */,
 				61007DE1BBB03FEFE75AE03B26AF3C0B /* MSPlayer.swift */,
-				9328E144229EB7F8003CA1FA /* GestureView.swift */,
 				E0DA30CE0F1A48B65FFA005EC2989EB8 /* MSPlayerControlView.swift */,
 				550E52A19161822D3C0EDBA1460639A8 /* MSPlayerExtension.swift */,
 				5D52777C643CE011080C68087AEBFC68 /* MSPlayerLayerView.swift */,
@@ -831,7 +828,6 @@
 				CE2FA3D9846D23CB758687B831611985 /* MSTimeSlider.swift in Sources */,
 				A4DD4C6E0F75160E99C65DA1C1193109 /* VideoTimeRecord.xcdatamodeld in Sources */,
 				9312409F229E466E003CEE03 /* SystemSettingManager.swift in Sources */,
-				9328E145229EB7F8003CA1FA /* GestureView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
