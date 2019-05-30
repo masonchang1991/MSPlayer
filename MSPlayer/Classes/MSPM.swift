@@ -88,8 +88,7 @@ public class MSPM {
     }
     
     public enum ButtonType: Int {
-        case play = 101
-        case pause = 102
+        case playAndPause = 101
         case back = 103
         case fullScreen = 105
         case replay = 106

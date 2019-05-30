@@ -24,13 +24,6 @@ class NormalPlayerVC: UIViewController {
         setupPlayer()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            self.player.seekByAddValue(100)
-        }
-    }
-    
     func setupView() {
         view.addSubview(player)
         player.translatesAutoresizingMaskIntoConstraints = false
@@ -44,7 +37,7 @@ class NormalPlayerVC: UIViewController {
     func setupPlayer() {
         player.delegate = self
         
-        MSPlayerConfig.shouldAutoPlay = true
+        MSPlayerConfig.shouldAutoPlay = false
         MSPlayerConfig.playerPanSeekRate = 0.5
         MSPlayerConfig.playerBrightnessChangeRate = 2.0
         MSPlayerConfig.playerVolumeChangeRate = 0.5

@@ -220,6 +220,7 @@ open class MSPlayer: MSGestureView {
         playerLayerView?.play()
         controlView.hidePlayCover()
         controlView.hideCover()
+        controlView.changePlayButtonState(isSelected: true)
     }
     /**
      Pause
@@ -231,10 +232,11 @@ open class MSPlayer: MSGestureView {
         isPauseByUser = true
         playerLayerView?.pause()
         // show play cover
-        if controlView.playCoverImageView.isHidden {
+        if controlView.centerPlayBtnImageView.isHidden {
             controlView.showPlayCover()
             controlView.hideLoader()
         }
+        controlView.changePlayButtonState(isSelected: false)
     }
     /**
      seek
@@ -571,7 +573,7 @@ extension MSPlayer: MSPlayerControlViewDelegate {
                     // 如果不是全螢幕則popFromNav
                     playerLayerView?.prepareToDeinit()
                 }
-            case .play:
+            case .playAndPause:
                 if button.isSelected {
                     pause()
                 } else {

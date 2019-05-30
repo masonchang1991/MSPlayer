@@ -81,9 +81,9 @@ open class MSPlayerControlView: UIView {
     open var bottomMaskView = UIView()
     
     /// ImageView to show "play" cover when "pause", like ads or somethings
-    open var playCoverImageView = UIImageView()
+    open var centerPlayBtnImageView = UIImageView()
     /// ImageView to show video cover
-    open var maskImageView = UIImageView()
+    open var videoCoverImageView = UIImageView()
     /// top views
     open var backButton = UIButton(type: .custom)
     /// buttom view
@@ -220,7 +220,7 @@ open class MSPlayerControlView: UIView {
         cancelAutoFadeOutAnimation()
         delayItem = DispatchWorkItem { [weak self] in
             guard let self = self else { return }
-            if self.maskImageView.isHidden {
+            if self.videoCoverImageView.isHidden {
                 self.controlViewAnimation(isShow: false)
             }
         }
@@ -316,15 +316,24 @@ open class MSPlayerControlView: UIView {
     }
     
     open func showCoverWithLink(_ cover: String) {
-        self.showCover(url: URL(string: cover))
+        showCover(url: URL(string: cover))
     }
     
+    open func hideToolMaskView() {
+        topMaskView.alpha = 0.0
+        bottomMaskView.alpha = 0.0
+    }
     open func hideCover() {
-        self.maskImageView.isHidden = true
+        videoCoverImageView.isHidden = true
+    }
+    
+    func changePlayButtonState(isSelected: Bool) {
+        playButton.isSelected = isSelected
     }
     
     open func showCover(url: URL?, urlHeaders: [String: String]? = nil) {
         guard let url = url else { return }
+        controlViewAnimation(isShow: false)
         DispatchQueue.global(qos: .default).async {
             let urlSessionConfiguration = URLSessionConfiguration.default
             urlSessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
@@ -336,10 +345,10 @@ open class MSPlayerControlView: UIView {
             urlSession.dataTask(with: request, completionHandler: { (data, response, error) in
                 DispatchQueue.main.async {
                     if let dataUnwrapped = data {
-                        self.maskImageView.isHidden = false
-                        self.maskImageView.image = UIImage(data: dataUnwrapped)
+                        self.videoCoverImageView.isHidden = false
+                        self.videoCoverImageView.image = UIImage(data: dataUnwrapped)
                     } else {
-                        self.maskImageView.image = nil
+                        self.videoCoverImageView.image = nil
                     }
                     self.hideLoader()
                 }
@@ -349,12 +358,12 @@ open class MSPlayerControlView: UIView {
     
     open func showPlayCover() {
         if !MSPlayerConfig.playCoverImageViewNeedHidden {
-            self.playCoverImageView.isHidden = false
+            self.centerPlayBtnImageView.isHidden = false
         }
     }
     
     open func hidePlayCover() {
-        self.playCoverImageView.isHidden = true
+        self.centerPlayBtnImageView.isHidden = true
     }
     
     open func showUrlWrong() {
@@ -385,14 +394,17 @@ open class MSPlayerControlView: UIView {
         autoFadeOutControlViewWithAnimation()
         if let type = MSPM.ButtonType(rawValue: button.tag) {
             switch type {
-            case .play:
+            case .playAndPause:
                 if playerLastState == .playedToTheEnd {
                     hidePlayToTheEndView()
                 }
+                if !videoCoverImageView.isHidden {
+                    //MARK: - 再有封面圖的狀態下，強制變成pause狀態，點擊封面成為播放的指令
+                    button.isSelected = false
+                }
             case .replay:
                 hidePlayToTheEndView()
-            default:
-                break
+            default: break
             }
         }
         delegate?.controlView(self, didPress: button)
@@ -417,15 +429,15 @@ open class MSPlayerControlView: UIView {
     open func setupPlayCoverImageViewGesture() {
         let tapToPlay = UITapGestureRecognizer(target: self,
                                                action: #selector(playCoverPress))
-        playCoverImageView.isUserInteractionEnabled = true
-        playCoverImageView.addGestureRecognizer(tapToPlay)
+        centerPlayBtnImageView.isUserInteractionEnabled = true
+        centerPlayBtnImageView.addGestureRecognizer(tapToPlay)
     }
     
     open func setupMaskImageViewGesture() {
         let tapToPlay = UITapGestureRecognizer(target: self,
                                                action: #selector(playCoverPress))
-        maskImageView.isUserInteractionEnabled = true
-        maskImageView.addGestureRecognizer(tapToPlay)
+        videoCoverImageView.isUserInteractionEnabled = true
+        videoCoverImageView.addGestureRecognizer(tapToPlay)
     }
     
     @objc open func playCoverPress() {
@@ -490,15 +502,15 @@ open class MSPlayerControlView: UIView {
         mainMaskView.addSubview(topMaskView)
         mainMaskView.addSubview(bottomMaskView)
         mainMaskView.addSubview(loadingIndector)
-        playCoverImageView.image = MSPlayerConfig.playCoverImage
-        mainMaskView.addSubview(playCoverImageView)
+        centerPlayBtnImageView.image = MSPlayerConfig.playCoverImage
+        mainMaskView.addSubview(centerPlayBtnImageView)
         
         hidePlayCover()
         setupPlayCoverImageViewGesture()
         
         bottomMaskView.backgroundColor = MSPlayerConfig.bottomMaskBackgroundColor
-        mainMaskView.insertSubview(maskImageView, at: 0)
-        maskImageView.contentMode = .scaleAspectFill
+        mainMaskView.insertSubview(videoCoverImageView, at: 0)
+        videoCoverImageView.contentMode = .scaleAspectFill
         setupMaskImageViewGesture()
         mainMaskView.clipsToBounds = true
         mainMaskView.backgroundColor = MSPlayerConfig.mainMaskBackgroundColor
@@ -521,7 +533,7 @@ open class MSPlayerControlView: UIView {
         bottomMaskView.addSubview(timeSlider)
         bottomMaskView.addSubview(fullScreenButton)
         
-        playButton.tag = MSPM.ButtonType.play.rawValue
+        playButton.tag = MSPM.ButtonType.playAndPause.rawValue
         playButton.setImage(MSPlayerConfig.playButtonImage, for: .normal)
         playButton.setImage(MSPlayerConfig.pauseButtonImage, for: .selected)
         playButton.addTarget(self, action: #selector(onButtonPressed(_:)), for: .touchUpInside)
@@ -600,11 +612,11 @@ open class MSPlayerControlView: UIView {
         mainMaskView.translatesAutoresizingMaskIntoConstraints = false
         mainMaskView.addConstraintWithOther(self, anchorTypes: [.edge2Edge])
         
-        maskImageView.translatesAutoresizingMaskIntoConstraints = false
-        maskImageView.addConstraintWithOther(mainMaskView, anchorTypes: [.edge2Edge])
+        videoCoverImageView.translatesAutoresizingMaskIntoConstraints = false
+        videoCoverImageView.addConstraintWithOther(mainMaskView, anchorTypes: [.edge2Edge])
         
-        playCoverImageView.translatesAutoresizingMaskIntoConstraints = false
-        playCoverImageView.addConstraintWithOther(mainMaskView, anchorTypes: [.width2Width(Double(1.0 / 7.0), priority: 1000),
+        centerPlayBtnImageView.translatesAutoresizingMaskIntoConstraints = false
+        centerPlayBtnImageView.addConstraintWithOther(mainMaskView, anchorTypes: [.width2Width(Double(1.0 / 7.0), priority: 1000),
                                                                               .height2Width(Double(1.0 / 7.0), priority: 1000),
                                                                               .centerX2CenterX(0, priority: 1000),
                                                                               .centerY2CenterY(0, priority: 1000)])
