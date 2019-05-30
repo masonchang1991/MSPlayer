@@ -18,7 +18,6 @@ public protocol MSPlayerControlViewDelegate: class {
      - parameter index: index of definition
      */
     func controlView(_ controlView: MSPlayerControlView, didChooseDefinition index: Int)
-    
     /**
      call when control view pressed an button
      
@@ -26,7 +25,6 @@ public protocol MSPlayerControlViewDelegate: class {
      - parameter button:  button type
      */
     func controlView(_ controlView: MSPlayerControlView, didPress button: UIButton)
-    
     /**
      call when slider action trigged
      
@@ -35,7 +33,6 @@ public protocol MSPlayerControlViewDelegate: class {
      - parameter event:  action
      */
     func controlView(_ controlView: MSPlayerControlView, slider: UISlider, onSlider event: UIControl.Event)
-    
     /**
      call when needs to change playback rate
      
@@ -69,9 +66,11 @@ open class MSPlayerControlView: UIView {
     open var isMaskShowing = true
     open var isFullScreen = false {
         didSet {
-            DispatchQueue.main.async {
-                self.notFoundLabel.center = self.center
-                self.notFoundLabel.setNeedsLayout()
+            if !notFoundLabel.isHidden {
+                DispatchQueue.main.async {
+                    self.notFoundLabel.center = self.center
+                    self.notFoundLabel.setNeedsLayout()
+                }
             }
         }
     }
@@ -93,15 +92,9 @@ open class MSPlayerControlView: UIView {
     open var timeSlider = MSTimeSlider()
     /// load progress view
     open var progressView = UIProgressView()
-    /* play button
-     playButton.isSelected = player.isPlaying
-     */
     open var playButton = UIButton(type: .custom)
     /// Error Label
     open var notFoundLabel = UILabel()
-    /* fullScreen button
-     fullScreenButton.isSelected = player.isFullScreen
-     */
     open var fullScreenButton = UIButton(type: .custom)
     /// Activity Indector for loading
     open lazy var loadingIndector: NVActivityIndicatorView = {
@@ -155,9 +148,9 @@ open class MSPlayerControlView: UIView {
     }
     
     open func playerStateDidChange(state: MSPM.State) {
-        hideUrlWrongLabel()
         switch state {
         case .readyToPlay:
+            hideUrlWrongLabel()
             hideLoader()
         case .buffering:
             showLoader()
@@ -201,7 +194,6 @@ open class MSPlayerControlView: UIView {
         player?.progressSliderValue = timeSlider.value
         totalTimeLabel.text = targetTime + "/" + FormatDisplay.formatSecondsToString(totalTime)
     }
-    
     
     // MARK: - UI update related function
     /**
@@ -252,7 +244,6 @@ open class MSPlayerControlView: UIView {
      - parameter isShow: is to show the controlView
      */
     open func controlViewAnimation(isShow: Bool) {
-        
         if self.playerLastState != .playedToTheEnd {
             let otherAlpha: CGFloat = isShow ? MSPlayerConfig.otherMaskViewShowAlpha : 0.0
             let mainAlpha: CGFloat = isShow ? MSPlayerConfig.mainMaskViewShowAlpha : 0.0
@@ -301,9 +292,8 @@ open class MSPlayerControlView: UIView {
     }
     
     /**
-     Call when video play's to the end, override if you need custom UI or animation when played to the end
+     Call when video play to the end, override if you need custom UI or animation when played to the end
      */
-    
     open func showPlayToTheEndView() {
         replayButton.isHidden = false
     }
@@ -372,9 +362,9 @@ open class MSPlayerControlView: UIView {
         notFoundLabel.isHidden = false
         notFoundLabel.text = MSPlayerConfig.urlWrongLabelText
         notFoundLabel.sizeToFit()
-        notFoundLabel.center = self.center
+        notFoundLabel.center = center
         notFoundLabel.textColor = UIColor.white
-        self.addSubview(notFoundLabel)
+        addSubview(notFoundLabel)
     }
     
     open func hideUrlWrongLabel() {
@@ -382,7 +372,7 @@ open class MSPlayerControlView: UIView {
     }
     
     open func prepareToDealloc() {
-        self.delayItem = nil
+        delayItem = nil
     }
     
     // MARK: - Action Response
@@ -450,9 +440,8 @@ open class MSPlayerControlView: UIView {
     @objc func progressSliderValueChanged(_ sender: UISlider) {
         hidePlayToTheEndView()
         cancelAutoFadeOutAnimation()
-        let currentTime = Double(sender.value) * totalDuration
-        totalTimeLabel.text = FormatDisplay.formatSecondsToString(currentTime) + "/" +
-            FormatDisplay.formatSecondsToString(self.totalTime)
+        let currentTime = floor(Double(sender.value) * totalDuration)
+        changeSliderAndLabelValueBy(to: currentTime, total: totalTime)
         delegate?.controlView(self, slider: sender, onSlider: .valueChanged)
     }
     
