@@ -62,6 +62,7 @@
 		9312409F229E466E003CEE03 /* SystemSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9312409E229E466E003CEE03 /* SystemSettingManager.swift */; };
 		9316E6858305C65C7390D73B154CA0BB /* NVActivityIndicatorAnimationBallPulseSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425B40225C618A2DF97C51AA2ABC88FC /* NVActivityIndicatorAnimationBallPulseSync.swift */; };
 		9328E145229EB7F8003CA1FA /* GestureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9328E144229EB7F8003CA1FA /* GestureView.swift */; };
+		936CA82A229FE98700026F11 /* GestureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936CA829229FE98700026F11 /* GestureView.swift */; };
 		93A53A454B900E85B826D126CF55F3DD /* NVActivityIndicatorShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F45AE21F5822F24890CC8B47910BA4B /* NVActivityIndicatorShape.swift */; };
 		9664DA0DAECAFB7FF074A88F6EB9080B /* MSPlayer_fullScreen_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B69487B5756C9B1454D059C6B6394A9 /* MSPlayer_fullScreen_image@3x.png */; };
 		9BACC788995C8288E8936902E0D4E498 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3823FE90950CC50D741A3BC232745EBB /* UIKit.framework */; };
@@ -207,6 +208,7 @@
 		9312409C229E33C9003CEE03 /* MSVolumeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MSVolumeView.swift; path = MSPlayer/Classes/MSVolumeView.swift; sourceTree = "<group>"; };
 		9312409E229E466E003CEE03 /* SystemSettingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemSettingManager.swift; sourceTree = "<group>"; };
 		9328E144229EB7F8003CA1FA /* GestureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureView.swift; sourceTree = "<group>"; };
+		936CA829229FE98700026F11 /* GestureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GestureView.swift; path = MSPlayer/Classes/GestureView.swift; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		958F54B904EF5EA7A8A367BE3B8B7754 /* NVActivityIndicatorAnimationBallClipRotate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallClipRotate.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallClipRotate.swift; sourceTree = "<group>"; };
 		988D9F492A7836AF0DF64BF19EDB6F08 /* NVActivityIndicatorAnimationLineScalePulseOutRapid.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationLineScalePulseOutRapid.swift; path = NVActivityIndicatorView/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationLineScalePulseOutRapid.swift; sourceTree = "<group>"; };
@@ -467,6 +469,7 @@
 				996F18847503B08CDCA8113BD453D3EF /* FormatDisplay.swift */,
 				9312409C229E33C9003CEE03 /* MSVolumeView.swift */,
 				9312409E229E466E003CEE03 /* SystemSettingManager.swift */,
+				936CA829229FE98700026F11 /* GestureView.swift */,
 				7D7F8BF468F9E4876C084873DB4DDCD6 /* MSBrightnessView.swift */,
 				61007DE1BBB03FEFE75AE03B26AF3C0B /* MSPlayer.swift */,
 				9328E144229EB7F8003CA1FA /* GestureView.swift */,
@@ -819,6 +822,7 @@
 				263C9DE2171493F217013DE6F2CAB6E9 /* MSPlayer-dummy.m in Sources */,
 				054DE911BE72DB38E5D7D21E35BD8185 /* MSPlayer.swift in Sources */,
 				50A2E115514D22972DDF7F394E3B6CDC /* MSPlayerControlView.swift in Sources */,
+				936CA82A229FE98700026F11 /* GestureView.swift in Sources */,
 				E1303EF0B90F0C34B52CFA8D7F6A7E7B /* MSPlayerExtension.swift in Sources */,
 				77C7517CAB2153D109EDDA1BB2789700 /* MSPlayerLayerView.swift in Sources */,
 				0438B0EAC079775287CFFC7C0A7796C1 /* MSPlayerResource.swift in Sources */,
