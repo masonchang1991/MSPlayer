@@ -19,7 +19,7 @@ public protocol MSPlayerDelegate: class {
 }
 
 open class MSPlayer: MSGestureView {
-
+    
     // Event sending by delegate and closure
     open weak var delegate: MSPlayerDelegate?
     /// fired when tap backButton, fullScrren to unFullScreen, unFullScreen to pop
@@ -83,7 +83,7 @@ open class MSPlayer: MSGestureView {
             self.isSeeking = nowSeekingCount == 0 ? false: true
         }
     }
-
+    
     /// 進度滑桿值 - ControlView變更時一併變更MSPlayer的值
     open var progressSliderValue: Float = 0.0
     
@@ -161,6 +161,10 @@ open class MSPlayer: MSGestureView {
         controlView.showLoader()
     }
     
+    private func resetSetting() {
+        isPauseByUser = false
+    }
+    
     // MARK: - Public functions
     /**
      Play
@@ -176,7 +180,7 @@ open class MSPlayer: MSGestureView {
         currentDefinition = definitionIndex
         controlView.prepareUI(for: resource,
                               selected: definitionIndex)
-        
+        resetSetting()
         // if user is set 'notAutoPlay', then set the cover
         if MSPlayerConfig.shouldAutoPlay {
             controlView.hideCover()
@@ -224,6 +228,7 @@ open class MSPlayer: MSGestureView {
      */
     open func play() {
         if resource == nil { return }
+        isPauseByUser = false
         playerLayerView?.play()
         controlView.hidePlayCover()
         controlView.hideCover()
@@ -247,7 +252,7 @@ open class MSPlayer: MSGestureView {
     }
     /**
      seek
-
+     
      - parameter to: target time
      */
     open func seek(_ targetTime: TimeInterval, completion: (() -> ())? = nil) {
@@ -271,9 +276,10 @@ open class MSPlayer: MSGestureView {
         isUserSliding = false
         isUserMoveSlider = false
         isPlayToTheEnd = false
-        self.nowSeekingCount += 1
-        seek(self.sumTime, completion: {
-             self.play()
+        nowSeekingCount += 1
+        seek(self.sumTime, completion: { [weak self] in
+            guard let self = self else { return }
+            self.play()
             self.nowSeekingCount -= 1
         })
     }
@@ -303,21 +309,21 @@ open class MSPlayer: MSGestureView {
     }
     // Close ControlView
     open func closeControlViewAndRemoveGesture() {
-        self.controlView.isHidden = true
-        self.disableGesture()
+        controlView.isHidden = true
+        disableGesture()
     }
     
     open func openControlViewAndSetGesture() {
-        self.controlView.isHidden = false
-        self.resumeGesture()
+        controlView.isHidden = false
+        resumeGesture()
     }
     
     // Change ControlView backButton image
     open func changeControlViewBackButtonImage(toDown: Bool) {
         if toDown {
-            self.controlView.changeBackImageToDownImage()
+            controlView.changeBackImageToDownImage()
         } else {
-            self.controlView.changeDownImageToBackImage()
+            controlView.changeDownImageToBackImage()
         }
     }
     
@@ -351,12 +357,14 @@ open class MSPlayer: MSGestureView {
                 isPlayToTheEnd = false
                 if isPlayToTheEnd {
                     isPlayToTheEnd = false
-                    seek(sumTime, completion: {
+                    seek(sumTime, completion: { [weak self] in
+                        guard let self = self else { return }
                         self.play()
                         self.nowSeekingCount -= 1 //當有別的seekingAction時，不要把isSeeking關掉，關掉的話，每0.5秒會更新進度條，所以會把進度條跳回去
                     })
                 } else {
-                    seek(sumTime, completion: {
+                    seek(sumTime, completion: { [weak self] in
+                        guard let self = self else { return }
                         self.autoPlay()
                         self.nowSeekingCount -= 1
                     })
@@ -546,7 +554,7 @@ extension MSPlayer: MSPlayerLayerViewDelegate {
         
         // 因為在seeking的當下，影片還會再跑，影片跑的時候我們不希望更新影片的時間，而是根據他滑到哪裡就顯示到哪
         if isUserSliding || isSeeking {
-           
+            
         } else {
             if !isPlayToTheEnd {
                 controlView.hidePlayToTheEndView()
@@ -607,7 +615,6 @@ extension MSPlayer: MSPlayerControlViewDelegate {
                 })
             case .fullScreen:
                 fullScreenButtonPressed()
-            default: break
             }
         }
     }
@@ -647,5 +654,5 @@ extension MSPlayer: MSPlayerControlViewDelegate {
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromAVLayerVideoGravity(_ input: AVLayerVideoGravity) -> String {
-	return input.rawValue
+    return input.rawValue
 }
