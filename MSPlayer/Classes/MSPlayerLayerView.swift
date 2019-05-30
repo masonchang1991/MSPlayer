@@ -76,7 +76,7 @@ open class MSPlayerLayerView: UIView {
             }
         }
     }
-
+    
     fileprivate var playDidEnd = false
     // playbackBufferEmpty會反覆進入，因此在BufferingOneSecond延時播放執行完之前再調用bufferingSomeSecond都忽略
     // 僅在bufferingSomeSecond裡面使用
@@ -110,12 +110,16 @@ open class MSPlayerLayerView: UIView {
         player = AVPlayer(playerItem: playerItem)
         guard let player = player else { return }
         player.addObserver(self, forKeyPath: "rate", options: .new, context: nil)
-
+        
         playerLayer?.removeFromSuperlayer()
         playerLayer = AVPlayerLayer(player: player)
         playerLayer?.videoGravity = convertToAVLayerVideoGravity(videoGravity)
         if let playerLayer = playerLayer {
             layer.addSublayer(playerLayer)
+            layer.opacity = 0.0
+            UIView.animate(withDuration: 1.0) { [weak layer] in
+                layer?.opacity = 1.0
+            }
         }
         
         setNeedsLayout()
@@ -297,7 +301,7 @@ open class MSPlayerLayerView: UIView {
     
     open func seek(to seconds: TimeInterval, completion: (() -> ())?) {
         if seconds.isNaN { completion?(); return }
-
+        
         setupTimer()
         if player?.currentItem?.status == AVPlayerItem.Status.readyToPlay {
             let draggedTime = CMTimeMake(value: Int64(seconds), timescale: 1)
@@ -347,7 +351,7 @@ open class MSPlayerLayerView: UIView {
     }
     
     fileprivate func onPlayerItemChange() {
-        if let item = lastPlayerItem { 
+        if let item = lastPlayerItem {
             removePlayerObserverWith(item)
         }
         
@@ -411,15 +415,15 @@ open class MSPlayerLayerView: UIView {
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromAVLayerVideoGravity(_ input: AVLayerVideoGravity) -> String {
-	return input.rawValue
+    return input.rawValue
 }
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToAVLayerVideoGravity(_ input: String) -> AVLayerVideoGravity {
-	return AVLayerVideoGravity(rawValue: input)
+    return AVLayerVideoGravity(rawValue: input)
 }
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
-	return input.rawValue
+    return input.rawValue
 }
