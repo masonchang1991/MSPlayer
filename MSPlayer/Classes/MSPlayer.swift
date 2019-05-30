@@ -43,6 +43,13 @@ open class MSPlayer: MSGestureView {
     fileprivate var customControlView: MSPlayerControlView?
     var userConstraint = [NSLayoutConstraint]()
     
+    //MARK: - 可以設定此參數決定畫面比例
+    open var aspectRatio: MSPM.AspectRatio? {
+        didSet {
+            self.playerLayerView?.aspectRatio = self.aspectRatio ?? .default
+        }
+    }
+    
     /// AVLayerVideoGravityType
     open var videoGravity = convertFromAVLayerVideoGravity(AVLayerVideoGravity.resizeAspect) {
         didSet {

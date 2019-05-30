@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MSPlayer'
-  s.version          = '2.2.0'
+  s.version          = '2.2.1'
   s.swift_version    = '5.0'
   s.summary          = 'A quick use VideoPlayer base on avplayer and support floating like youtube did'
 
