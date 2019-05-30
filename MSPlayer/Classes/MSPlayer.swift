@@ -511,7 +511,7 @@ extension MSPlayer: MSPlayerLayerViewDelegate {
     public func msPlayer(player: MSPlayerLayerView, playerStateDidChange state: MSPM.State) {
         MSPlayerConfig.log("playerStateDidChange - \(state)")
         controlView.playerStateDidChange(state: state)
-        
+        print(state)
         switch state {
         case .readyToPlay:
             autoPlay()
@@ -519,9 +519,10 @@ extension MSPlayer: MSPlayerLayerViewDelegate {
             autoPlay()
         case .playedToTheEnd:
             isPlayToTheEnd = true
-        case .error:
+        case .error(let error):
             // Handle wrong URL
-            print("MSPlayer Error url")
+            player.prepareToDeinit()
+            print("MSPlayer Error:", error)
         default: break
         }
         delegate?.msPlayer(self, stateDidChange: state)
@@ -580,6 +581,13 @@ extension MSPlayer: MSPlayerControlViewDelegate {
                         })
                         controlView.hidePlayToTheEndView()
                         isPlayToTheEnd = false
+                    } else if let state = playerLayerView?.state {
+                        switch state {
+                        case .error:
+                            setVideoBy(resource,
+                                       videoIdForRecord: videoId)
+                        default: break
+                        }
                     }
                     play()
                 }

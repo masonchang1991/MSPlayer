@@ -58,9 +58,19 @@ public class MSPM {
         
         public static func ==(lhs: State, rhs: State) -> Bool {
             switch (lhs, rhs) {
-            case (.error, .error):
+            case (.error(_), .error(_)):
                 return true
-            default: return lhs == rhs
+            case (.notSetUrl, .notSetUrl):
+                return true
+            case (.readyToPlay, .readyToPlay):
+                return true
+            case (.buffering, .buffering):
+                return true
+            case (.bufferFinished, .bufferFinished):
+                return true
+            case (.playedToTheEnd, .playedToTheEnd):
+                return true
+            default: return false
             }
         }
     }
