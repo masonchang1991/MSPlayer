@@ -85,15 +85,14 @@ open class MSPlayerLayerView: UIView {
     fileprivate var shouldSeekTo: TimeInterval = 0
     
     // MARK: - Actions
-    open func playURL(url: URL) {
+    open func setVideoURL(url: URL) {
         let asset = AVURLAsset(url: url)
-        playAsset(asset: asset)
+        setAVURLAsset(asset: asset)
     }
     
-    open func playAsset(asset: AVURLAsset) {
+    open func setAVURLAsset(asset: AVURLAsset) {
         urlAsset = asset
         onSetVideoAsset()
-        play()
     }
     // MARK: - 設置 Video URL
     fileprivate func onSetVideoAsset() {

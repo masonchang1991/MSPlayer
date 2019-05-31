@@ -193,7 +193,7 @@ open class MSPlayer: MSGestureView {
         
         // 設定 playerAsset
         let asset = resource.definitions[definitionIndex]
-        playerLayerView?.playAsset(asset: asset.avURLAsset)
+        playerLayerView?.setAVURLAsset(asset: asset.avURLAsset)
         // 若使用者有給影片 id，則去coreData看，是否有上次的觀看時間點
         if let videoId = videoId {
             let coreDataManager = MSCoreDataManager()
@@ -572,7 +572,7 @@ extension MSPlayer: MSPlayerControlViewDelegate {
         shouldSeekTo = currentPosition
         playerLayerView?.resetPlayer()
         currentDefinition = index
-        playerLayerView?.playAsset(asset: resource.definitions[index].avURLAsset)
+        playerLayerView?.setAVURLAsset(asset: resource.definitions[index].avURLAsset)
     }
     
     public func controlView(_ controlView: MSPlayerControlView, didPress button: UIButton) {
