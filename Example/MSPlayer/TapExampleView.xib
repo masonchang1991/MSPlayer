@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TapExampleView" customModule="MSPlayer_Example" customModuleProvider="target">
+            <connections>
+                <outlet property="bottomTextLabel" destination="Zrj-EV-EaR" id="Nmi-5Y-dxY"/>
+                <outlet property="goNextImageView" destination="dee-dJ-8mj" id="YPK-8o-Xpf"/>
+                <outlet property="imageTextLabel" destination="VL2-Fh-7Va" id="qoR-UB-3da"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="129" height="58"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="playNext" translatesAutoresizingMaskIntoConstraints="NO" id="dee-dJ-8mj">
+                    <rect key="frame" x="0.0" y="0.0" width="129" height="36.5"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="dee-dJ-8mj" secondAttribute="height" multiplier="118.7:33.6" id="d2O-fU-ntP"/>
+                    </constraints>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wa7-Xe-pPT">
+                    <rect key="frame" x="0.0" y="0.0" width="1" height="13.5"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="1" id="yF0-dl-whG"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HjQ-wm-lI3">
+                    <rect key="frame" x="0.0" y="33" width="1" height="3.5"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="1" id="dcM-a6-oTg"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kSr-2o-5DY">
+                    <rect key="frame" x="59.5" y="0.0" width="69.5" height="1"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="GjV-xy-D5e"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VL2-Fh-7Va">
+                    <rect key="frame" x="2.5" y="13.5" width="57" height="19.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zrj-EV-EaR">
+                    <rect key="frame" x="0.0" y="37.5" width="129" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="HjQ-wm-lI3" firstAttribute="height" secondItem="dee-dJ-8mj" secondAttribute="height" multiplier="3:33" id="4gl-Se-H3a"/>
+                <constraint firstItem="dee-dJ-8mj" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="5lS-KH-N8a"/>
+                <constraint firstItem="VL2-Fh-7Va" firstAttribute="leading" secondItem="dee-dJ-8mj" secondAttribute="leading" constant="2.5" id="BEV-c5-dh2"/>
+                <constraint firstItem="kSr-2o-5DY" firstAttribute="leading" secondItem="VL2-Fh-7Va" secondAttribute="trailing" id="BMm-o3-U05"/>
+                <constraint firstItem="kSr-2o-5DY" firstAttribute="width" secondItem="dee-dJ-8mj" secondAttribute="width" multiplier="64:118.7" id="Jma-HQ-klR"/>
+                <constraint firstItem="Wa7-Xe-pPT" firstAttribute="leading" secondItem="dee-dJ-8mj" secondAttribute="leading" id="Yp6-nH-3GM"/>
+                <constraint firstItem="HjQ-wm-lI3" firstAttribute="leading" secondItem="dee-dJ-8mj" secondAttribute="leading" id="ac1-mT-qFv"/>
+                <constraint firstItem="dee-dJ-8mj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="cYj-Bg-aet"/>
+                <constraint firstItem="Wa7-Xe-pPT" firstAttribute="height" secondItem="dee-dJ-8mj" secondAttribute="height" multiplier="0.369" id="f1i-Jw-R4t"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="dee-dJ-8mj" secondAttribute="trailing" id="hH1-4y-xpF"/>
+                <constraint firstItem="VL2-Fh-7Va" firstAttribute="top" secondItem="Wa7-Xe-pPT" secondAttribute="bottom" id="lh8-vo-801"/>
+                <constraint firstItem="Zrj-EV-EaR" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="mIS-QH-UuJ"/>
+                <constraint firstItem="HjQ-wm-lI3" firstAttribute="top" secondItem="VL2-Fh-7Va" secondAttribute="bottom" id="nPV-hm-abo"/>
+                <constraint firstItem="kSr-2o-5DY" firstAttribute="trailing" secondItem="dee-dJ-8mj" secondAttribute="trailing" id="nxj-xf-SJB"/>
+                <constraint firstItem="Zrj-EV-EaR" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="pHP-iQ-jMS"/>
+                <constraint firstAttribute="bottom" secondItem="Zrj-EV-EaR" secondAttribute="bottom" id="sC0-45-O2G"/>
+                <constraint firstItem="Zrj-EV-EaR" firstAttribute="top" relation="greaterThanOrEqual" secondItem="dee-dJ-8mj" secondAttribute="bottom" id="tWO-N5-KBQ"/>
+                <constraint firstItem="Wa7-Xe-pPT" firstAttribute="top" secondItem="dee-dJ-8mj" secondAttribute="top" id="vG7-cN-YMV"/>
+                <constraint firstItem="HjQ-wm-lI3" firstAttribute="bottom" secondItem="dee-dJ-8mj" secondAttribute="bottom" id="wUL-LI-kIv"/>
+                <constraint firstItem="kSr-2o-5DY" firstAttribute="top" secondItem="dee-dJ-8mj" secondAttribute="top" id="ykj-Fs-jc1"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="-123.91304347826087" y="-133.25892857142856"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="playNext" width="118.5" height="33.5"/>
+    </resources>
+</document>
