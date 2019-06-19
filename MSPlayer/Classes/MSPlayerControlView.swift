@@ -114,6 +114,15 @@ open class MSPlayerControlView: UIView {
     open var seekToViewImage = UIImageView()
     open var seekToLabel = UILabel()
     
+    /// when video resource with mutiple definitions, one play to end, then show playNextView
+    open lazy var playNextView: MSPlayNext? = {
+        if let playNextView = MSPM.shared().playNextView {
+            return playNextView
+        } else {
+            return nil
+        }
+    }()
+    
     open var replayButton = UIButton(type: .custom)
     /// Gesture used to show / hide control view
     open var tapGesture: UITapGestureRecognizer!
@@ -158,10 +167,20 @@ open class MSPlayerControlView: UIView {
             hideLoader()
         case .playedToTheEnd:
             if !(player?.isSeeking ?? false) {
-                playButton.isSelected = false
-                showPlayToTheEndView()
-                controlViewAnimation(isShow: true)
-                cancelAutoFadeOutAnimation()
+                if let player = player,
+                    let totalDefinitionCount = player.currentResource?.definitions.count,
+                    player.currentDefinitionIndex + 1 < totalDefinitionCount {
+                    playButton.isSelected = false
+                    showPlayNextView()
+                    playNextView?.startPreparing()
+                    controlViewAnimation(isShow: true)
+                    cancelAutoFadeOutAnimation()
+                } else {
+                    playButton.isSelected = false
+                    showPlayToTheEndView()
+                    controlViewAnimation(isShow: true)
+                    cancelAutoFadeOutAnimation()
+                }
             }
         case .error:
             showUrlWrong()
@@ -302,6 +321,46 @@ open class MSPlayerControlView: UIView {
         replayButton.isHidden = true
     }
     
+    open func showPlayNextView() {
+        setPlayNextViewIfNeeded()
+        playNextView?.isHidden = false
+    }
+    
+    open func hidePlayNextView() {
+        playNextView?.isHidden = true
+    }
+    
+    open func setPlayNextViewIfNeeded(_ playNextView: MSPlayNext? = nil) {
+        if let playNextView = playNextView,
+            !(playNextView === self.playNextView) {
+            self.playNextView?.removeFromSuperview()
+            addSubview(playNextView)
+            playNextView.isHidden = true
+            playNextView.playNext = { [weak self] in
+                guard let self = self else { return }
+                guard let currentDefinitionIndex = self.player?.currentDefinitionIndex else { return }
+                self.delegate?.controlView(self, didChooseDefinition: currentDefinitionIndex + 1)
+                self.hidePlayNextView()
+            }
+        } else if let playNextView = MSPM.shared().playNextView,
+            playNextView.superview == nil {
+            self.playNextView?.removeFromSuperview()
+            addSubview(playNextView)
+            playNextView.isHidden = true
+            playNextView.playNext = { [weak self] in
+                guard let self = self else { return }
+                guard let currentDefinitionIndex = self.player?.currentDefinitionIndex else { return }
+                self.delegate?.controlView(self, didChooseDefinition: currentDefinitionIndex + 1)
+                self.hidePlayNextView()
+            }
+        }
+    }
+    
+    open func cancelPlayNext() {
+        self.playNextView?.removeFromSuperview()
+        playNextView?.playNext = nil
+    }
+    
     open func showLoader() {
         loadingIndector.isHidden = false
         loadingIndector.startAnimating()
@@ -316,7 +375,9 @@ open class MSPlayerControlView: UIView {
     }
     
     open func showCoverWithLink(_ cover: String) {
-        showCover(url: URL(string: cover))
+        guard let url = URL(string: cover) else { return }
+        let coverURLRequest = URLRequest(url: url)
+        showCover(urlRequest: coverURLRequest)
     }
     
     open func hideCover() {
@@ -327,28 +388,37 @@ open class MSPlayerControlView: UIView {
         playButton.isSelected = isSelected
     }
     
-    open func showCover(url: URL?, urlHeaders: [String: String]? = nil) {
-        guard let url = url else { return }
-        controlViewAnimation(isShow: false)
-        DispatchQueue.global(qos: .default).async {
-            let urlSessionConfiguration = URLSessionConfiguration.default
-            urlSessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
-            urlSessionConfiguration.timeoutIntervalForRequest = 15.0
-            urlSessionConfiguration.timeoutIntervalForResource = 15.0
-            let urlSession = URLSession(configuration: urlSessionConfiguration)
-            var request = URLRequest(url: url)
-            request.allHTTPHeaderFields = urlHeaders
-            urlSession.dataTask(with: request, completionHandler: { (data, response, error) in
-                DispatchQueue.main.async {
-                    if let dataUnwrapped = data {
-                        self.videoCoverImageView.isHidden = false
-                        self.videoCoverImageView.image = UIImage(data: dataUnwrapped)
-                    } else {
-                        self.videoCoverImageView.image = nil
+    open func showCover(urlRequest: URLRequest? = nil, coverImage: UIImage? = nil) {
+        if let coverImage = coverImage {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.controlViewAnimation(isShow: false)
+                self.videoCoverImageView.isHidden = false
+                self.videoCoverImageView.image = coverImage
+                self.hideLoader()
+            }
+        } else {
+            guard let urlRequest = urlRequest else { return }
+            controlViewAnimation(isShow: false)
+            DispatchQueue.global(qos: .default).async { [weak self] in
+                guard let self = self else { return }
+                let urlSessionConfiguration = URLSessionConfiguration.default
+                urlSessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+                urlSessionConfiguration.timeoutIntervalForRequest = 15.0
+                urlSessionConfiguration.timeoutIntervalForResource = 15.0
+                let urlSession = URLSession(configuration: urlSessionConfiguration)
+                urlSession.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
+                    DispatchQueue.main.async {
+                        if let dataUnwrapped = data {
+                            self.videoCoverImageView.isHidden = false
+                            self.videoCoverImageView.image = UIImage(data: dataUnwrapped)
+                        } else {
+                            self.videoCoverImageView.image = nil
+                        }
+                        self.hideLoader()
                     }
-                    self.hideLoader()
-                }
-            }).resume()
+                }).resume()
+            }
         }
     }
     
@@ -394,6 +464,7 @@ open class MSPlayerControlView: UIView {
                 if playerLastState == .playedToTheEnd {
                     hidePlayToTheEndView()
                 }
+                cancelPlayNext()
                 if !videoCoverImageView.isHidden {
                     //MARK: - 再有封面圖的狀態下，強制變成pause狀態，點擊封面成為播放的指令
                     button.isSelected = false
@@ -442,6 +513,7 @@ open class MSPlayerControlView: UIView {
     
     // MARK: - handle UI slider actions
     @objc func progressSliderTouchBegan(_ sender: UISlider) {
+        cancelPlayNext()
         delegate?.controlView(self, slider: sender, onSlider: .touchDown)
     }
     
@@ -589,6 +661,8 @@ open class MSPlayerControlView: UIView {
         replayButton.addTarget(self, action: #selector(onButtonPressed(_:)), for: .touchUpInside)
         replayButton.tag = MSPM.ButtonType.replay.rawValue
         
+        setPlayNextViewIfNeeded()
+        
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(onTapGestureTapped(_:)))
         tapGesture.numberOfTapsRequired = 1
         doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(doubleTapGestureTapped(_:)))
@@ -697,6 +771,11 @@ open class MSPlayerControlView: UIView {
                                                                         .centerY2CenterY(0, priority: 1000),
                                                                         .height(50 * MSPM.screenRatio * screenRatioOrientationParameter, priority: 1000),
                                                                         .width(50 * MSPM.screenRatio * screenRatioOrientationParameter, priority: 1000)])
+    }
+    
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        playNextView?.center = center
     }
     
     /// Add Customize functions here
