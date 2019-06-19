@@ -15,6 +15,8 @@
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		8AAAD640D98C5392ED470FCB /* Pods_MSPlayer_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506180754ED434DB8C94312F /* Pods_MSPlayer_Example.framework */; };
+		930238F922B9D7D6008273F0 /* CustomPlayNextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930238F822B9D7D6008273F0 /* CustomPlayNextView.swift */; };
+		930238FD22B9D95D008273F0 /* TapExampleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 930238FC22B9D95D008273F0 /* TapExampleView.xib */; };
 		9303B19B228915AA009CE809 /* SwitchTypeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9303B19A228915AA009CE809 /* SwitchTypeTableViewController.swift */; };
 		93124095229E1F72003CEE03 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93124094229E1F72003CEE03 /* AppCoordinator.swift */; };
 		93124097229E1F95003CEE03 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93124096229E1F95003CEE03 /* Coordinator.swift */; };
@@ -46,6 +48,8 @@
 		607FACE51AFB9204008FA782 /* MSPlayer_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MSPlayer_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		930238F822B9D7D6008273F0 /* CustomPlayNextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPlayNextView.swift; sourceTree = "<group>"; };
+		930238FC22B9D95D008273F0 /* TapExampleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TapExampleView.xib; sourceTree = "<group>"; };
 		9303B19A228915AA009CE809 /* SwitchTypeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTypeTableViewController.swift; sourceTree = "<group>"; };
 		93124094229E1F72003CEE03 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		93124096229E1F95003CEE03 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -115,6 +119,8 @@
 				93124094229E1F72003CEE03 /* AppCoordinator.swift */,
 				93124098229E24B6003CEE03 /* NormalPlayerCoordinator.swift */,
 				607FACD71AFB9204008FA782 /* NormalPlayerVC.swift */,
+				930238FC22B9D95D008273F0 /* TapExampleView.xib */,
+				930238F822B9D7D6008273F0 /* CustomPlayNextView.swift */,
 				9303B19A228915AA009CE809 /* SwitchTypeTableViewController.swift */,
 				93CE625C208724C300B02CE0 /* MSPlayer */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
@@ -274,6 +280,7 @@
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
+				930238FD22B9D95D008273F0 /* TapExampleView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,6 +408,7 @@
 				93124097229E1F95003CEE03 /* Coordinator.swift in Sources */,
 				607FACD81AFB9204008FA782 /* NormalPlayerVC.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				930238F922B9D7D6008273F0 /* CustomPlayNextView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

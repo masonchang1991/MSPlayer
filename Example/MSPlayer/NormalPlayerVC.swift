@@ -20,8 +20,19 @@ class NormalPlayerVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        MSPlayerConfig.shouldAutoPlay = true
+        MSPlayerConfig.playerPanSeekRate = 0.5
+        MSPlayerConfig.playerBrightnessChangeRate = 2.0
+        MSPlayerConfig.playerVolumeChangeRate = 0.5
+        
+        let playNextView = PlayNextView(frame: CGRect(origin: .zero, size: CGSize(width: 118, height: 56)))
+//        MSPlayerConfig.playNextView = playNextView
+        
         setupView()
         setupPlayer()
+        
+        
     }
     
     func setupView() {
@@ -37,17 +48,23 @@ class NormalPlayerVC: UIViewController {
     func setupPlayer() {
         player.delegate = self
         
-        MSPlayerConfig.shouldAutoPlay = false
-        MSPlayerConfig.playerPanSeekRate = 0.5
-        MSPlayerConfig.playerBrightnessChangeRate = 2.0
-        MSPlayerConfig.playerVolumeChangeRate = 0.5
-        let asset = MSPlayerResource(
-            url: URL(string: "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8")!,
-            name: "test",
-            coverURL: URL(string: "https://i.ytimg.com/vi/MhQKe-aERsU/maxresdefault.jpg")!,
-            coverURLRequestHeaders: nil)
+        let urlR = URLRequest(url: URL(string: "https://i.ytimg.com/vi/MhQKe-aERsU/maxresdefault.jpg")!)
         
-        player.setVideoBy(asset, videoIdForRecord: "001")
+        let d1 = MSPlayerResourceDefinition(videoId: "123",
+                                            videoName: "aaa",
+                                            url: URL(string: "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8")!,
+                                            definition: "test",
+                                            coverURLRequest: urlR)
+        
+        let d2 = MSPlayerResourceDefinition(videoId: "wwwwweeqe",
+                                            videoName: "aaa2",
+                                            url: URL(string: "http://184.72.239.149/vod/smil:BigBuckBunny.smil/playlist.m3u8")!,
+                                            definition: "test",
+                                            coverURLRequest: urlR)
+        
+        let asset = MSPlayerResource(definitions: [d1, d2])
+        
+        player.setVideoBy(asset)
         
         player.backBlock = { [weak self] (isFullScreen) in
             guard let self = self else { return }
