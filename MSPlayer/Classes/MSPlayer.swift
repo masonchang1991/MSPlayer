@@ -16,6 +16,12 @@ public protocol MSPlayerDelegate: class {
     func msPlayer(_ player: MSPlayer, playTimeDidChange current: TimeInterval, total: TimeInterval)
     func msPlayer(_ player: MSPlayer, isPlaying: Bool)
     func msPlayer(_ player: MSPlayer, orientChanged isFullScreen: Bool)
+    func msPlayer(_ player: MSPlayer, definitionIndexDidChange index: Int)
+}
+
+public extension MSPlayerDelegate {
+    //For optional
+    func msPlayer(_ player: MSPlayer, definitionIndexDidChange index: Int) { }
 }
 
 open class MSPlayer: MSGestureView {
@@ -25,9 +31,18 @@ open class MSPlayer: MSGestureView {
     /// fired when tap backButton, fullScrren to unFullScreen, unFullScreen to pop
     open var backBlock: ((Bool) -> Void)?
     
-    open var videoId: String? = nil
+    open var videoId: String? {
+        return getCurrentResourceDefinition()?.videoId
+    }
+    /// Resource contains mutiple resource definitions
+    open var currentDefinitionIndex = 0 {
+        didSet {
+            if oldValue != currentDefinitionIndex {
+                self.delegate?.msPlayer(self, definitionIndexDidChange: currentDefinitionIndex)
+            }
+        }
+    }
     open var currentResource: MSPlayerResource?
-    fileprivate var currentDefinition = 0
     fileprivate var resource: MSPlayerResource! {
         didSet {
             self.currentResource = resource
@@ -163,40 +178,68 @@ open class MSPlayer: MSGestureView {
     
     private func resetSetting() {
         isPauseByUser = false
+        isPlayToTheEnd = false
+        
+        controlView.timeSlider.value = 0.0
+        
+        playerLayerView?.resetPlayer()
     }
     
     // MARK: - Public functions
+    
     /**
      Play
      
      - parameter resource: media resource
-     - parameter definitionIndex: starting definition index, default start with the first definition
+     - parameter startIndex: starting definition index, default start with the first definition
      */
-    
-    open func setVideoBy(_ resource: MSPlayerResource, definitionIndex: Int = 0, videoIdForRecord: String? = nil) {
+    open func setVideoBy(_ resource: MSPlayerResource, startIndex: Int = 0) {
         // Store Resource
         self.resource = resource
-        self.videoId = videoIdForRecord
-        currentDefinition = definitionIndex
-        controlView.prepareUI(for: resource,
-                              selected: definitionIndex)
+        changeResourceDefinitionBy(index: startIndex)
+    }
+    
+    /**
+     change resourceDefinitionIndex
+     
+     parameter: - when isPlayNext is true, auto play video
+    */
+    open func changeResourceDefinitionBy(index: Int, isPlayNext: Bool = false) {
         resetSetting()
+        currentDefinitionIndex = index
+        controlView.prepareUI(for: resource,
+                              selected: index)
+        guard let currentDefinition = getCurrentResourceDefinition() else {
+            // zeroin definitionIndex and restart
+            if index != 0 {
+                changeResourceDefinitionBy(index: 0)
+            } else {
+                self.delegate?.msPlayer(self, stateDidChange: .notSetUrl)
+            }
+            return
+        }
+        
         // if user is set 'notAutoPlay', then set the cover
         if MSPlayerConfig.shouldAutoPlay {
             controlView.hideCover()
         } else {
             // show cover need to close the loader. if not, loader is on the cover, that's bad
             controlView.hideLoader()
-            controlView.showCover(url: resource.coverURL,
-                                  urlHeaders: resource.coverURLRequestHeaders)
+            controlView.showCover(urlRequest: currentDefinition.coverURLRequest,
+                                  coverImage: currentDefinition.coverImage)
         }
         
         // 設定 playerAsset
-        let asset = resource.definitions[definitionIndex]
-        playerLayerView?.setAVURLAsset(asset: asset.avURLAsset)
+        playerLayerView?.setAVURLAsset(asset: currentDefinition.avURLAsset)
+        //如果是播下一集，則重頭開始
+        if isPlayNext {
+            autoPlay()
+            return
+        }
+        
         // 若使用者有給影片 id，則去coreData看，是否有上次的觀看時間點
-        if let videoId = videoId {
-            let coreDataManager = MSCoreDataManager()
+        if let videoId = currentDefinition.videoId {
+            let coreDataManager = MSCoreDataManager.shared
             coreDataManager.loadVideoTimeRecordWith(videoId) { [weak self] (lastWatchTime) in
                 guard let self = self else { return }
                 if let lastWatchTime = lastWatchTime {
@@ -204,12 +247,15 @@ open class MSPlayer: MSGestureView {
                     self.seek(lastWatchTime) {
                         self.autoPlay()
                     }
+                } else {
+                    self.autoPlay()
                 }
             }
         } else {
-            autoPlay()
+            self.autoPlay()
         }
     }
+    
     /**
      auto start playing, call at viewWillAppear, see more at pause
      */
@@ -283,6 +329,13 @@ open class MSPlayer: MSGestureView {
             self.nowSeekingCount -= 1
         })
     }
+    /**
+     get current resource Definition
+    */
+    open func getCurrentResourceDefinition() -> MSPlayerResourceDefinition? {
+        return resource.definitions[exist: currentDefinitionIndex]
+    }
+    
     /**
      update UI to fullScreen
      */
@@ -443,7 +496,7 @@ open class MSPlayer: MSGestureView {
     private func recordCurrentTime() {
         if let videoId = videoId, MSPM.shared().openRecorder {
             let currentTime = floor(totalDuration * Double(progressSliderValue))
-            let coreDataManager = MSCoreDataManager()
+            let coreDataManager = MSCoreDataManager.shared
             coreDataManager.saveVideoTimeRecordWith(videoId, videoTime: currentTime)
         }
     }
@@ -538,6 +591,8 @@ extension MSPlayer: MSPlayerLayerViewDelegate {
             isPlayToTheEnd = true
         case .error(let error):
             // Handle wrong URL
+            controlView.hideCover()
+            controlView.hideLoader()
             player.prepareToDeinit()
             print("MSPlayer Error:", error)
         default: break
@@ -569,10 +624,7 @@ extension MSPlayer: MSPlayerLayerViewDelegate {
 extension MSPlayer: MSPlayerControlViewDelegate {
     
     public func controlView(_ controlView: MSPlayerControlView, didChooseDefinition index: Int) {
-        shouldSeekTo = currentPosition
-        playerLayerView?.resetPlayer()
-        currentDefinition = index
-        playerLayerView?.setAVURLAsset(asset: resource.definitions[index].avURLAsset)
+        changeResourceDefinitionBy(index: index, isPlayNext: true)
     }
     
     public func controlView(_ controlView: MSPlayerControlView, didPress button: UIButton) {
@@ -601,8 +653,8 @@ extension MSPlayer: MSPlayerControlViewDelegate {
                     } else if let state = playerLayerView?.state {
                         switch state {
                         case .error:
-                            setVideoBy(resource,
-                                       videoIdForRecord: videoId)
+                            // play next definition
+                            changeResourceDefinitionBy(index: currentDefinitionIndex + 1)
                         default: break
                         }
                     }
