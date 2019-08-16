@@ -224,6 +224,7 @@ open class MSPlayerControlView: UIView {
     open func prepareUI(for resource: MSPlayerResource, selected index: Int) {
         self.resource = resource
         self.selectedIndex = index
+        hidePlayNextView()
         autoFadeOutControlViewWithAnimation()
     }
     
@@ -285,6 +286,23 @@ open class MSPlayerControlView: UIView {
         }
     }
     
+    open func controlViewWithoutAnimation(isShow: Bool) {
+        if self.playerLastState != .playedToTheEnd {
+            let otherAlpha: CGFloat = isShow ? MSPlayerConfig.otherMaskViewShowAlpha : 0.0
+            let mainAlpha: CGFloat = isShow ? MSPlayerConfig.mainMaskViewShowAlpha : 0.0
+            self.isMaskShowing = isShow
+            
+            self.topMaskView.alpha = otherAlpha
+            self.bottomMaskView.alpha = otherAlpha
+            
+            self.mainMaskView.backgroundColor = UIColor.black.withAlphaComponent(mainAlpha)
+            if !isShow {
+                self.replayButton.isHidden = true
+            }
+            self.layoutIfNeeded()
+        }
+    }
+    
     /**
      Implement of the UI update when screen orient changed
      
@@ -334,7 +352,7 @@ open class MSPlayerControlView: UIView {
         if let playNextView = playNextView,
             !(playNextView === self.playNextView) {
             self.playNextView?.removeFromSuperview()
-            addSubview(playNextView)
+            mainMaskView.insertSubview(playNextView, belowSubview: topMaskView)
             playNextView.isHidden = true
             playNextView.playNext = { [weak self] in
                 guard let self = self else { return }
@@ -345,7 +363,7 @@ open class MSPlayerControlView: UIView {
         } else if let playNextView = MSPM.shared().playNextView,
             playNextView.superview == nil {
             self.playNextView?.removeFromSuperview()
-            addSubview(playNextView)
+            mainMaskView.insertSubview(playNextView, belowSubview: topMaskView)
             playNextView.isHidden = true
             playNextView.playNext = { [weak self] in
                 guard let self = self else { return }
@@ -567,9 +585,9 @@ open class MSPlayerControlView: UIView {
         
         // Main mask view
         addSubview(mainMaskView)
+        mainMaskView.addSubview(loadingIndector)
         mainMaskView.addSubview(topMaskView)
         mainMaskView.addSubview(bottomMaskView)
-        mainMaskView.addSubview(loadingIndector)
         centerPlayBtnImageView.image = MSPlayerConfig.playCoverImage
         mainMaskView.addSubview(centerPlayBtnImageView)
         
@@ -775,7 +793,8 @@ open class MSPlayerControlView: UIView {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        playNextView?.center = center
+        let controlViewCenter = CGPoint(x: bounds.width / 2, y: bounds.height / 2)
+        playNextView?.center = controlViewCenter
     }
     
     /// Add Customize functions here

@@ -27,7 +27,7 @@ class NormalPlayerVC: UIViewController {
         MSPlayerConfig.playerVolumeChangeRate = 0.5
         
         let playNextView = PlayNextView(frame: CGRect(origin: .zero, size: CGSize(width: 118, height: 56)))
-//        MSPlayerConfig.playNextView = playNextView
+        MSPlayerConfig.playNextView = playNextView
         
         setupView()
         setupPlayer()

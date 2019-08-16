@@ -35,7 +35,7 @@ class BrightnessView: UIView, MSBrightnessView {
         if let sharedInstance = self.sharedInstance {
             return sharedInstance
         } else {
-            let brightnessView = BrightnessView()
+            let brightnessView = BrightnessView(frame: .zero)
             brightnessView.tag = 200
             self.sharedInstance = brightnessView
             return brightnessView

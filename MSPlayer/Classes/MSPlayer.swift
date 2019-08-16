@@ -16,12 +16,12 @@ public protocol MSPlayerDelegate: class {
     func msPlayer(_ player: MSPlayer, playTimeDidChange current: TimeInterval, total: TimeInterval)
     func msPlayer(_ player: MSPlayer, isPlaying: Bool)
     func msPlayer(_ player: MSPlayer, orientChanged isFullScreen: Bool)
-    func msPlayer(_ player: MSPlayer, definitionIndexDidChange index: Int)
+    func msPlayer(_ player: MSPlayer, definitionIndexDidChange index: Int, definition: MSPlayerResourceDefinition?)
 }
 
 public extension MSPlayerDelegate {
     //For optional
-    func msPlayer(_ player: MSPlayer, definitionIndexDidChange index: Int) { }
+    func msPlayer(_ player: MSPlayer, definitionIndexDidChange index: Int, definition: MSPlayerResourceDefinition?) { }
 }
 
 open class MSPlayer: MSGestureView {
@@ -38,7 +38,7 @@ open class MSPlayer: MSGestureView {
     open var currentDefinitionIndex = 0 {
         didSet {
             if oldValue != currentDefinitionIndex {
-                self.delegate?.msPlayer(self, definitionIndexDidChange: currentDefinitionIndex)
+                self.delegate?.msPlayer(self, definitionIndexDidChange: currentDefinitionIndex, definition: currentResource?.definitions[exist: currentDefinitionIndex])
             }
         }
     }
@@ -112,8 +112,8 @@ open class MSPlayer: MSGestureView {
     fileprivate var shouldSeekTo: TimeInterval = 0
     fileprivate var isUserSliding = false
     fileprivate var isUserMoveSlider = false
-    fileprivate var isPlayToTheEnd = false
     fileprivate var isPauseByUser = false
+    open private(set) var isPlayToTheEnd = false
     
     /**
      If you want to create MSPlayer with custom control in storyBoard.
@@ -286,15 +286,17 @@ open class MSPlayer: MSGestureView {
      - parameter allow: should allow to response 'autoPlay' function
      */
     open func pause() {
-        recordCurrentTime()
-        isPauseByUser = true
-        playerLayerView?.pause()
-        // show play cover
-        if controlView.centerPlayBtnImageView.isHidden {
-            controlView.showPlayCover()
-            controlView.hideLoader()
+        if !isPlayToTheEnd {
+            recordCurrentTime()
+            isPauseByUser = true
+            playerLayerView?.pause()
+            // show play cover
+            if controlView.centerPlayBtnImageView.isHidden {
+                controlView.showPlayCover()
+                controlView.hideLoader()
+            }
+            controlView.changePlayButtonState(isSelected: false)
         }
-        controlView.changePlayButtonState(isSelected: false)
     }
     /**
      seek
