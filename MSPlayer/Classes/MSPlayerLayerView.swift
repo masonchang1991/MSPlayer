@@ -316,7 +316,11 @@ open class MSPlayerLayerView: UIView {
     // MARK: - 設定計時器
     func setupTimer() {
         timer?.invalidate()
-        timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(playerTimerAction), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 0.5,
+                                     target: self,
+                                     selector: #selector(playerTimerAction),
+                                     userInfo: nil,
+                                     repeats: true)
         timer?.fireDate = Date()
     }
     
