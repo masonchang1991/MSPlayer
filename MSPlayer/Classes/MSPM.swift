@@ -31,7 +31,7 @@ public class MSPM {
             let shared = MSPM()
             self.sharedInstance = shared
 //            let _ = BrightnessView.shared()
-            let _ = SystemSettingManager.shared
+//            let _ = SystemSettingManager.shared
             return shared
         }
     }
