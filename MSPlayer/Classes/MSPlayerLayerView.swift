@@ -61,12 +61,31 @@ open class MSPlayerLayerView: UIView {
             self.setNeedsLayout()
         }
     }
-    
+    open var videoSize: CGSize? {
+        guard let player = player else { return nil}
+        guard (player.error == nil) else { return nil }
+        let track = player.currentItem?.asset.tracks(withMediaType: .video).first
+        if let track = track {
+            var naturalSize = track.naturalSize
+            return naturalSize.applying(track.preferredTransform)
+        } else {
+            let currentTime = player.currentItem?.currentTime()
+            var buffer: CVPixelBuffer? = nil
+            if let currentTime = currentTime {
+                buffer = videoOutput?.copyPixelBuffer(forItemTime: currentTime, itemTimeForDisplay: nil)
+            }
+            guard let _buffer = buffer else { return nil }
+            return CGSize.init(width: CVPixelBufferGetWidth(_buffer), height: CVPixelBufferGetHeight(_buffer))
+        }
+    }
+
     // 計時器
     var timer: Timer?
     fileprivate var urlAsset: AVURLAsset?
     fileprivate var lastPlayerItem: AVPlayerItem?
     fileprivate var playerLayer: AVPlayerLayer?
+    fileprivate var videoOutput: AVPlayerItemVideoOutput?
+
     /// 播放器狀態
     internal fileprivate(set) var state = MSPM.State.notSetUrl {
         didSet {
