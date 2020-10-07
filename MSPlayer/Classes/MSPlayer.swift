@@ -16,35 +16,54 @@ public protocol MSPlayerDelegate: class {
     func msPlayer(_ player: MSPlayer, playTimeDidChange current: TimeInterval, total: TimeInterval)
     func msPlayer(_ player: MSPlayer, isPlaying: Bool)
     func msPlayer(_ player: MSPlayer, orientChanged isFullScreen: Bool)
+    func msPlayer(_ player: MSPlayer, definitionIndexDidChange index: Int, definition: MSPlayerResourceDefinition?)
 }
 
-open class MSPlayer: UIView {
+public extension MSPlayerDelegate {
+    //For optional
+    func msPlayer(_ player: MSPlayer, definitionIndexDidChange index: Int, definition: MSPlayerResourceDefinition?) { }
+}
+
+open class MSPlayer: MSGestureView {
     
-    open var backToParent: (() -> ())?
-    
-    enum MSPanDirection: Int {
-        case horizontal = 0
-        case vertical = 1
-    }
-    
-    open var videoId: String? = nil
+    // Event sending by delegate and closure
     open weak var delegate: MSPlayerDelegate?
-    open var playerLayerView: MSPlayerLayerView?
-    open var controlView: MSPlayerControlView!
-    fileprivate var customControlView: MSPlayerControlView?
+    /// fired when tap backButton, fullScrren to unFullScreen, unFullScreen to pop
+    open var backBlock: ((Bool) -> Void)?
+    
+    open var videoId: String? {
+        return getCurrentResourceDefinition()?.videoId
+    }
+    /// Resource contains mutiple resource definitions
+    open var currentDefinitionIndex = 0 {
+        didSet {
+            if oldValue != currentDefinitionIndex {
+                self.delegate?.msPlayer(self, definitionIndexDidChange: currentDefinitionIndex, definition: currentResource?.definitions[exist: currentDefinitionIndex])
+            }
+        }
+    }
     open var currentResource: MSPlayerResource?
-    fileprivate var currentDefinition = 0
     fileprivate var resource: MSPlayerResource! {
         didSet {
             self.currentResource = resource
         }
     }
+    
+    //UI
     open var avPlayer: AVPlayer? {
         return playerLayerView?.player
     }
+    open var playerLayerView: MSPlayerLayerView?
+    open var controlView: MSPlayerControlView!
+    fileprivate var customControlView: MSPlayerControlView?
+    var userConstraint = [NSLayoutConstraint]()
     
-    /// Gesture to change volume / brightness
-    open var panGesture: UIPanGestureRecognizer?
+    //MARK: - 可以設定此參數決定畫面比例
+    open var aspectRatio: MSPM.AspectRatio? {
+        didSet {
+            self.playerLayerView?.aspectRatio = self.aspectRatio ?? .default
+        }
+    }
     
     /// AVLayerVideoGravityType
     open var videoGravity = convertFromAVLayerVideoGravity(AVLayerVideoGravity.resizeAspect) {
@@ -59,15 +78,6 @@ open class MSPlayer: UIView {
         }
     }
     
-    // Closure
-    /// fired when play time changed
-    open var playTimeDidChange: ((TimeInterval, TimeInterval) -> Void)?
-    /// fired when play state changed
-    open var playStateDidChange: ((Bool) -> Void)?
-    /// fired when tap backButton, fullScrren to unFullScreen, unFullScreen to pop
-    open var backBlock: ((Bool) -> Void)?
-    open var showBlock: ((Bool) -> Void)?
-    
     // status
     fileprivate var isFullScreen: Bool {
         get {
@@ -76,7 +86,9 @@ open class MSPlayer: UIView {
     }
     open var isSeeking = false {
         didSet {
-            self.playerLayerView?.isNowSeeking = self.isSeeking
+            if isSeeking != oldValue {
+                self.playerLayerView?.isNowSeeking = self.isSeeking
+            }
         }
     }
     /// if nowSeekingCount > 0, means there is other seeking, so isSeeking will be true
@@ -87,19 +99,8 @@ open class MSPlayer: UIView {
         }
     }
     
-    /// Adjust the value of pan to seek
-    open var panToSeekRate: Double {
-        return MSPlayerConfig.playerPanSeekRate
-    }
-    /// 滑動方向
-    fileprivate var panDirection: MSPlayer.MSPanDirection = .horizontal
     /// 進度滑桿值 - ControlView變更時一併變更MSPlayer的值
     open var progressSliderValue: Float = 0.0
-    /// 音量滑桿
-    fileprivate var volumeViewSlider: UISlider!
-    
-    fileprivate let playerAnimationDuration: Double = MSPlayerConfig.playerAnimationDuration
-    fileprivate let playerControlBarAutoFadeOutDuration: Double = MSPlayerConfig.playerControlBarAutoFadeOutDuration
     
     // time status
     /// 滑動起始時影片時間
@@ -109,42 +110,80 @@ open class MSPlayer: UIView {
     fileprivate var totalDuration: TimeInterval = 0
     fileprivate var currentPosition: TimeInterval = 0
     fileprivate var shouldSeekTo: TimeInterval = 0
-    fileprivate var isURLSet = false
-    fileprivate var isSliderSliding = false
+    fileprivate var isUserSliding = false
     fileprivate var isUserMoveSlider = false
-    fileprivate var verticalPanPosition: VerticalPanPosition = .unknown
-    fileprivate var isMaskShowing = false
-    fileprivate var isSlowed = false
-    fileprivate var isMirrored = false
-    fileprivate var isPlayToTheEnd = false
-    fileprivate var isPauseByUser = false {
-        didSet {
-            if isPauseByUser {
-                playerLayerView?.pause()
-            } else {
-                playerLayerView?.play()
-            }
+    fileprivate var isPauseByUser = false
+    open private(set) var isPlayToTheEnd = false
+    
+    /**
+     If you want to create MSPlayer with custom control in storyBoard.
+     create a subclass and override this method
+     
+     - return: costom control which you want to use
+     */
+    open class func storyBoardCustomControl() -> MSPlayerControlView? {
+        return nil
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        if let customControlView = MSPlayer.storyBoardCustomControl() {
+            self.customControlView = customControlView
         }
+        initUI()
+        addObserver()
+        preparePlayer()
     }
     
-    enum VerticalPanPosition {
-        case left
-        case mid
-        case right
-        case unknown
+    public convenience init() {
+        self.init(customControlView: nil)
     }
     
-    //MARK: - 可以設定此參數決定畫面比例
-    open var aspectRatio: MSPM.AspectRatio? {
-        didSet {
-            self.playerLayerView?.aspectRatio = self.aspectRatio ?? .default
+    @objc public init(customControlView: MSPlayerControlView?) {
+        super.init(frame: CGRect.zero)
+        self.customControlView = customControlView
+        initUI()
+        addObserver()
+        preparePlayer()
+    }
+    
+    // MARK: - init UI
+    private func initUI() {
+        self.backgroundColor = UIColor.black
+        setControlView()
+    }
+    
+    private func setControlView() {
+        if let customView = customControlView {
+            controlView = customView
+        } else {
+            controlView = MSPlayerControlView()
         }
+        self.userConstraint = self.constraints
+        addSubview(controlView)
+        controlView.updateUI(for: isFullScreen)
+        controlView.delegate = self
+        controlView.player = self
     }
-    // cache is playing result to improve callback performance
-    fileprivate var isPlayingCache: Bool? = nil
     
-    // UI
-    var userConstraint = [NSLayoutConstraint]()
+    private func preparePlayer() {
+        playerLayerView = MSPlayerLayerView()
+        playerLayerView?.videoGravity = AVLayerVideoGravity(rawValue: videoGravity).rawValue
+        if let playerLayerView = playerLayerView {
+            insertSubview(playerLayerView, at: 0)
+        }
+        playerLayerView?.delegate = self
+        controlView.showLoader()
+    }
+    
+    private func resetSetting() {
+        isPauseByUser = false
+        isPlayToTheEnd = false
+        
+        controlView.timeSlider.value = 0.0
+        
+        playerLayerView?.resetPlayer()
+    }
     
     // MARK: - Public functions
     
@@ -152,78 +191,113 @@ open class MSPlayer: UIView {
      Play
      
      - parameter resource: media resource
-     - parameter definitionIndex: starting definition index, default start with the first definition
+     - parameter startIndex: starting definition index, default start with the first definition
      */
-    open func setVideoBy(_ resource: MSPlayerResource, definitionIndex: Int = 0, videoIdForRecord: String? = nil) {
-        isURLSet = false
+    open func setVideoBy(_ resource: MSPlayerResource, startIndex: Int = 0) {
+        // Store Resource
         self.resource = resource
-        self.videoId = videoIdForRecord
-        currentDefinition = definitionIndex
+        changeResourceDefinitionBy(index: startIndex)
+    }
+    
+    /**
+     change resourceDefinitionIndex
+     
+     parameter: - when isPlayNext is true, auto play video
+    */
+    open func changeResourceDefinitionBy(index: Int, isPlayNext: Bool = false) {
+        resetSetting()
+        currentDefinitionIndex = index
         controlView.prepareUI(for: resource,
-                              selected: definitionIndex)
+                              selected: index)
+        guard let currentDefinition = getCurrentResourceDefinition() else {
+            // zeroin definitionIndex and restart
+            if index != 0 {
+                changeResourceDefinitionBy(index: 0)
+            } else {
+                self.delegate?.msPlayer(self, stateDidChange: .notSetUrl)
+            }
+            return
+        }
         
+        // if user is set 'notAutoPlay', then set the cover
         if MSPlayerConfig.shouldAutoPlay {
             controlView.hideCover()
-            isURLSet = true
-            let asset = resource.definitions[definitionIndex]
-            playerLayerView?.playAsset(asset: asset.avURLAsset)
-            if let videoId = videoId {
-                let coreDataManager = MSCoreDataManager()
-                coreDataManager.loadVideoTimeRecordWith(videoId) { (lastWatchTime) in
-                    if let lastWatchTime = lastWatchTime {
-                        self.seek(lastWatchTime) {
-                            self.autoPlay()
-                        }
+        } else {
+            // show cover need to close the loader. if not, loader is on the cover, that's bad
+            controlView.hideLoader()
+            controlView.showCover(urlRequest: currentDefinition.coverURLRequest,
+                                  coverImage: currentDefinition.coverImage)
+        }
+        
+        // 設定 playerAsset
+        playerLayerView?.setAVURLAsset(asset: currentDefinition.avURLAsset)
+        //如果是播下一集，則重頭開始
+        if isPlayNext {
+            autoPlay()
+            return
+        }
+        
+        // 若使用者有給影片 id，則去coreData看，是否有上次的觀看時間點
+        if let videoId = currentDefinition.videoId {
+            let coreDataManager = MSCoreDataManager.shared
+            coreDataManager.loadVideoTimeRecordWith(videoId) { [weak self] (lastWatchTime) in
+                guard let self = self else { return }
+                if let lastWatchTime = lastWatchTime {
+                    self.shouldSeekTo = floor(lastWatchTime)
+                    self.seek(lastWatchTime) {
+                        self.autoPlay()
                     }
+                } else {
+                    self.autoPlay()
                 }
             }
         } else {
-            controlView.showCover(url: resource.coverURL,
-                                  urlHeaders: resource.coverURLRequestHeaders)
-            controlView.hideLoader()
+            self.autoPlay()
         }
     }
+    
     /**
      auto start playing, call at viewWillAppear, see more at pause
      */
     open func autoPlay() {
-        if !isPauseByUser && isURLSet && !isPlayToTheEnd {
+        if !isPauseByUser && !isPlayToTheEnd && MSPlayerConfig.shouldAutoPlay {
             play()
+        } else if isPauseByUser && MSPlayerConfig.shouldAutoPlay {
+            pause()
+        } else {
+            // show cover and do nothing to player
+            return
         }
     }
-    
     /**
      play
      */
     open func play() {
-        if resource == nil {
-            return
-        }
-        if !isURLSet {
-            let asset = resource.definitions[currentDefinition]
-            playerLayerView?.playAsset(asset: asset.avURLAsset)
-            controlView.hideCover()
-            isURLSet = true
-        }
+        if resource == nil { return }
         isPauseByUser = false
+        playerLayerView?.play()
         controlView.hidePlayCover()
+        controlView.hideCover()
+        controlView.changePlayButtonState(isSelected: true)
     }
-    
     /**
      Pause
      
      - parameter allow: should allow to response 'autoPlay' function
      */
-    open func pause(autoPlay allow: Bool = false) {
-        recordCurrentTime()
-        isPauseByUser = !allow
-        // show play cover
-        if controlView.playCoverImageView.isHidden {
-            controlView.showPlayCover()
-            controlView.hideLoader()
+    open func pause() {
+        if !isPlayToTheEnd {
+            recordCurrentTime()
+            isPauseByUser = true
+            playerLayerView?.pause()
+            // show play cover
+            if controlView.centerPlayBtnImageView.isHidden {
+                controlView.showPlayCover()
+                controlView.hideLoader()
+            }
+            controlView.changePlayButtonState(isSelected: false)
         }
     }
-    
     /**
      seek
      
@@ -234,41 +308,34 @@ open class MSPlayer: UIView {
     }
     
     open func seekByAddValue(_ value: Int) {
-        if let playerItem = playerLayerView?.playerItem {
-            self.sumTime = self.currentPosition + TimeInterval(value)
-            let totalTime = playerItem.duration
-            // 防止出現NAN
-            if totalTime.timescale == 0 { return }
-            let totalDuration = TimeInterval(totalTime.value) / TimeInterval(totalTime.timescale)
-            if (self.sumTime >= totalDuration) {
-                self.sumTime = totalDuration - 1.0
-            } else if self.sumTime <= 0{
-                self.sumTime = 0
-            }
-            controlView.showSeekToView(to: sumTime,
-                                       total: totalDuration,
-                                       isAdd: self.sumTime > self.horizontalBeginTime)
+        guard let playerItem = playerLayerView?.playerItem else { return }
+        
+        self.sumTime = currentPosition + TimeInterval(value)
+        let totalTime = playerItem.duration
+        // 防止出現NAN
+        if totalTime.timescale == 0 { return }
+        let totalDuration = TimeInterval(totalTime.value) / TimeInterval(totalTime.timescale)
+        // modify sumTime value
+        if (sumTime >= totalDuration) {
+            sumTime = floor(totalDuration - 1.0)
+        } else if sumTime <= 0{
+            sumTime = 0
         }
-        controlView.hideSeekToView()
-        isSliderSliding = false
+        isUserSliding = false
         isUserMoveSlider = false
-        if isPlayToTheEnd {
-            isPlayToTheEnd = false
-            self.nowSeekingCount += 1
-            seek(self.sumTime, completion: {
-                self.play()
-                self.nowSeekingCount -= 1
-                print("end isPlayToEnd nowSeekingCount:", self.nowSeekingCount)
-                // 當有別的seekingAction時，不要把isSeeking關掉，關掉的話，每0.5秒會更新進度條，所以會把進度條跳回去
-            })
-        } else {
-            self.nowSeekingCount += 1
-            seek(self.sumTime, completion: {
-                self.autoPlay()
-                self.nowSeekingCount -= 1
-                print("end not isPlayToEnd nowSeekingCount:", self.nowSeekingCount)
-            })
-        }
+        isPlayToTheEnd = false
+        nowSeekingCount += 1
+        seek(self.sumTime, completion: { [weak self] in
+            guard let self = self else { return }
+            self.play()
+            self.nowSeekingCount -= 1
+        })
+    }
+    /**
+     get current resource Definition
+    */
+    open func getCurrentResourceDefinition() -> MSPlayerResourceDefinition? {
+        return resource.definitions[exist: currentDefinitionIndex]
     }
     
     /**
@@ -277,43 +344,204 @@ open class MSPlayer: UIView {
     open func updateUI(_ isFullScreen: Bool) {
         controlView.updateUI(for: isFullScreen)
     }
-    
     /**
      increase volume with step, default step 0.1
      
      - parameter step: step
      */
     open func addVolume(step: Float = 0.1) {
-        self.volumeViewSlider.value += step
+        let systemManager = SystemSettingManager.shared
+        systemManager.getVolumeController().changeVolumeBy(step)
     }
-    
     /**
      decrease volume with step, default step 0.1
      
      - parameter step: step
      */
     open func reduceVolume(step: Float = 0.1) {
-        self.volumeViewSlider.value -= step
+        let systemManager = SystemSettingManager.shared
+        systemManager.getVolumeController().changeVolumeBy(-step)
     }
-    
     // Close ControlView
     open func closeControlViewAndRemoveGesture() {
-        self.controlView.isHidden = true
-        self.removeGesture()
+        controlView.isHidden = true
+        disableGesture()
     }
     
     open func openControlViewAndSetGesture() {
-        self.controlView.isHidden = false
-        self.setGesture()
+        controlView.isHidden = false
+        resumeGesture()
     }
     
     // Change ControlView backButton image
     open func changeControlViewBackButtonImage(toDown: Bool) {
         if toDown {
-            self.controlView.changeBackImageToDownImage()
+            controlView.changeBackImageToDownImage()
         } else {
-            self.controlView.changeDownImageToBackImage()
+            controlView.changeDownImageToBackImage()
         }
+    }
+    
+    open override func horizontalPanEvent(_ state: PanDirection.PanState) {
+        // 播放結束時，手勢忽略
+        guard playerLayerView?.state != .playedToTheEnd else { return }
+        
+        super.horizontalPanEvent(state)
+        switch state {
+        case .began(let location):
+            nowSeekingCount += 1
+            
+            if let _ = playerLayerView?.player {
+                let nowTime = totalDuration * Double(progressSliderValue)
+                // 分母不用 timeScale是因為timeScale有時候會跳到1000000000有時候又會跳到1
+                horizontalBeginTime = TimeInterval(nowTime) / TimeInterval(1)
+                sumTime = horizontalBeginTime
+            }
+            
+            // is pan location.y at bottomMaskView then move slider
+            if location.y > controlView.bottomMaskView.frame.minY {
+                isUserMoveSlider = true
+            }
+        case .changed(let value):
+            horizontalMoved(value)
+        case .ended:
+            if MSPlayerConfig.enablePlaytimeGestures {
+                controlView.hideSeekToView()
+                isUserSliding = false
+                isUserMoveSlider = false
+                isPlayToTheEnd = false
+                if isPlayToTheEnd {
+                    isPlayToTheEnd = false
+                    seek(sumTime, completion: { [weak self] in
+                        guard let self = self else { return }
+                        self.play()
+                        self.nowSeekingCount -= 1 //當有別的seekingAction時，不要把isSeeking關掉，關掉的話，每0.5秒會更新進度條，所以會把進度條跳回去
+                    })
+                } else {
+                    seek(sumTime, completion: { [weak self] in
+                        guard let self = self else { return }
+                        self.autoPlay()
+                        self.nowSeekingCount -= 1
+                    })
+                }
+            }
+        }
+    }
+    
+    open override func verticalPanEvent(_ state: PanDirection.PanState, location: PanDirection.PanLocation) {
+        super.verticalPanEvent(state, location: location)
+        
+        // 播放結束時，手勢忽略
+        guard playerLayerView?.state != .playedToTheEnd else { return }
+        
+        switch state {
+        case .began, .ended: break
+        case .changed(let value):
+            var adjustValue: CGFloat = 0.0
+            if value < 0 {
+                adjustValue = -0.015
+            } else if value > 0 {
+                adjustValue = 0.015
+            } else {
+                return
+            }
+            
+            let systemManager = SystemSettingManager.shared
+            switch location {
+            case .right:
+                if MSPlayerConfig.enableVolumeGestures {
+                    let changeValue = -(Float(adjustValue) * MSPlayerConfig.playerVolumeChangeRate)
+                    systemManager.getVolumeController().changeVolumeBy(changeValue)
+                }
+            case .left:
+                if MSPlayerConfig.enableBrightnessGestures {
+                    let changeBrightnessValue = -(adjustValue * MSPlayerConfig.playerBrightnessChangeRate)
+                    systemManager.getBrightnessController().changeBrightnessByValue(changeBrightnessValue)
+                }
+            case .mid: break
+            }
+        }
+    }
+    
+    private func horizontalMoved(_ value: CGFloat) {
+        if (!MSPlayerConfig.enablePlaytimeGestures) { return }
+        
+        isUserSliding = true
+        if let playerItem = playerLayerView?.playerItem {
+            // 每次滑動需要疊加時間，通過一定的比例，使滑動一直處於統一水平
+            if isUserMoveSlider {
+                // 如果是移動滑桿，則按照他滑動的距離去決定他滑動的進度條多少
+                sumTime = sumTime + TimeInterval(value) / 100.0 * (TimeInterval(totalDuration)/400)
+            } else {
+                // 如果是滑動螢幕，則進度條慢慢前進，總時間越短，totalDurationAdjustParameter也會越小，避免移動過快
+                let totalDurationAdjustParameter = (TimeInterval(totalDuration) / 400) < 0.5 ? 0.5: (TimeInterval(totalDuration) / 400)
+                sumTime = sumTime + TimeInterval(value) / 100 * 0.4 * MSPlayerConfig.playerPanSeekRate * totalDurationAdjustParameter
+            }
+            let totalTime = playerItem.duration
+            
+            // 防止出現NAN
+            if totalTime.timescale == 0 { return }
+            
+            let totalDuration = TimeInterval(totalTime.value) / TimeInterval(totalTime.timescale)
+            if (sumTime >= totalDuration) {
+                sumTime = floor(totalDuration - 1.0)
+            } else if sumTime <= 0{
+                sumTime = 0
+            }
+            
+            controlView.showSeekToView(to: sumTime,
+                                       total: totalDuration,
+                                       isAdd: sumTime > horizontalBeginTime)
+        }
+    }
+    
+    private func recordCurrentTime() {
+        if let videoId = videoId, MSPM.shared().openRecorder {
+            let currentTime = floor(totalDuration * Double(progressSliderValue))
+            let coreDataManager = MSCoreDataManager.shared
+            coreDataManager.saveVideoTimeRecordWith(videoId, videoTime: currentTime)
+        }
+    }
+    
+    fileprivate func fullScreenButtonPressed() {
+        controlView.updateUI(for: !isFullScreen)
+        if isFullScreen {
+            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue,
+                                      forKey: "orientation")
+        } else {
+            //先清除現在orientation的值
+            //有可能Device是landscape進來(此時statusbar的orientation是portrait)，所以在按下切換全螢幕時
+            //有可能我改的UIDevice的orientation值，改前跟改後都是一樣的 例如我landscapeRight進來
+            //然後我又UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+            //這樣系統並不知道要轉方向
+            //所以我必須先修改目前的值，接著在改回來，讓系統知道需要變更方向(我猜值有改動的狀況下才會通知系統轉方向)
+            switch UIDevice.current.orientation {
+            case .landscapeLeft:
+                UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+                UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+            default:
+                UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+                UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+            }
+        }
+    }
+    
+    @objc fileprivate func onOrientationChanged() {
+        updateUI(isFullScreen)
+        delegate?.msPlayer(self, orientChanged: isFullScreen)
+    }
+    
+    private func addObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(onOrientationChanged),
+                                               name: UIApplication.didChangeStatusBarOrientationNotification,
+                                               object: nil)
+    }
+    
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        self.playerLayerView?.frame = self.bounds
+        self.controlView.frame = self.bounds
     }
     
     /**
@@ -327,294 +555,13 @@ open class MSPlayer: UIView {
         controlView.prepareToDealloc()
     }
     
-    func recordCurrentTime() {
-        if let videoId = videoId, MSPM.shared().openRecorder {
-            let currentTime = self.totalDuration * Double(self.progressSliderValue)
-            let coreDataManager = MSCoreDataManager()
-            coreDataManager.saveVideoTimeRecordWith(videoId, videoTime: currentTime)
-        }
-    }
-    
-    /**
-     If you want to create MSPlayer with custom control in storyBoard.
-     create a subclass and override this method
-     
-     - return: costom control which you want to use
-     */
-    open class func storyBoardCustomControl() -> MSPlayerControlView? {
-        return nil
-    }
-    
-    // MARK: - Action response
-    @objc fileprivate func panDirection(_ pan: UIPanGestureRecognizer) {
-        // 播放結束時，手勢忽略
-        guard playerLayerView?.state != .playedToTheEnd else { return }
-        
-        // 根據在view上pan的位置，確定是條音量還是亮度
-        let locationPoint = pan.location(in: self)
-        
-        // 根據上次跟這次的移動，算出滑動速度以及方向
-        // 水平移動更改進度條，垂直移動更改音量或亮度
-        let velocityPoint = pan.velocity(in: self)
-        
-        switch pan.state {
-        case .began:
-            // 使用絕對值來判斷移動的方向
-            let x = fabs(velocityPoint.x)
-            let y = fabs(velocityPoint.y)
-            
-            // horizontal
-            if x > y {
-                self.panDirection = .horizontal
-                self.nowSeekingCount += 1
-                print("began nowSeekingCount:", self.nowSeekingCount)
-                
-                if (playerLayerView?.player) != nil {
-                    let nowTime = self.totalDuration * Double(self.progressSliderValue)
-                    // 分母不用 timeScale是因為timeScale有時候會跳到1000000000有時候又會跳到1
-                    self.horizontalBeginTime = TimeInterval(nowTime) / TimeInterval(1)
-                    self.sumTime = self.horizontalBeginTime
-                }
-                
-                // is pan location.y at bottomMaskView then move slider
-                if locationPoint.y > self.controlView.bottomMaskView.frame.minY {
-                    self.isUserMoveSlider = true
-                }
-            } else {
-                // vertical
-                self.panDirection = .vertical
-                
-                if locationPoint.x < self.bounds.size.width / 3 {
-                    self.verticalPanPosition = .left
-                } else if locationPoint.x > self.bounds.size.width / 3 && locationPoint.x < self.bounds.size.width * 2 / 3 {
-                    self.verticalPanPosition = .mid
-                } else {
-                    self.verticalPanPosition = .right
-                }
-            }
-            
-        case .changed:
-            switch self.panDirection {
-            case .horizontal:
-                self.horizontalMoved(velocityPoint.x)
-            case .vertical:
-                var changeValue: CGFloat = 0.0
-                if velocityPoint.y < 0 {
-                    changeValue = -0.015
-                } else if velocityPoint.y > 0 {
-                    changeValue = 0.015
-                } else {
-                    // Do nothing in velocityPoint.y == 0
-                }
-                self.verticalMoved(changeValue)
-            }
-            
-        case .ended:
-            
-            // 移動結束也需要判斷垂直還是平移
-            // 像是水平移動結束時，要快進到指定位置，如果這裡沒有判斷，當我們調整音量完後，會出現屏幕跳動的Bug
-            switch self.panDirection {
-            case .horizontal:
-                if MSPlayerConfig.enablePlaytimeGestures {
-                    controlView.hideSeekToView()
-                    isSliderSliding = false
-                    isUserMoveSlider = false
-                    if isPlayToTheEnd {
-                        isPlayToTheEnd = false
-                        seek(self.sumTime, completion: {
-                            self.play()
-                            self.nowSeekingCount -= 1
-                            print("end isPlayToEnd nowSeekingCount:", self.nowSeekingCount)
-                            // 當有別的seekingAction時，不要把isSeeking關掉，關掉的話，每0.5秒會更新進度條，所以會把進度條跳回去
-                        })
-                    } else {
-                        seek(self.sumTime, completion: {
-                            self.autoPlay()
-                            self.nowSeekingCount -= 1
-                            print("end not isPlayToEnd nowSeekingCount:", self.nowSeekingCount)
-                        })
-                    }
-                }
-            case .vertical:
-                self.verticalPanPosition = .unknown
-            }
-        default:
-            break
-        }
-    }
-    
-    fileprivate func verticalMoved(_ value: CGFloat) {
-        if self.verticalPanPosition == .right {
-            if MSPlayerConfig.enableVolumeGestures {
-                DispatchQueue.main.async {
-                    BrightnessView.shared()?.removeBrightnessView()
-                    self.volumeViewSlider.value = AVAudioSession.sharedInstance().outputVolume - (Float(value) * MSPlayerConfig.playerVolumeChangeRate)
-                }
-            }
-        } else if self.verticalPanPosition == .left && MSPlayerConfig.enableBrightnessGestures {
-            UIScreen.main.brightness -= (value * MSPlayerConfig.playerBrightnessChangeRate)
-        }
-    }
-    
-    fileprivate func horizontalMoved(_ value: CGFloat) {
-        if (!MSPlayerConfig.enablePlaytimeGestures) { return }
-        
-        isSliderSliding = true
-        if let playerItem = playerLayerView?.playerItem {
-            // 每次滑動需要疊加時間，通過一定的比例，使滑動一直處於統一水平
-            if isUserMoveSlider {
-                // 如果是移動滑桿，則按照他滑動的距離去決定他滑動的進度條多少
-                self.sumTime = self.sumTime + TimeInterval(value) / 100.0 * (TimeInterval(self.totalDuration)/400)
-            } else {
-                // 如果是滑動螢幕，則進度條慢慢前進，總時間越短，totalDurationAdjustParameter也會越小，避免移動過快
-                let totalDurationAdjustParameter = (TimeInterval(self.totalDuration) / 400) < 0.5 ? 0.5: (TimeInterval(self.totalDuration) / 400)
-                self.sumTime = self.sumTime + TimeInterval(value) / 100 * 0.4 * panToSeekRate * totalDurationAdjustParameter
-            }
-            let totalTime = playerItem.duration
-            
-            // 防止出現NAN
-            if totalTime.timescale == 0 { return }
-            
-            let totalDuration = TimeInterval(totalTime.value) / TimeInterval(totalTime.timescale)
-            if (self.sumTime >= totalDuration) {
-                self.sumTime = totalDuration - 1.0
-            } else if self.sumTime <= 0{
-                self.sumTime = 0
-            }
-            
-            controlView.showSeekToView(to: sumTime, total: totalDuration, isAdd: self.sumTime > self.horizontalBeginTime)
-        }
-    }
-    
-    @objc fileprivate func onOrientationChanged() {
-        self.updateUI(isFullScreen)
-        delegate?.msPlayer(self, orientChanged: isFullScreen)
-    }
-    
-    fileprivate func fullScreenButtonPressed() {
-        controlView.updateUI(for: !self.isFullScreen)
-        if isFullScreen {
-            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue,
-                                      forKey: "orientation")
-            UIApplication.shared.setStatusBarHidden(false, with: .fade)
-            UIApplication.shared.statusBarOrientation = .portrait
-        } else {
-            
-            //先清除現在orientation的值
-            //有可能Device是landscape進來(此時statusbar的orientation是portrait)，所以在按下切換全螢幕時
-            //有可能我改的UIDevice的orientation值，改前跟改後都是一樣的 例如我landscapeRight進來
-            //然後我又UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
-            //這樣系統並不知道要轉方向
-            //所以我必須先修改目前的值，接著在改回來，讓系統知道需要變更方向(我猜值有改動的狀況下才會通知系統轉方向)
-            switch UIDevice.current.orientation {
-            case .landscapeLeft:
-                UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-                UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
-                UIApplication.shared.setStatusBarHidden(false, with: .fade)
-                UIApplication.shared.statusBarOrientation = .landscapeRight
-            default:
-                UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-                UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
-                UIApplication.shared.setStatusBarHidden(false, with: .fade)
-                UIApplication.shared.statusBarOrientation = .landscapeRight
-            }
-        }
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        if let customControlView = MSPlayer.storyBoardCustomControl() {
-            self.customControlView = customControlView
-        }
-        initUI()
-        initUIData()
-        configureVolume()
-        preparePlayer()
-    }
-    
-    public convenience init() {
-        self.init(customControlView: nil)
-    }
-    
-    public init(customControlView: MSPlayerControlView?) {
-        super.init(frame: CGRect.zero)
-        self.customControlView = customControlView
-        initUI()
-        initUIData()
-        configureVolume()
-        preparePlayer()
-    }
-    
-    // MARK: - init UI
-    fileprivate func initUI() {
-        self.backgroundColor = UIColor.black
-        setControlView()
-        setGesture()
-    }
-    
-    fileprivate func setControlView() {
-        if let customView = customControlView {
-            controlView = customView
-        } else {
-            controlView = MSPlayerControlView()
-        }
-        self.userConstraint = self.constraints
-        addSubview(controlView)
-        controlView.updateUI(for: isFullScreen)
-        controlView.delegate = self
-        controlView.player = self
-    }
-    
-    fileprivate func setGesture() {
-        panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.panDirection(_:)))
-        self.addGestureRecognizer(panGesture!)
-    }
-    
-    fileprivate func removeGesture() {
-        if panGesture != nil {
-            self.removeGestureRecognizer(panGesture!)
-        }
-    }
-    
-    fileprivate func initUIData() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.onOrientationChanged),
-                                               name: UIApplication.didChangeStatusBarOrientationNotification,
-                                               object: nil)
-    }
-    
-    fileprivate func configureVolume() {
-        let volumeView = MPVolumeView()
-        for view in volumeView.subviews {
-            if let slider = view as? UISlider {
-                self.volumeViewSlider = slider
-            }
-        }
-    }
-    
-    fileprivate func preparePlayer() {
-        playerLayerView = MSPlayerLayerView()
-        playerLayerView?.videoGravity = AVLayerVideoGravity(rawValue: videoGravity).rawValue
-        if let playerLayerView = playerLayerView {
-            insertSubview(playerLayerView, at: 0)
-        }
-        playerLayerView?.delegate = self
-        controlView.showLoader()
-    }
-    
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        self.playerLayerView?.frame = self.bounds
-        self.controlView.frame = self.bounds
-    }
-    
     // MARK: - 生命週期
     deinit {
         recordCurrentTime()
-        print(classForCoder, "dealloc")
         playerLayerView?.pause()
         playerLayerView?.prepareToDeinit()
         NotificationCenter.default.removeObserver(self)
+        print(classForCoder, "dealloc")
     }
 }
 
@@ -623,7 +570,6 @@ extension MSPlayer: MSPlayerLayerViewDelegate {
     public func msPlayer(player: MSPlayerLayerView, playerIsPlaying playing: Bool) {
         controlView.playStateDidChange(isPlaying: playing)
         delegate?.msPlayer(self, isPlaying: playing)
-        playStateDidChange?(player.isPlaying)
     }
     
     public func msPlayer(player: MSPlayerLayerView, loadedTimeDidChange loadedDuration: TimeInterval, totalDuration: TimeInterval) {
@@ -636,31 +582,22 @@ extension MSPlayer: MSPlayerLayerViewDelegate {
     
     public func msPlayer(player: MSPlayerLayerView, playerStateDidChange state: MSPM.State) {
         MSPlayerConfig.log("playerStateDidChange - \(state)")
-        
         controlView.playerStateDidChange(state: state)
+        print(state)
         switch state {
         case .readyToPlay:
-            if !isPauseByUser {
-                play()
-            }
-            if shouldSeekTo != 0 {
-                seek(shouldSeekTo, completion: {
-                    if !self.isPauseByUser {
-                        self.play()
-                    } else {
-                        self.pause()
-                    }
-                })
-            }
+            autoPlay()
         case .bufferFinished:
             autoPlay()
         case .playedToTheEnd:
             isPlayToTheEnd = true
-        case .error:
+        case .error(let error):
             // Handle wrong URL
-            print("MSPlayer Error url")
-        default:
-            break
+            controlView.hideCover()
+            controlView.hideLoader()
+            player.prepareToDeinit()
+            print("MSPlayer Error:", error)
+        default: break
         }
         delegate?.msPlayer(self, stateDidChange: state)
     }
@@ -668,32 +605,32 @@ extension MSPlayer: MSPlayerLayerViewDelegate {
     public func msPlayer(player: MSPlayerLayerView, playTimeDidChange currentTime: TimeInterval, totalTime: TimeInterval) {
         MSPlayerConfig.log("playTimeDidChange - \(currentTime) - \(totalTime)")
         delegate?.msPlayer(self, playTimeDidChange: currentTime, total: totalTime)
-        self.currentPosition = currentTime
+        
+        currentPosition = currentTime
         totalDuration = totalTime
-        if isSliderSliding || self.isSeeking {
-            return
-        }
         
-        if !isPlayToTheEnd {
-            controlView.hidePlayToTheEndView()
+        // 因為在seeking的當下，影片還會再跑，影片跑的時候我們不希望更新影片的時間，而是根據他滑到哪裡就顯示到哪
+        if isUserSliding || isSeeking {
+            
+        } else {
+            if !isPlayToTheEnd {
+                controlView.hidePlayToTheEndView()
+            }
+            
+            controlView.playTimeDidChange(currentTime: currentTime, totalTime: totalTime)
+            controlView.totalDuration = totalDuration
         }
-        
-        controlView.playTimeDidChange(currentTime: currentTime, totalTime: totalTime)
-        controlView.totalDuration = totalDuration
-        playTimeDidChange?(currentTime, totalTime)
     }
 }
 
 extension MSPlayer: MSPlayerControlViewDelegate {
     
     public func controlView(_ controlView: MSPlayerControlView, didChooseDefinition index: Int) {
-        shouldSeekTo = currentPosition
-        playerLayerView?.resetPlayer()
-        currentDefinition = index
-        playerLayerView?.playAsset(asset: resource.definitions[index].avURLAsset)
+        changeResourceDefinitionBy(index: index, isPlayNext: true)
     }
     
     public func controlView(_ controlView: MSPlayerControlView, didPress button: UIButton) {
+        
         if let action = MSPM.ButtonType(rawValue: button.tag) {
             switch action {
             case .back:
@@ -701,36 +638,37 @@ extension MSPlayer: MSPlayerControlViewDelegate {
                 if isFullScreen {
                     // 如果是全螢幕則跳出全螢幕
                     fullScreenButtonPressed()
-                } else if MSFloatingController.sharedInstance != nil || MSStackFloatingController.sharedInstance != nil {
-                    MSFloatingController.shared().shrink()
                 } else {
                     // 如果不是全螢幕則popFromNav
                     playerLayerView?.prepareToDeinit()
                 }
-                
-            case .play:
+            case .playAndPause:
                 if button.isSelected {
                     pause()
                 } else {
                     if isPlayToTheEnd {
-                        seek(0, completion: {
-                            self.play()
+                        seek(0, completion: { [weak self] in
+                            self?.play()
                         })
                         controlView.hidePlayToTheEndView()
                         isPlayToTheEnd = false
+                    } else if let state = playerLayerView?.state {
+                        switch state {
+                        case .error:
+                            // play next definition
+                            changeResourceDefinitionBy(index: currentDefinitionIndex + 1)
+                        default: break
+                        }
                     }
                     play()
                 }
             case .replay:
                 isPlayToTheEnd = false
-                seek(0, completion: {
-                    self.play()
+                seek(0, completion: { [weak self] in
+                    self?.play()
                 })
             case .fullScreen:
                 fullScreenButtonPressed()
-                
-            default:
-                print("error unhandled action")
             }
         }
     }
@@ -740,22 +678,22 @@ extension MSPlayer: MSPlayerControlViewDelegate {
         switch event {
         case .touchDown:
             playerLayerView?.onTimeSliderBegan()
-            isSliderSliding = true
-            self.nowSeekingCount += 1
+            isUserSliding = true
+            nowSeekingCount += 1
         case .touchUpInside:
-            isSliderSliding = false
-            let target = self.totalDuration * Double(slider.value) - Double(slider.value == 1.0 ? 1.0: 0.0)
+            isUserSliding = false
+            let target = totalDuration * Double(slider.value) - Double(slider.value == 1.0 ? 1.0: 0.0)
             if isPlayToTheEnd {
                 isPlayToTheEnd = false
-                seek(target, completion: {
-                    self.nowSeekingCount -= 1
-                    self.play()
+                seek(target, completion: { [weak self] in
+                    self?.nowSeekingCount -= 1
+                    self?.play()
                 })
                 controlView.hidePlayToTheEndView()
             } else {
-                seek(target, completion: {
-                    self.nowSeekingCount -= 1
-                    self.autoPlay()
+                seek(target, completion: { [weak self] in
+                    self?.nowSeekingCount -= 1
+                    self?.autoPlay()
                 })
             }
         default:
@@ -764,11 +702,11 @@ extension MSPlayer: MSPlayerControlViewDelegate {
     }
     
     public func controlView(_ controlView: MSPlayerControlView, didChange playBackRate: Float) {
-        self.playerLayerView?.player?.rate = playBackRate
+        playerLayerView?.player?.rate = playBackRate
     }
 }
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromAVLayerVideoGravity(_ input: AVLayerVideoGravity) -> String {
-	return input.rawValue
+    return input.rawValue
 }

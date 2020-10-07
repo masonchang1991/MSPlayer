@@ -18,7 +18,6 @@ public protocol MSPlayerControlViewDelegate: class {
      - parameter index: index of definition
      */
     func controlView(_ controlView: MSPlayerControlView, didChooseDefinition index: Int)
-    
     /**
      call when control view pressed an button
      
@@ -26,7 +25,6 @@ public protocol MSPlayerControlViewDelegate: class {
      - parameter button:  button type
      */
     func controlView(_ controlView: MSPlayerControlView, didPress button: UIButton)
-    
     /**
      call when slider action trigged
      
@@ -35,7 +33,6 @@ public protocol MSPlayerControlViewDelegate: class {
      - parameter event:  action
      */
     func controlView(_ controlView: MSPlayerControlView, slider: UISlider, onSlider event: UIControl.Event)
-    
     /**
      call when needs to change playback rate
      
@@ -47,9 +44,7 @@ public protocol MSPlayerControlViewDelegate: class {
 
 // optional protocol func
 extension MSPlayerControlViewDelegate {
-    public func controlView(_ controlView: MSPlayerControlView, didChangeVideoPlaybackRate rate: Float) {
-        
-    }
+    public func controlView(_ controlView: MSPlayerControlView, didChangeVideoPlaybackRate rate: Float) { }
 }
 
 open class MSPlayerControlView: UIView {
@@ -71,9 +66,11 @@ open class MSPlayerControlView: UIView {
     open var isMaskShowing = true
     open var isFullScreen = false {
         didSet {
-            DispatchQueue.main.async {
-                self.notFoundLabel.center = self.center
-                self.notFoundLabel.setNeedsLayout()
+            if !notFoundLabel.isHidden {
+                DispatchQueue.main.async {
+                    self.notFoundLabel.center = self.center
+                    self.notFoundLabel.setNeedsLayout()
+                }
             }
         }
     }
@@ -84,9 +81,9 @@ open class MSPlayerControlView: UIView {
     open var bottomMaskView = UIView()
     
     /// ImageView to show "play" cover when "pause", like ads or somethings
-    open var playCoverImageView = UIImageView()
+    open var centerPlayBtnImageView = UIImageView()
     /// ImageView to show video cover
-    open var maskImageView = UIImageView()
+    open var videoCoverImageView = UIImageView()
     /// top views
     open var backButton = UIButton(type: .custom)
     /// buttom view
@@ -95,15 +92,9 @@ open class MSPlayerControlView: UIView {
     open var timeSlider = MSTimeSlider()
     /// load progress view
     open var progressView = UIProgressView()
-    /* play button
-     playButton.isSelected = player.isPlaying
-     */
     open var playButton = UIButton(type: .custom)
     /// Error Label
     open var notFoundLabel = UILabel()
-    /* fullScreen button
-     fullScreenButton.isSelected = player.isFullScreen
-     */
     open var fullScreenButton = UIButton(type: .custom)
     /// Activity Indector for loading
     open lazy var loadingIndector: NVActivityIndicatorView = {
@@ -122,6 +113,15 @@ open class MSPlayerControlView: UIView {
     open var seekToView = UIView()
     open var seekToViewImage = UIImageView()
     open var seekToLabel = UILabel()
+    
+    /// when video resource with mutiple definitions, one play to end, then show playNextView
+    open lazy var playNextView: MSPlayNext? = {
+        if let playNextView = MSPM.shared().playNextView {
+            return playNextView
+        } else {
+            return nil
+        }
+    }()
     
     open var replayButton = UIButton(type: .custom)
     /// Gesture used to show / hide control view
@@ -143,11 +143,7 @@ open class MSPlayerControlView: UIView {
     open func playTimeDidChange(currentTime: TimeInterval, totalTime: TimeInterval) {
         self.totalTime = totalTime
         self.currentTime = currentTime
-        
-        totalTimeLabel.text = FormatDisplay.formatSecondsToString(currentTime) + "/" +
-            FormatDisplay.formatSecondsToString(totalTime)
-        timeSlider.value = Float(currentTime) / Float(totalTime)
-        player?.progressSliderValue = timeSlider.value
+        changeSliderAndLabelValueBy(to: currentTime, total: totalTime)
     }
     
     /**
@@ -161,9 +157,9 @@ open class MSPlayerControlView: UIView {
     }
     
     open func playerStateDidChange(state: MSPM.State) {
-        hideUrlWrongLabel()
         switch state {
         case .readyToPlay:
+            hideUrlWrongLabel()
             hideLoader()
         case .buffering:
             showLoader()
@@ -171,10 +167,20 @@ open class MSPlayerControlView: UIView {
             hideLoader()
         case .playedToTheEnd:
             if !(player?.isSeeking ?? false) {
-                playButton.isSelected = false
-                showPlayToTheEndView()
-                controlViewAnimation(isShow: true)
-                cancelAutoFadeOutAnimation()
+                if let player = player,
+                    let totalDefinitionCount = player.currentResource?.definitions.count,
+                    player.currentDefinitionIndex + 1 < totalDefinitionCount {
+                    playButton.isSelected = false
+                    showPlayNextView()
+                    playNextView?.startPreparing()
+                    controlViewAnimation(isShow: true)
+                    cancelAutoFadeOutAnimation()
+                } else {
+                    playButton.isSelected = false
+                    showPlayToTheEndView()
+                    controlViewAnimation(isShow: true)
+                    cancelAutoFadeOutAnimation()
+                }
             }
         case .error:
             showUrlWrong()
@@ -198,6 +204,10 @@ open class MSPlayerControlView: UIView {
         let rotate = isAdd ? 0: CGFloat(Double.pi)
         seekToViewImage.transform = CGAffineTransform(rotationAngle: rotate)
         
+        changeSliderAndLabelValueBy(to: seconds, total: duration)
+    }
+    
+    private func changeSliderAndLabelValueBy(to seconds: TimeInterval, total duration: TimeInterval) {
         let targetTime = FormatDisplay.formatSecondsToString(seconds)
         timeSlider.value = Float(seconds / duration)
         player?.progressSliderValue = timeSlider.value
@@ -214,6 +224,7 @@ open class MSPlayerControlView: UIView {
     open func prepareUI(for resource: MSPlayerResource, selected index: Int) {
         self.resource = resource
         self.selectedIndex = index
+        hidePlayNextView()
         autoFadeOutControlViewWithAnimation()
     }
     
@@ -229,7 +240,7 @@ open class MSPlayerControlView: UIView {
         cancelAutoFadeOutAnimation()
         delayItem = DispatchWorkItem { [weak self] in
             guard let self = self else { return }
-            if self.maskImageView.isHidden {
+            if self.videoCoverImageView.isHidden {
                 self.controlViewAnimation(isShow: false)
             }
         }
@@ -253,7 +264,6 @@ open class MSPlayerControlView: UIView {
      - parameter isShow: is to show the controlView
      */
     open func controlViewAnimation(isShow: Bool) {
-        
         if self.playerLastState != .playedToTheEnd {
             let otherAlpha: CGFloat = isShow ? MSPlayerConfig.otherMaskViewShowAlpha : 0.0
             let mainAlpha: CGFloat = isShow ? MSPlayerConfig.mainMaskViewShowAlpha : 0.0
@@ -273,6 +283,23 @@ open class MSPlayerControlView: UIView {
                     self.autoFadeOutControlViewWithAnimation()
                 }
             })
+        }
+    }
+    
+    open func controlViewWithoutAnimation(isShow: Bool) {
+        if self.playerLastState != .playedToTheEnd {
+            let otherAlpha: CGFloat = isShow ? MSPlayerConfig.otherMaskViewShowAlpha : 0.0
+            let mainAlpha: CGFloat = isShow ? MSPlayerConfig.mainMaskViewShowAlpha : 0.0
+            self.isMaskShowing = isShow
+            
+            self.topMaskView.alpha = otherAlpha
+            self.bottomMaskView.alpha = otherAlpha
+            
+            self.mainMaskView.backgroundColor = UIColor.black.withAlphaComponent(mainAlpha)
+            if !isShow {
+                self.replayButton.isHidden = true
+            }
+            self.layoutIfNeeded()
         }
     }
     
@@ -302,15 +329,54 @@ open class MSPlayerControlView: UIView {
     }
     
     /**
-     Call when video play's to the end, override if you need custom UI or animation when played to the end
+     Call when video play to the end, override if you need custom UI or animation when played to the end
      */
-    
     open func showPlayToTheEndView() {
         replayButton.isHidden = false
     }
     
     open func hidePlayToTheEndView() {
         replayButton.isHidden = true
+    }
+    
+    open func showPlayNextView() {
+        setPlayNextViewIfNeeded()
+        playNextView?.isHidden = false
+    }
+    
+    open func hidePlayNextView() {
+        playNextView?.isHidden = true
+    }
+    
+    open func setPlayNextViewIfNeeded(_ playNextView: MSPlayNext? = nil) {
+        if let playNextView = playNextView,
+            !(playNextView === self.playNextView) {
+            self.playNextView?.removeFromSuperview()
+            mainMaskView.insertSubview(playNextView, belowSubview: topMaskView)
+            playNextView.isHidden = true
+            playNextView.playNext = { [weak self] in
+                guard let self = self else { return }
+                guard let currentDefinitionIndex = self.player?.currentDefinitionIndex else { return }
+                self.delegate?.controlView(self, didChooseDefinition: currentDefinitionIndex + 1)
+                self.hidePlayNextView()
+            }
+        } else if let playNextView = MSPM.shared().playNextView,
+            playNextView.superview == nil {
+            self.playNextView?.removeFromSuperview()
+            mainMaskView.insertSubview(playNextView, belowSubview: topMaskView)
+            playNextView.isHidden = true
+            playNextView.playNext = { [weak self] in
+                guard let self = self else { return }
+                guard let currentDefinitionIndex = self.player?.currentDefinitionIndex else { return }
+                self.delegate?.controlView(self, didChooseDefinition: currentDefinitionIndex + 1)
+                self.hidePlayNextView()
+            }
+        }
+    }
+    
+    open func cancelPlayNext() {
+        self.playNextView?.removeFromSuperview()
+        playNextView?.playNext = nil
     }
     
     open func showLoader() {
@@ -327,45 +393,61 @@ open class MSPlayerControlView: UIView {
     }
     
     open func showCoverWithLink(_ cover: String) {
-        self.showCover(url: URL(string: cover))
+        guard let url = URL(string: cover) else { return }
+        let coverURLRequest = URLRequest(url: url)
+        showCover(urlRequest: coverURLRequest)
     }
     
     open func hideCover() {
-        self.maskImageView.isHidden = true
+        videoCoverImageView.isHidden = true
     }
     
-    open func showCover(url: URL?, urlHeaders: [String: String]? = nil) {
-        guard let url = url else { return }
-        DispatchQueue.global(qos: .default).async {
-            let urlSessionConfiguration = URLSessionConfiguration.default
-            urlSessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
-            urlSessionConfiguration.timeoutIntervalForRequest = 15.0
-            urlSessionConfiguration.timeoutIntervalForResource = 15.0
-            let urlSession = URLSession(configuration: urlSessionConfiguration)
-            var request = URLRequest(url: url)
-            request.allHTTPHeaderFields = urlHeaders
-            urlSession.dataTask(with: request, completionHandler: { (data, response, error) in
-                DispatchQueue.main.async {
-                    if let dataUnwrapped = data {
-                        self.maskImageView.isHidden = false
-                        self.maskImageView.image = UIImage(data: dataUnwrapped)
-                    } else {
-                        self.maskImageView.image = nil
+    func changePlayButtonState(isSelected: Bool) {
+        playButton.isSelected = isSelected
+    }
+    
+    open func showCover(urlRequest: URLRequest? = nil, coverImage: UIImage? = nil) {
+        if let coverImage = coverImage {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.controlViewAnimation(isShow: false)
+                self.videoCoverImageView.isHidden = false
+                self.videoCoverImageView.image = coverImage
+                self.hideLoader()
+            }
+        } else {
+            guard let urlRequest = urlRequest else { return }
+            controlViewAnimation(isShow: false)
+            DispatchQueue.global(qos: .default).async { [weak self] in
+                guard let self = self else { return }
+                let urlSessionConfiguration = URLSessionConfiguration.default
+                urlSessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+                urlSessionConfiguration.timeoutIntervalForRequest = 15.0
+                urlSessionConfiguration.timeoutIntervalForResource = 15.0
+                let urlSession = URLSession(configuration: urlSessionConfiguration)
+                urlSession.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
+                    DispatchQueue.main.async {
+                        if let dataUnwrapped = data {
+                            self.videoCoverImageView.isHidden = false
+                            self.videoCoverImageView.image = UIImage(data: dataUnwrapped)
+                        } else {
+                            self.videoCoverImageView.image = nil
+                        }
+                        self.hideLoader()
                     }
-                    self.hideLoader()
-                }
-            }).resume()
+                }).resume()
+            }
         }
     }
     
     open func showPlayCover() {
         if !MSPlayerConfig.playCoverImageViewNeedHidden {
-            self.playCoverImageView.isHidden = false
+            self.centerPlayBtnImageView.isHidden = false
         }
     }
     
     open func hidePlayCover() {
-        self.playCoverImageView.isHidden = true
+        self.centerPlayBtnImageView.isHidden = true
     }
     
     open func showUrlWrong() {
@@ -373,9 +455,9 @@ open class MSPlayerControlView: UIView {
         notFoundLabel.isHidden = false
         notFoundLabel.text = MSPlayerConfig.urlWrongLabelText
         notFoundLabel.sizeToFit()
-        notFoundLabel.center = self.center
+        notFoundLabel.center = center
         notFoundLabel.textColor = UIColor.white
-        self.addSubview(notFoundLabel)
+        addSubview(notFoundLabel)
     }
     
     open func hideUrlWrongLabel() {
@@ -383,7 +465,7 @@ open class MSPlayerControlView: UIView {
     }
     
     open func prepareToDealloc() {
-        self.delayItem = nil
+        delayItem = nil
     }
     
     // MARK: - Action Response
@@ -396,14 +478,18 @@ open class MSPlayerControlView: UIView {
         autoFadeOutControlViewWithAnimation()
         if let type = MSPM.ButtonType(rawValue: button.tag) {
             switch type {
-            case .play:
+            case .playAndPause:
                 if playerLastState == .playedToTheEnd {
                     hidePlayToTheEndView()
                 }
+                cancelPlayNext()
+                if !videoCoverImageView.isHidden {
+                    //MARK: - 再有封面圖的狀態下，強制變成pause狀態，點擊封面成為播放的指令
+                    button.isSelected = false
+                }
             case .replay:
                 hidePlayToTheEndView()
-            default:
-                break
+            default: break
             }
         }
         delegate?.controlView(self, didPress: button)
@@ -428,15 +514,15 @@ open class MSPlayerControlView: UIView {
     open func setupPlayCoverImageViewGesture() {
         let tapToPlay = UITapGestureRecognizer(target: self,
                                                action: #selector(playCoverPress))
-        playCoverImageView.isUserInteractionEnabled = true
-        playCoverImageView.addGestureRecognizer(tapToPlay)
+        centerPlayBtnImageView.isUserInteractionEnabled = true
+        centerPlayBtnImageView.addGestureRecognizer(tapToPlay)
     }
     
     open func setupMaskImageViewGesture() {
         let tapToPlay = UITapGestureRecognizer(target: self,
                                                action: #selector(playCoverPress))
-        maskImageView.isUserInteractionEnabled = true
-        maskImageView.addGestureRecognizer(tapToPlay)
+        videoCoverImageView.isUserInteractionEnabled = true
+        videoCoverImageView.addGestureRecognizer(tapToPlay)
     }
     
     @objc open func playCoverPress() {
@@ -445,15 +531,15 @@ open class MSPlayerControlView: UIView {
     
     // MARK: - handle UI slider actions
     @objc func progressSliderTouchBegan(_ sender: UISlider) {
+        cancelPlayNext()
         delegate?.controlView(self, slider: sender, onSlider: .touchDown)
     }
     
     @objc func progressSliderValueChanged(_ sender: UISlider) {
         hidePlayToTheEndView()
         cancelAutoFadeOutAnimation()
-        let currentTime = Double(sender.value) * totalDuration
-        totalTimeLabel.text = FormatDisplay.formatSecondsToString(currentTime) + "/" +
-            FormatDisplay.formatSecondsToString(self.totalTime)
+        let currentTime = floor(Double(sender.value) * totalDuration)
+        changeSliderAndLabelValueBy(to: currentTime, total: totalTime)
         delegate?.controlView(self, slider: sender, onSlider: .valueChanged)
     }
     
@@ -499,18 +585,18 @@ open class MSPlayerControlView: UIView {
         
         // Main mask view
         addSubview(mainMaskView)
+        mainMaskView.addSubview(loadingIndector)
         mainMaskView.addSubview(topMaskView)
         mainMaskView.addSubview(bottomMaskView)
-        mainMaskView.addSubview(loadingIndector)
-        playCoverImageView.image = MSPlayerConfig.playCoverImage
-        mainMaskView.addSubview(playCoverImageView)
+        centerPlayBtnImageView.image = MSPlayerConfig.playCoverImage
+        mainMaskView.addSubview(centerPlayBtnImageView)
         
         hidePlayCover()
         setupPlayCoverImageViewGesture()
         
         bottomMaskView.backgroundColor = MSPlayerConfig.bottomMaskBackgroundColor
-        mainMaskView.insertSubview(maskImageView, at: 0)
-        maskImageView.contentMode = .scaleAspectFill
+        mainMaskView.insertSubview(videoCoverImageView, at: 0)
+        videoCoverImageView.contentMode = .scaleAspectFill
         setupMaskImageViewGesture()
         mainMaskView.clipsToBounds = true
         mainMaskView.backgroundColor = MSPlayerConfig.mainMaskBackgroundColor
@@ -533,7 +619,7 @@ open class MSPlayerControlView: UIView {
         bottomMaskView.addSubview(timeSlider)
         bottomMaskView.addSubview(fullScreenButton)
         
-        playButton.tag = MSPM.ButtonType.play.rawValue
+        playButton.tag = MSPM.ButtonType.playAndPause.rawValue
         playButton.setImage(MSPlayerConfig.playButtonImage, for: .normal)
         playButton.setImage(MSPlayerConfig.pauseButtonImage, for: .selected)
         playButton.addTarget(self, action: #selector(onButtonPressed(_:)), for: .touchUpInside)
@@ -593,6 +679,8 @@ open class MSPlayerControlView: UIView {
         replayButton.addTarget(self, action: #selector(onButtonPressed(_:)), for: .touchUpInside)
         replayButton.tag = MSPM.ButtonType.replay.rawValue
         
+        setPlayNextViewIfNeeded()
+        
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(onTapGestureTapped(_:)))
         tapGesture.numberOfTapsRequired = 1
         doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(doubleTapGestureTapped(_:)))
@@ -612,11 +700,11 @@ open class MSPlayerControlView: UIView {
         mainMaskView.translatesAutoresizingMaskIntoConstraints = false
         mainMaskView.addConstraintWithOther(self, anchorTypes: [.edge2Edge])
         
-        maskImageView.translatesAutoresizingMaskIntoConstraints = false
-        maskImageView.addConstraintWithOther(mainMaskView, anchorTypes: [.edge2Edge])
+        videoCoverImageView.translatesAutoresizingMaskIntoConstraints = false
+        videoCoverImageView.addConstraintWithOther(mainMaskView, anchorTypes: [.edge2Edge])
         
-        playCoverImageView.translatesAutoresizingMaskIntoConstraints = false
-        playCoverImageView.addConstraintWithOther(mainMaskView, anchorTypes: [.width2Width(Double(1.0 / 7.0), priority: 1000),
+        centerPlayBtnImageView.translatesAutoresizingMaskIntoConstraints = false
+        centerPlayBtnImageView.addConstraintWithOther(mainMaskView, anchorTypes: [.width2Width(Double(1.0 / 7.0), priority: 1000),
                                                                               .height2Width(Double(1.0 / 7.0), priority: 1000),
                                                                               .centerX2CenterX(0, priority: 1000),
                                                                               .centerY2CenterY(0, priority: 1000)])
@@ -701,6 +789,12 @@ open class MSPlayerControlView: UIView {
                                                                         .centerY2CenterY(0, priority: 1000),
                                                                         .height(50 * MSPM.screenRatio * screenRatioOrientationParameter, priority: 1000),
                                                                         .width(50 * MSPM.screenRatio * screenRatioOrientationParameter, priority: 1000)])
+    }
+    
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        let controlViewCenter = CGPoint(x: bounds.width / 2, y: bounds.height / 2)
+        playNextView?.center = controlViewCenter
     }
     
     /// Add Customize functions here

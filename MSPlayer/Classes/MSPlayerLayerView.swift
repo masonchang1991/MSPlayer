@@ -27,22 +27,24 @@ open class MSPlayerLayerView: UIView {
     /// playerItem 播放屬性
     open var playerItem: AVPlayerItem? {
         didSet {
-            onPlayerItemChange()
+            if playerItem != oldValue {
+                onPlayerItemChange()
+            }
         }
     }
     /// 播放屬性
     open lazy var player: AVPlayer? = {
-        if let item = self.playerItem {
+        if let item = playerItem {
             let player = AVPlayer(playerItem: item)
             return player
+        } else {
+            return nil
         }
-        return nil
     }()
     /// VideoGravity
     open var videoGravity = convertFromAVLayerVideoGravity(AVLayerVideoGravity.resizeAspect) {
         didSet {
             self.playerLayer?.videoGravity = convertToAVLayerVideoGravity(videoGravity)
-            print("videoGravity", convertFromAVLayerVideoGravity(self.playerLayer?.videoGravity ?? .resizeAspect))
         }
     }
     
@@ -65,7 +67,6 @@ open class MSPlayerLayerView: UIView {
     fileprivate var urlAsset: AVURLAsset?
     fileprivate var lastPlayerItem: AVPlayerItem?
     fileprivate var playerLayer: AVPlayerLayer?
-    fileprivate var volumViewSlider: UISlider!
     /// 播放器狀態
     internal fileprivate(set) var state = MSPM.State.notSetUrl {
         didSet {
@@ -75,17 +76,7 @@ open class MSPlayerLayerView: UIView {
             }
         }
     }
-    /// 是否為全螢幕
-    fileprivate var isFullScreen = false
-    /// 是否鎖定屏幕方向
-    fileprivate var isLocked = false
-    /// 是否在調整音量
-    fileprivate var isVolume = false
-    /// 是否在播放本地文件
-    fileprivate var isLocalVideo = false
-    fileprivate var sliderLastValue: Float = 0.0
-    /// 是否要重播
-    fileprivate var repeatToPlay = false
+    
     fileprivate var playDidEnd = false
     // playbackBufferEmpty會反覆進入，因此在BufferingOneSecond延時播放執行完之前再調用bufferingSomeSecond都忽略
     // 僅在bufferingSomeSecond裡面使用
@@ -94,54 +85,65 @@ open class MSPlayerLayerView: UIView {
     fileprivate var shouldSeekTo: TimeInterval = 0
     
     // MARK: - Actions
-    open func playURL(url: URL) {
+    open func setVideoURL(url: URL) {
         let asset = AVURLAsset(url: url)
-        playAsset(asset: asset)
+        setAVURLAsset(asset: asset)
     }
     
-    open func playAsset(asset: AVURLAsset) {
+    open func setAVURLAsset(asset: AVURLAsset) {
         urlAsset = asset
         onSetVideoAsset()
-        play()
     }
     // MARK: - 設置 Video URL
     fileprivate func onSetVideoAsset() {
-        repeatToPlay = false
         playDidEnd = false
         configPlayer()
+        settingAVAudio()
     }
     
     fileprivate func configPlayer() {
         player?.removeObserver(self, forKeyPath: "rate")
-        playerItem = AVPlayerItem(asset: urlAsset!)
-        player = AVPlayer(playerItem: playerItem!)
-        player!.addObserver(self, forKeyPath: "rate", options: .new, context: nil)
+        guard let urlAsset = urlAsset else { return }
+        playerItem = AVPlayerItem(asset: urlAsset)
+        guard let playerItem = playerItem else { return }
+        player = AVPlayer(playerItem: playerItem)
+        guard let player = player else { return }
+        player.addObserver(self, forKeyPath: "rate", options: .new, context: nil)
         
         playerLayer?.removeFromSuperlayer()
         playerLayer = AVPlayerLayer(player: player)
-        playerLayer!.videoGravity = convertToAVLayerVideoGravity(videoGravity)
-        layer.addSublayer(playerLayer!)
+        playerLayer?.videoGravity = convertToAVLayerVideoGravity(videoGravity)
+        if let playerLayer = playerLayer {
+            layer.addSublayer(playerLayer)
+            layer.opacity = 0.0
+            UIView.animate(withDuration: 1.0) { [weak layer] in
+                layer?.opacity = 1.0
+            }
+        }
         
         setNeedsLayout()
         layoutIfNeeded()
     }
     
+    private func settingAVAudio() {
+        // play with sound in slience mode
+        do {
+            if #available(iOS 10.0, *) {
+                try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            } else {
+                AVAudioSession.sharedInstance().perform(NSSelectorFromString("setCategory:withOptions:error:"),
+                                                        with: AVAudioSession.Category.playback,
+                                                        with: [AVAudioSession.CategoryOptions.duckOthers])
+            }
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch(let error) {
+            // TODO: Error handle
+            print("play error:", error)
+        }
+    }
+    
     open func play() {
         if let player = player {
-            // play with sound in slience mode
-            do {
-                if #available(iOS 10.0, *) {
-                    try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
-                } else {
-                    AVAudioSession.sharedInstance().perform(NSSelectorFromString("setCategory:withOptions:error:"),
-                                                            with: AVAudioSession.Category.playback,
-                                                            with: [AVAudioSession.CategoryOptions.duckOthers])
-                }
-                try AVAudioSession.sharedInstance().setActive(true)
-            } catch(let error) {
-                // TODO: Error handle
-                print("play error:", error)
-            }
             player.play()
             setupTimer()
             isPlaying = true
@@ -160,50 +162,51 @@ open class MSPlayerLayerView: UIView {
             if item == self.playerItem {
                 switch keyPath {
                 case "status":
-                    if player?.status == AVPlayer.Status.readyToPlay {
-                        self.state = .buffering
+                    guard let player = player else { return }
+                    switch player.status {
+                    case .readyToPlay:
+                        state = .buffering
                         if shouldSeekTo != 0 {
                             print("MSPlayerLayer | Should seek to \(shouldSeekTo)")
-                            seek(to: shouldSeekTo, completion: {
-                                self.shouldSeekTo = 0
-                                self.hasReadyToPlay = true
-                                self.state = .readyToPlay
+                            seek(to: shouldSeekTo, completion: { [weak self] in
+                                self?.shouldSeekTo = 0
+                                self?.hasReadyToPlay = true
+                                self?.state = .readyToPlay
                             })
                         } else {
-                            self.hasReadyToPlay = true
-                            self.state = .readyToPlay
+                            hasReadyToPlay = true
+                            state = .readyToPlay
                         }
-                    } else if player?.status == AVPlayer.Status.failed {
-                        self.state = .error
-                    } else {
-                        self.state = .error
+                    case .failed:
+                        state = .error(player.error)
+                    case .unknown: break
+                    @unknown default: break
                     }
-                    
                 case "loadedTimeRanges":
                     // 計算緩沖進度
-                    if let timeInterVarl    = self.availableDuration() {
-                        let duration        = item.duration
-                        let totalDuration   = CMTimeGetSeconds(duration)
+                    if let timeInterVal = self.availableDuration() {
+                        let duration = item.duration
+                        let totalDuration = CMTimeGetSeconds(duration)
                         delegate?.msPlayer(player: self,
-                                           loadedTimeDidChange: timeInterVarl,
+                                           loadedTimeDidChange: timeInterVal,
                                            totalDuration: totalDuration)
                     }
                     
                 case "playbackBufferEmpty":
                     // 緩沖為空的時候
-                    if self.playerItem!.isPlaybackBufferEmpty {
-                        self.state = .buffering
-                        self.bufferingSomeSecond()
+                    guard let playerItem = playerItem else { return }
+                    if playerItem.isPlaybackBufferEmpty {
+                        state = .buffering
+                        bufferingSomeSecond()
                     }
                 case "playbackLikelyToKeepUp":
                     if item.isPlaybackBufferEmpty {
                         if state != .bufferFinished && hasReadyToPlay {
-                            self.state = .bufferFinished
-                            self.playDidEnd = true
+                            state = .bufferFinished
+                            playDidEnd = true
                         }
                     }
-                default:
-                    break
+                default: break
                 }
             }
         }
@@ -218,15 +221,17 @@ open class MSPlayerLayerView: UIView {
      - returns: 緩沖進度
      */
     fileprivate func availableDuration() -> TimeInterval? {
-        if let loadedTimeRanges = player?.currentItem?.loadedTimeRanges,
+        if
+            let loadedTimeRanges = player?.currentItem?.loadedTimeRanges,
             let first = loadedTimeRanges.first {
             let timeRange = first.timeRangeValue
             let startSeconds = CMTimeGetSeconds(timeRange.start)
             let durationSecound = CMTimeGetSeconds(timeRange.duration)
             let result = startSeconds + durationSecound
             return result
+        } else {
+            return nil
         }
-        return nil
     }
     /**
      缓冲比较差的时候
@@ -234,15 +239,13 @@ open class MSPlayerLayerView: UIView {
     fileprivate func bufferingSomeSecond() {
         self.state = .buffering
         // playbackBufferEmpty會反覆進入，因此在bufferingOneSecond延時播放執行完之前再調用bufferingSomeSecond都忽略
-        
-        if isBuffering {
-            return
-        }
+        if isBuffering { return }
         isBuffering = true
         // 需要先暫停一下下後再播放，否則網路狀況不好的時候時間在走，聲音會出不來
         player?.pause()
         let popTime = DispatchTime.now() + Double(Int64( Double(NSEC_PER_SEC) * 1.0 )) / Double(NSEC_PER_SEC)
-        DispatchQueue.main.asyncAfter(deadline: popTime) {
+        DispatchQueue.main.asyncAfter(deadline: popTime) { [weak self] in
+            guard let self = self else { return }
             // 如果執行了play還是沒有播放，代表還沒有緩存好，則再次緩存一段時間
             self.isBuffering = false
             if let item = self.playerItem {
@@ -259,61 +262,53 @@ open class MSPlayerLayerView: UIView {
     // MARK: - layoutSubviews
     override open func layoutSubviews() {
         super.layoutSubviews()
-        switch self.aspectRatio {
+        switch aspectRatio {
         case .default:
-            DispatchQueue.main.async {
-                self.playerLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
                 self.playerLayer?.frame  = self.bounds
             }
         case .sixteen2NINE:
-            self.playerLayer?.videoGravity = AVLayerVideoGravity.resizeAspect
-            self.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.width/(16/9))
+            self.playerLayer?.frame = self.bounds
         case .four2THREE:
-            self.playerLayer?.videoGravity = AVLayerVideoGravity.resizeAspect
-            let width = self.bounds.height * 4 / 3
-            self.playerLayer?.frame = CGRect(x: (self.bounds.width - width)/2,
-                                             y: 0,
-                                             width: width,
-                                             height: self.bounds.height)
+            self.playerLayer?.frame = self.bounds
         }
     }
     
     open func resetPlayer() {
         // 初始化状态变量
-        self.playDidEnd = false
-        self.playerItem = nil
-        self.seekTime   = 0
-        self.timer?.invalidate()
+        playDidEnd = false
+        playerItem = nil
+        seekTime   = 0
+        timer?.invalidate()
         
-        self.pause()
+        pause()
         // 移除原来的layer
-        self.playerLayer?.removeFromSuperlayer()
+        playerLayer?.removeFromSuperlayer()
         // 替換PlayerItem = nil
-        self.player?.replaceCurrentItem(with: nil)
+        player?.replaceCurrentItem(with: nil)
         player?.removeObserver(self, forKeyPath: "rate")
         // 把player清除
-        self.player = nil
+        player = nil
     }
     
     open func onTimeSliderBegan() {
-        if self.player?.currentItem?.status == AVPlayerItem.Status.readyToPlay {
-            self.timer?.fireDate = Date.distantFuture
+        if player?.currentItem?.status == AVPlayerItem.Status.readyToPlay {
+            timer?.fireDate = Date.distantFuture
         }
     }
     
     open func seek(to seconds: TimeInterval, completion: (() -> ())?) {
-        if seconds.isNaN {
-            completion?()
-            return
-        }
+        if seconds.isNaN { completion?(); return }
+        
         setupTimer()
-        if self.player?.currentItem?.status == AVPlayerItem.Status.readyToPlay {
+        if player?.currentItem?.status == AVPlayerItem.Status.readyToPlay {
             let draggedTime = CMTimeMake(value: Int64(seconds), timescale: 1)
-            self.player!.seek(to: draggedTime, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero, completionHandler: { (finished) in
+            player?.seek(to: draggedTime, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero, completionHandler: { (finished) in
                 completion?()
             })
         } else {
-            self.shouldSeekTo = seconds
+            shouldSeekTo = seconds
             completion?()
         }
     }
@@ -321,15 +316,21 @@ open class MSPlayerLayerView: UIView {
     // MARK: - 設定計時器
     func setupTimer() {
         timer?.invalidate()
-        timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(playerTimerAction), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 0.5,
+                                     target: self,
+                                     selector: #selector(playerTimerAction),
+                                     userInfo: nil,
+                                     repeats: true)
         timer?.fireDate = Date()
     }
     
     // MARK: - 計時器事件
     @objc fileprivate func playerTimerAction() {
-        if let playerItem = playerItem {
+        if
+            let player = player,
+            let playerItem = playerItem {
             if playerItem.duration.timescale != 0 {
-                let currentTime = CMTimeGetSeconds(self.player!.currentTime())
+                let currentTime = CMTimeGetSeconds(player.currentTime())
                 let totalTime   = TimeInterval(playerItem.duration.value) / TimeInterval(playerItem.duration.timescale)
                 delegate?.msPlayer(player: self, playTimeDidChange: currentTime, totalTime: totalTime)
             }
@@ -338,42 +339,21 @@ open class MSPlayerLayerView: UIView {
     }
     
     fileprivate func updateStatus(inclodeLoading: Bool = false) {
-        if let player = player {
-            if let playerItem = playerItem {
-                if inclodeLoading {
-                    if playerItem.isPlaybackLikelyToKeepUp || playerItem.isPlaybackBufferFull {
-                        self.state = .bufferFinished
-                    } else if playerItem.error != nil {
-                        print("playerItem:", playerItem.error)
-                        self.state = .error
-                    } else {
-                        self.state = .buffering
-                    }
-                }
-            }
-            if player.rate == 0.0 {
-                if player.error != nil {
-                    self.state = .error
-                    return
-                }
-                if let currentItem = player.currentItem {
-                    if player.currentTime() >= currentItem.duration {
-                        //                        moviePlayDidEnd()
-                        return
-                    }
-                    if currentItem.isPlaybackLikelyToKeepUp || currentItem.isPlaybackBufferFull {
-                        
-                    }
+        if let playerItem = playerItem {
+            if inclodeLoading {
+                if playerItem.isPlaybackLikelyToKeepUp || playerItem.isPlaybackBufferFull {
+                    self.state = .bufferFinished
+                } else if let error = playerItem.error {
+                    print("playerItem:", error)
+                    self.state = .error(error)
+                } else {
+                    self.state = .buffering
                 }
             }
         }
     }
     
     fileprivate func onPlayerItemChange() {
-        if lastPlayerItem == playerItem {
-            return
-        }
-        
         if let item = lastPlayerItem {
             removePlayerObserverWith(item)
         }
@@ -393,10 +373,10 @@ open class MSPlayerLayerView: UIView {
                                    playTimeDidChange: CMTimeGetSeconds(playerItem.duration),
                                    totalTime: CMTimeGetSeconds(playerItem.duration))
             }
-            self.state = .playedToTheEnd
-            self.isPlaying = false
-            self.playDidEnd = true
-            self.timer?.invalidate()
+            state = .playedToTheEnd
+            isPlaying = false
+            playDidEnd = true
+            timer?.invalidate()
         }
     }
     
@@ -429,21 +409,24 @@ open class MSPlayerLayerView: UIView {
     }
     
     deinit {
+        if let playerItem = playerItem {
+            removePlayerObserverWith(playerItem)
+        }
         print(classForCoder, "dealloc")
     }
 }
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromAVLayerVideoGravity(_ input: AVLayerVideoGravity) -> String {
-	return input.rawValue
+    return input.rawValue
 }
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToAVLayerVideoGravity(_ input: String) -> AVLayerVideoGravity {
-	return AVLayerVideoGravity(rawValue: input)
+    return AVLayerVideoGravity(rawValue: input)
 }
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
-	return input.rawValue
+    return input.rawValue
 }

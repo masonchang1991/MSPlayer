@@ -10,6 +10,8 @@ import CoreData
 
 open class MSCoreDataManager {
     
+    static let shared = MSCoreDataManager()
+    
     fileprivate func save(managedContext: NSManagedObjectContext) {
         do {
             try managedContext.save()

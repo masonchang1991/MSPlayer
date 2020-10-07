@@ -12,20 +12,31 @@ import AVFoundation
 public class MSPlayerResource {
     
     public let name : String
-    public var coverURL : URL?
-    public var coverURLRequestHeaders: [String: String]?
-    public let definitions: [MSPlayerResourceDefinition]
+    public var definitions: [MSPlayerResourceDefinition]
     
     /**
-     player resource item with url, used to play single difinition video
+     player resource item with url, used to play single difinition video (this method will decrypt in the future)
      
      - parameter name: video name
      - parameter url: video url
      - parameter cover: video cover, will show before playing, and hide when play
      */
-    public convenience init(url: URL, name: String = "", coverURL: URL? = nil, coverURLRequestHeaders: [String: String]? = nil) {
-        let definition = MSPlayerResourceDefinition(url: url, definition: "")
-        self.init(name: name, definitions: [definition], coverURL: coverURL, coverURLRequestHeaders: coverURLRequestHeaders)
+    public convenience init(url: URL, name: String = "", coverURL: URL? = nil, coverURLRequestHeaders: [String: String]? = nil, coverImage: UIImage? = nil) {
+        // transform cover parameter to urlRequest
+        if let coverURL = coverURL {
+            var coverURLRequest = URLRequest(url: coverURL)
+            coverURLRequest.allHTTPHeaderFields = coverURLRequestHeaders
+            let definition = MSPlayerResourceDefinition(url: url,
+                                                        definition: "",
+                                                        coverURLRequest: coverURLRequest,
+                                                        coverImage: coverImage)
+            self.init(name: name, definitions: [definition])
+        } else {
+            let definition = MSPlayerResourceDefinition(url: url,
+                                                        definition: "",
+                                                        coverImage: coverImage)
+            self.init(name: name, definitions: [definition])
+        }
     }
     
     /**
@@ -35,17 +46,30 @@ public class MSPlayerResource {
      - parameter definitions: video definitions
      - parameter cover: video cover
      */
-    public init(name: String = "", definitions: [MSPlayerResourceDefinition], coverURL: URL? = nil, coverURLRequestHeaders: [String: String]? = nil) {
+    public init(name: String = "", definitions: [MSPlayerResourceDefinition]) {
         self.name = name
-        self.coverURL = coverURL
         self.definitions = definitions
-        self.coverURLRequestHeaders = coverURLRequestHeaders
+    }
+    
+    public func addDefinitions(_ definitions: [MSPlayerResourceDefinition]) {
+        self.definitions.append(contentsOf: definitions)
+    }
+    
+    public func removeDefinitionsAt(_ index: Int) {
+        if let _ = self.definitions[exist: index] {
+            self.definitions.remove(at: index)
+        }
     }
 }
 
 public class MSPlayerResourceDefinition {
+    
+    public let videoId: String?
+    public let videoName: String
     public let url: URL
     public let definition: String
+    public let coverURLRequest: URLRequest?
+    public let coverImage: UIImage?
     
     /** An instance of Dictionary that contains keys for specifying options for the initialization of the AVURLAsset.
      See AVURLAssetPreferPreciseDurationAndTimingKey and AVURLAssetReferenceRestrictionsKey above/
@@ -72,9 +96,13 @@ public class MSPlayerResourceDefinition {
      let definition.options = ["AVURLAssetHTTPHeaderFieldsKey": header]
      ```
      */
-    public init(url: URL, definition: String, options: [String: Any]? = nil) {
+    public init(videoId: String? = nil, videoName: String = "", url: URL, definition: String, options: [String: Any]? = nil, coverURLRequest: URLRequest? = nil, coverImage: UIImage? = nil) {
+        self.videoId = videoId
+        self.videoName = videoName
         self.url = url
         self.definition = definition
         self.options = options
+        self.coverURLRequest = coverURLRequest
+        self.coverImage = coverImage
     }
 }

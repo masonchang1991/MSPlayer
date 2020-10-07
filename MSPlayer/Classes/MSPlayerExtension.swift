@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import MediaPlayer
 
 public enum ConstraintAnchorType {
     case leading2Leading(CGFloat, priority: Float)
@@ -105,5 +106,11 @@ extension UIView {
                 trailingAnchor.constraint(equalTo: otherView.trailingAnchor).isActive = active
             }
         })
+    }
+}
+
+extension Collection where Indices.Iterator.Element == Index {
+    subscript (exist index: Index) -> Iterator.Element? {
+        return indices.contains(index) ? self[index] : nil
     }
 }

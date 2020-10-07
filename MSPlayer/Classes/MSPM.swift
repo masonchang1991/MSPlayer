@@ -25,11 +25,15 @@ public class MSPM {
     
     @discardableResult
     public static func shared() -> MSPM {
-        if self.sharedInstance == nil {
-            self.sharedInstance = MSPM()
-            BrightnessView.shared()
+        if let shared = self.sharedInstance {
+            return shared
+        } else {
+            let shared = MSPM()
+            self.sharedInstance = shared
+//            let _ = BrightnessView.shared()
+//            let _ = SystemSettingManager.shared
+            return shared
         }
-        return self.sharedInstance!
     }
     
     private static var sharedInstance: MSPM?
@@ -48,13 +52,31 @@ public class MSPM {
      - playedToTheEnd: played to the End
      - error:          error with playing
      */
-    public enum State {
+    public enum State: Equatable {
         case notSetUrl
         case readyToPlay
         case buffering
         case bufferFinished
         case playedToTheEnd
-        case error
+        case error(Error?)
+        
+        public static func ==(lhs: State, rhs: State) -> Bool {
+            switch (lhs, rhs) {
+            case (.error(_), .error(_)):
+                return true
+            case (.notSetUrl, .notSetUrl):
+                return true
+            case (.readyToPlay, .readyToPlay):
+                return true
+            case (.buffering, .buffering):
+                return true
+            case (.bufferFinished, .bufferFinished):
+                return true
+            case (.playedToTheEnd, .playedToTheEnd):
+                return true
+            default: return false
+            }
+        }
     }
     /**
      video aspect ratio types
@@ -70,18 +92,17 @@ public class MSPM {
     }
     
     public enum ButtonType: Int {
-        case play = 101
-        case pause = 102
+        case playAndPause = 101
         case back = 103
         case fullScreen = 105
         case replay = 106
     }
     
-    open static var screenRatio: CGFloat {
+    public static var screenRatio: CGFloat {
         return (UIScreen.main.bounds.width) / CGFloat(375)
     }
     
-    open static var deviceDefaultAspectRatio: AspectRatio {
+    public static var deviceDefaultAspectRatio: AspectRatio {
         if UIDevice.current.userInterfaceIdiom == .pad {
             return .four2THREE
         } else if UIDevice.current.userInterfaceIdiom == .phone {
@@ -145,12 +166,16 @@ public class MSPM {
     open var seekToViewCornerRadius = 4 * MSPM.screenRatio
     open var seekToViewImage: UIImage? = MSPM.MSImageResourcePath("MSPlayer_seekTo_image")
     open var replayButtonImage: UIImage? = MSPM.MSImageResourcePath("MSPlayer_replay_image")
+    open var playNextView: MSPlayNext? = CircleProgressImageView(size: CGSize(width: 50, height: 50),
+                                                                 image: MSPM.MSImageResourcePath("MSPlayer_playCover_image"))
+    open var playNextTopText: String = "play next top text"
+    open var playNextBottomText: String = "play next bot text"
     
     // MSPlayerConfig
     open var playerPanSeekRate: Double = 1.0
     open var playerAnimationDuration: Double = 4.0
     open var playerControlBarAutoFadeOutDuration = 0.5
-    open var playerVolumeChangeRate: Float = 1.0
+    open var playerVolumeChangeRate: Float = 1.2
     open var playerBrightnessChangeRate: CGFloat = 1.0
     
     // BrightnessView
@@ -275,7 +300,7 @@ public class MSPM {
     }()
     
     open func removeAllRecords() {
-        let coreDataManager = MSCoreDataManager()
+        let coreDataManager = MSCoreDataManager.shared
         coreDataManager.deleteAllVideoTimeRecords()
     }
 }
