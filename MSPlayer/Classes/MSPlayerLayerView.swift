@@ -138,6 +138,9 @@ open class MSPlayerLayerView: UIView {
             UIView.animate(withDuration: 1.0) { [weak layer] in
                 layer?.opacity = 1.0
             }
+            let videoOutput = AVPlayerItemVideoOutput()
+            playerItem.add(videoOutput)
+            self.videoOutput = videoOutput
         }
         
         setNeedsLayout()
