@@ -17,6 +17,8 @@ public protocol MSPlayerDelegate: class {
     func msPlayer(_ player: MSPlayer, isPlaying: Bool)
     func msPlayer(_ player: MSPlayer, orientChanged isFullScreen: Bool)
     func msPlayer(_ player: MSPlayer, definitionIndexDidChange index: Int, definition: MSPlayerResourceDefinition?)
+    func msPlayer(_ player: MSPlayer, updateProgress sliderValue: Float, total: TimeInterval)
+
 }
 
 public extension MSPlayerDelegate {
@@ -79,7 +81,7 @@ open class MSPlayer: MSGestureView {
     }
     
     // status
-    fileprivate var isFullScreen: Bool = false
+    public private(set) var isFullScreen: Bool = false
     open var isSeeking = false {
         didSet {
             if isSeeking != oldValue {
@@ -96,15 +98,19 @@ open class MSPlayer: MSGestureView {
     }
     
     /// 進度滑桿值 - ControlView變更時一併變更MSPlayer的值
-    open var progressSliderValue: Float = 0.0
+    open var progressSliderValue: Float = 0.0 {
+        didSet {
+            self.delegate?.msPlayer(self, updateProgress: progressSliderValue, total: totalDuration)
+        }
+    }
     
     // time status
     /// 滑動起始時影片時間
     fileprivate var horizontalBeginTime: TimeInterval = 0
     /// 滑動累積值 (平滑時，總共增加多少時間、總共減少多少時間) (base on current time)
     fileprivate var sumTime: TimeInterval = 0
-    fileprivate var totalDuration: TimeInterval = 0
-    fileprivate var currentPosition: TimeInterval = 0
+    public private(set) var totalDuration: TimeInterval = 0
+    public private(set) var currentPosition: TimeInterval = 0
     fileprivate var shouldSeekTo: TimeInterval = 0
     fileprivate var isUserSliding = false
     fileprivate var isUserMoveSlider = false
@@ -499,7 +505,7 @@ open class MSPlayer: MSGestureView {
         }
     }
     
-    fileprivate func fullScreenButtonPressed() {
+    open func fullScreenButtonPressed() {
         controlView.updateUI(for: !isFullScreen)
         if isFullScreen {
             isFullScreen = false
