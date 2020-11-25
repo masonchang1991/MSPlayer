@@ -59,7 +59,7 @@ open class MSPlayerControlView: UIView {
     open var totalDuration: TimeInterval = 0
     open var delayItem: DispatchWorkItem?
     
-    var playerLastState: MSPM.State = .notSetUrl
+    open var playerLastState: MSPM.State = .notSetUrl
     
     // MARK: UI Components
     /// main views which contains the topMaskView and BottomMaskView
@@ -207,7 +207,7 @@ open class MSPlayerControlView: UIView {
         changeSliderAndLabelValueBy(to: seconds, total: duration)
     }
     
-    private func changeSliderAndLabelValueBy(to seconds: TimeInterval, total duration: TimeInterval) {
+    open func changeSliderAndLabelValueBy(to seconds: TimeInterval, total duration: TimeInterval) {
         let targetTime = FormatDisplay.formatSecondsToString(seconds)
         timeSlider.value = Float(seconds / duration)
         player?.progressSliderValue = timeSlider.value
