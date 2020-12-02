@@ -116,7 +116,11 @@ open class MSPlayer: MSGestureView {
     fileprivate var isUserMoveSlider = false
     fileprivate var isPauseByUser = false
     open private(set) var isPlayToTheEnd = false
-    
+    open var isTheEnd: Bool {
+        let current = Int(self.currentPosition.rounded(.down))
+        let total = Int(self.totalDuration.rounded(.down))
+        return (current == total) && (total != 0)
+    }
     /**
      If you want to create MSPlayer with custom control in storyBoard.
      create a subclass and override this method
@@ -299,6 +303,13 @@ open class MSPlayer: MSGestureView {
             }
             controlView.changePlayButtonState(isSelected: false)
         }
+    }
+    
+    open func replay() {
+        isPlayToTheEnd = false
+        seek(0, completion: { [weak self] in
+            self?.play()
+        })
     }
     /**
      seek
