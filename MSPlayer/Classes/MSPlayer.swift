@@ -18,6 +18,7 @@ public protocol MSPlayerDelegate: class {
     func msPlayer(_ player: MSPlayer, orientChanged isFullScreen: Bool)
     func msPlayer(_ player: MSPlayer, definitionIndexDidChange index: Int, definition: MSPlayerResourceDefinition?)
     func msPlayer(_ player: MSPlayer, updateProgress sliderValue: Float, total: TimeInterval)
+    func msPlayer(_ player: MSPlayer, verticalPanState: PanDirection.PanState, location: PanDirection.PanLocation)
 
 }
 
@@ -443,7 +444,7 @@ open class MSPlayer: MSGestureView {
     
     open override func verticalPanEvent(_ state: PanDirection.PanState, location: PanDirection.PanLocation) {
         super.verticalPanEvent(state, location: location)
-        
+        self.delegate?.msPlayer(self, verticalPanState: state, location: location)
         // 播放結束時，手勢忽略
         guard playerLayerView?.state != .playedToTheEnd else { return }
         
