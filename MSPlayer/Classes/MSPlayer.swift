@@ -546,14 +546,29 @@ open class MSPlayer: MSGestureView {
                     UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
                     UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
                 }
-                
+                updateOrientation(orientation: .landscapeRight)
+                delegate?.msPlayer(self, orientChanged: isFullScreen)
             }
          
         }
     }
     
+    private func updateOrientation(orientation: UIInterfaceOrientationMask) {
+        if #available(iOS 16, *) {
+            DispatchQueue.main.async {
+                let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+                //                self.setNeedsUpdateOfSupportedInterfaceOrientations()
+                //                self.navigationController?.setNeedsUpdateOfSupportedInterfaceOrientations()
+                windowScene?.requestGeometryUpdate(.iOS(interfaceOrientations: orientation)) { _ in }
+            }
+        }
+         UIViewController.attemptRotationToDeviceOrientation()
+    }
+
+    
     @objc fileprivate func onOrientationChanged() {
         self.isFullScreen = UIApplication.shared.statusBarOrientation.isLandscape
+        UIViewController.attemptRotationToDeviceOrientation()
         self.updateUI(isFullScreen)
         self.delegate?.msPlayer(self, orientChanged: isFullScreen)
     }
@@ -561,7 +576,7 @@ open class MSPlayer: MSGestureView {
     private func addObserver() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(onOrientationChanged),
-                                               name: UIApplication.didChangeStatusBarOrientationNotification,
+                                               name:  UIDevice.orientationDidChangeNotification,
                                                object: nil)
     }
     
