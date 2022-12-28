@@ -523,6 +523,7 @@ open class MSPlayer: MSGestureView {
             isFullScreen = false
             UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue,
                                       forKey: "orientation")
+            updateOrientation(orientation: .portrait)
             delegate?.msPlayer(self, orientChanged: isFullScreen)
             
         } else {
