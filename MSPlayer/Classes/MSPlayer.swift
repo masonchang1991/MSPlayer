@@ -521,8 +521,14 @@ open class MSPlayer: MSGestureView {
         controlView.updateUI(for: !isFullScreen)
         if isFullScreen {
             isFullScreen = false
-            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue,
-                                      forKey: "orientation")
+            if #available(iOS 16.0, *) {
+                let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+                windowScene?.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait))
+            }else {
+                UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue,
+                                          forKey: "orientation")
+            }
+            
             updateOrientation(orientation: .portrait)
             delegate?.msPlayer(self, orientChanged: isFullScreen)
             
@@ -539,14 +545,21 @@ open class MSPlayer: MSGestureView {
                 delegate?.msPlayer(self, orientChanged: isFullScreen)
             } else {
                 isFullScreen = true
-                switch UIDevice.current.orientation {
-                case .landscapeLeft:
-                    UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-                    UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
-                default:
-                    UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-                    UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+                if #available(iOS 16.0, *) {
+                    let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+                    windowScene?.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait))
+                    windowScene?.requestGeometryUpdate(.iOS(interfaceOrientations: .landscape))
+                }  else {
+                    switch UIDevice.current.orientation {
+                    case .landscapeLeft:
+                        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+                        UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+                    default:
+                        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+                        UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+                    }
                 }
+                
                 updateOrientation(orientation: .landscapeRight)
                 delegate?.msPlayer(self, orientChanged: isFullScreen)
             }
