@@ -17,6 +17,9 @@ public protocol MSPlayerDelegate: class {
     func msPlayer(_ player: MSPlayer, isPlaying: Bool)
     func msPlayer(_ player: MSPlayer, orientChanged isFullScreen: Bool)
     func msPlayer(_ player: MSPlayer, definitionIndexDidChange index: Int, definition: MSPlayerResourceDefinition?)
+    func msPlayer(_ player: MSPlayer, updateProgress sliderValue: Float, total: TimeInterval)
+    func msPlayer(_ player: MSPlayer, verticalPanState: PanDirection.PanState, location: PanDirection.PanLocation)
+
 }
 
 public extension MSPlayerDelegate {
@@ -79,11 +82,7 @@ open class MSPlayer: MSGestureView {
     }
     
     // status
-    fileprivate var isFullScreen: Bool {
-        get {
-            return UIApplication.shared.statusBarOrientation.isLandscape
-        }
-    }
+    public private(set) var isFullScreen: Bool = false
     open var isSeeking = false {
         didSet {
             if isSeeking != oldValue {
@@ -100,21 +99,29 @@ open class MSPlayer: MSGestureView {
     }
     
     /// 進度滑桿值 - ControlView變更時一併變更MSPlayer的值
-    open var progressSliderValue: Float = 0.0
+    open var progressSliderValue: Float = 0.0 {
+        didSet {
+            self.delegate?.msPlayer(self, updateProgress: progressSliderValue, total: totalDuration)
+        }
+    }
     
     // time status
     /// 滑動起始時影片時間
     fileprivate var horizontalBeginTime: TimeInterval = 0
     /// 滑動累積值 (平滑時，總共增加多少時間、總共減少多少時間) (base on current time)
     fileprivate var sumTime: TimeInterval = 0
-    fileprivate var totalDuration: TimeInterval = 0
-    fileprivate var currentPosition: TimeInterval = 0
+    public private(set) var totalDuration: TimeInterval = 0
+    public private(set) var currentPosition: TimeInterval = 0
     fileprivate var shouldSeekTo: TimeInterval = 0
     fileprivate var isUserSliding = false
     fileprivate var isUserMoveSlider = false
     fileprivate var isPauseByUser = false
     open private(set) var isPlayToTheEnd = false
-    
+    open var isTheEnd: Bool {
+        let current = Int(self.currentPosition.rounded(.down))
+        let total = Int(self.totalDuration.rounded(.down))
+        return (current == total) && (total != 0)
+    }
     /**
      If you want to create MSPlayer with custom control in storyBoard.
      create a subclass and override this method
@@ -298,6 +305,13 @@ open class MSPlayer: MSGestureView {
             controlView.changePlayButtonState(isSelected: false)
         }
     }
+    
+    open func replay() {
+        isPlayToTheEnd = false
+        seek(0, completion: { [weak self] in
+            self?.play()
+        })
+    }
     /**
      seek
      
@@ -430,7 +444,7 @@ open class MSPlayer: MSGestureView {
     
     open override func verticalPanEvent(_ state: PanDirection.PanState, location: PanDirection.PanLocation) {
         super.verticalPanEvent(state, location: location)
-        
+        self.delegate?.msPlayer(self, verticalPanState: state, location: location)
         // 播放結束時，手勢忽略
         guard playerLayerView?.state != .playedToTheEnd else { return }
         
@@ -503,11 +517,21 @@ open class MSPlayer: MSGestureView {
         }
     }
     
-    fileprivate func fullScreenButtonPressed() {
+    open func fullScreenButtonPressed() {
         controlView.updateUI(for: !isFullScreen)
         if isFullScreen {
-            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue,
-                                      forKey: "orientation")
+            isFullScreen = false
+            if #available(iOS 16.0, *) {
+                let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+                windowScene?.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait))
+            }else {
+                UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue,
+                                          forKey: "orientation")
+            }
+            
+            updateOrientation(orientation: .portrait)
+            delegate?.msPlayer(self, orientChanged: isFullScreen)
+            
         } else {
             //先清除現在orientation的值
             //有可能Device是landscape進來(此時statusbar的orientation是portrait)，所以在按下切換全螢幕時
@@ -515,26 +539,58 @@ open class MSPlayer: MSGestureView {
             //然後我又UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
             //這樣系統並不知道要轉方向
             //所以我必須先修改目前的值，接著在改回來，讓系統知道需要變更方向(我猜值有改動的狀況下才會通知系統轉方向)
-            switch UIDevice.current.orientation {
-            case .landscapeLeft:
-                UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-                UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
-            default:
-                UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-                UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+            if let videoSize = self.playerLayerView?.videoSize , videoSize.height >  videoSize.width {
+                isFullScreen = true
+                updateUI(isFullScreen)
+                delegate?.msPlayer(self, orientChanged: isFullScreen)
+            } else {
+                isFullScreen = true
+                if #available(iOS 16.0, *) {
+                    let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+                    windowScene?.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait))
+                    windowScene?.requestGeometryUpdate(.iOS(interfaceOrientations: .landscape))
+                }  else {
+                    switch UIDevice.current.orientation {
+                    case .landscapeLeft:
+                        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+                        UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+                    default:
+                        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+                        UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+                    }
+                }
+                
+                updateOrientation(orientation: .landscapeRight)
+                delegate?.msPlayer(self, orientChanged: isFullScreen)
             }
+         
         }
     }
     
+    private func updateOrientation(orientation: UIInterfaceOrientationMask) {
+        if #available(iOS 16, *) {
+            DispatchQueue.main.async {
+                let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+                //                self.setNeedsUpdateOfSupportedInterfaceOrientations()
+                //                self.navigationController?.setNeedsUpdateOfSupportedInterfaceOrientations()
+                windowScene?.requestGeometryUpdate(.iOS(interfaceOrientations: orientation)) { _ in }
+            }
+        }
+         UIViewController.attemptRotationToDeviceOrientation()
+    }
+
+    
     @objc fileprivate func onOrientationChanged() {
-        updateUI(isFullScreen)
-        delegate?.msPlayer(self, orientChanged: isFullScreen)
+        self.isFullScreen = UIApplication.shared.statusBarOrientation.isLandscape
+        UIViewController.attemptRotationToDeviceOrientation()
+        self.updateUI(isFullScreen)
+        self.delegate?.msPlayer(self, orientChanged: isFullScreen)
     }
     
     private func addObserver() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(onOrientationChanged),
-                                               name: UIApplication.didChangeStatusBarOrientationNotification,
+                                               name:  UIDevice.orientationDidChangeNotification,
                                                object: nil)
     }
     

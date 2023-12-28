@@ -177,6 +177,7 @@ public class MSPM {
     open var playerControlBarAutoFadeOutDuration = 0.5
     open var playerVolumeChangeRate: Float = 1.2
     open var playerBrightnessChangeRate: CGFloat = 1.0
+    open var playerFastForwardSec: Int = 10
     
     // BrightnessView
     open var brightnessTitle = MSPM.getBrightnessLocalizeTitle()

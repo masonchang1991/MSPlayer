@@ -15,6 +15,12 @@ struct FormatDisplay {
         }
         let min = Int(floor(seconds) / 60)
         let sec = Int(floor(seconds).truncatingRemainder(dividingBy: 60))
-        return String(format: "%02d:%02d", min, sec)
+        if min > 60 {
+            let hour = Int(floor(Double(min)) / 60)
+            let _min = Int(floor(Double(min)).truncatingRemainder(dividingBy: 60))
+            return String(format: "%02d:%02d:%02d", hour, _min, sec)
+        } else {
+            return String(format: "%02d:%02d", min, sec)
+        }
     }
 }
