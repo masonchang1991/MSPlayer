@@ -517,75 +517,29 @@ open class MSPlayer: MSGestureView {
         }
     }
     
-    open func fullScreenButtonPressed() {
-        controlView.updateUI(for: !isFullScreen)
-        if isFullScreen {
-            isFullScreen = false
-            if #available(iOS 16.0, *) {
-                let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-                windowScene?.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait))
-            }else {
-                UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue,
-                                          forKey: "orientation")
-            }
-            
-            updateOrientation(orientation: .portrait)
-            delegate?.msPlayer(self, orientChanged: isFullScreen)
-            
-        } else {
-            //先清除現在orientation的值
-            //有可能Device是landscape進來(此時statusbar的orientation是portrait)，所以在按下切換全螢幕時
-            //有可能我改的UIDevice的orientation值，改前跟改後都是一樣的 例如我landscapeRight進來
-            //然後我又UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
-            //這樣系統並不知道要轉方向
-            //所以我必須先修改目前的值，接著在改回來，讓系統知道需要變更方向(我猜值有改動的狀況下才會通知系統轉方向)
+    @objc open func fullScreenButtonPressed() {
+        isFullScreen = !isFullScreen
+        controlView.updateUI(for: isFullScreen)
+        if !isFullScreen {
             if let videoSize = self.playerLayerView?.videoSize , videoSize.height >  videoSize.width {
-                isFullScreen = true
                 updateUI(isFullScreen)
-                delegate?.msPlayer(self, orientChanged: isFullScreen)
-            } else {
-                isFullScreen = true
-                if #available(iOS 16.0, *) {
-                    let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-                    windowScene?.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait))
-                    windowScene?.requestGeometryUpdate(.iOS(interfaceOrientations: .landscape))
-                }  else {
-                    switch UIDevice.current.orientation {
-                    case .landscapeLeft:
-                        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-                        UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
-                    default:
-                        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-                        UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
-                    }
-                }
-                
-                updateOrientation(orientation: .landscapeRight)
-                delegate?.msPlayer(self, orientChanged: isFullScreen)
             }
-         
         }
+        delegate?.msPlayer(self, orientChanged: isFullScreen)
     }
     
-    private func updateOrientation(orientation: UIInterfaceOrientationMask) {
-        if #available(iOS 16, *) {
-            DispatchQueue.main.async {
-                let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-                //                self.setNeedsUpdateOfSupportedInterfaceOrientations()
-                //                self.navigationController?.setNeedsUpdateOfSupportedInterfaceOrientations()
-                windowScene?.requestGeometryUpdate(.iOS(interfaceOrientations: orientation)) { _ in }
-            }
-        }
-         UIViewController.attemptRotationToDeviceOrientation()
-    }
 
     
     @objc fileprivate func onOrientationChanged() {
-        self.isFullScreen = UIApplication.shared.statusBarOrientation.isLandscape
+        let newisFullScreen = UIDevice.current.orientation.isLandscape
+//               let newisFullScreen = UIApplication.shared.statusBarOrientation.isLandscape
+        guard newisFullScreen != isFullScreen else { return }
+        isFullScreen = newisFullScreen
         UIViewController.attemptRotationToDeviceOrientation()
         self.updateUI(isFullScreen)
         self.delegate?.msPlayer(self, orientChanged: isFullScreen)
     }
+    
     
     private func addObserver() {
         NotificationCenter.default.addObserver(self,
@@ -690,13 +644,13 @@ extension MSPlayer: MSPlayerControlViewDelegate {
         if let action = MSPM.ButtonType(rawValue: button.tag) {
             switch action {
             case .back:
-                backBlock?(isFullScreen)
                 if isFullScreen {
                     // 如果是全螢幕則跳出全螢幕
                     fullScreenButtonPressed()
                 } else {
                     // 如果不是全螢幕則popFromNav
                     playerLayerView?.prepareToDeinit()
+                    backBlock?(isFullScreen)
                 }
             case .playAndPause:
                 if button.isSelected {
